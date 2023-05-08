@@ -1,24 +1,30 @@
 package com.capgemini.curso.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "copias")
 public class Copia {
-//TODO: Sin acabar solo para probar el lector y prestamos
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
+	
 	@Enumerated(EnumType.STRING)
 	private EstadoCopia estadoCopia;
+	
 	@ManyToOne
 	@JoinColumn(name = "copia_id")
 	private Libro ejemplar;
+	
 	@ManyToOne
 	@JoinColumn(name = "prestamo_id")
 	private Prestamo prestamo;
