@@ -41,13 +41,13 @@ public class Libro {
 	private Autor autor;
 	
 	@OneToMany(mappedBy = "ejemplar", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Libro> ejemplares;
+	private List<Copia> ejemplares;
 
 	public Libro() {
 	}
 
 	public Libro(Long id, String titulo, TipoLibro tipoLibro, String editorial, int anyo, Autor autor,
-			List<Libro> ejemplares) {
+			List<Copia> ejemplares) {
 		this.Id = id;
 		this.titulo = titulo;
 		this.tipoLibro = tipoLibro;
@@ -105,11 +105,11 @@ public class Libro {
 		this.autor = autor;
 	}
 
-	public List<Libro> getEjemplares() {
+	public List<Copia> getEjemplares() {
 		return ejemplares;
 	}
 
-	public void setEjemplares(List<Libro> ejemplares) {
+	public void setEjemplares(List<Copia> ejemplares) {
 		this.ejemplares = ejemplares;
 	}
 
