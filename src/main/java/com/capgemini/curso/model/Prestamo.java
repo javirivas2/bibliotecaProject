@@ -16,6 +16,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "prestamos")
 public class Prestamo {
+	private int numDiasMax = 30;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,6 +44,10 @@ public class Prestamo {
 		this.fin = fin;
 		this.lector = lector;
 		this.copia = copia;
+	}
+	
+	public int getRetrasoPrestamo(LocalDate fechaDevolucion) {
+		int retraso = fechaDevolucion.m
 	}
 
 	public long getId() {

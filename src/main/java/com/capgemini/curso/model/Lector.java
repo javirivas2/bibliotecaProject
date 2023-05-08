@@ -1,5 +1,6 @@
 package com.capgemini.curso.model;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -47,6 +48,20 @@ public class Lector {
 		this.direccion = direccion;
 		this.prestamos = prestamos;
 		this.multa = multa;
+	}
+	
+	public boolean devolver(Prestamo prestamo, LocalDate fechaDev) {
+		//Comprobamos que la devolución es posible
+		if(prestamos.isEmpty() || !prestamos.contains(prestamo)) {
+			return false;
+		}
+		
+		//Comprobamos si debemos multar
+		LocalDate inicioPrestamo = prestamo.getInicio();
+		int dias
+		prestamo.setFin(fechaDev);
+		
+
 	}
 
 	public long getnSocio() {
