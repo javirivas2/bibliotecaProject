@@ -1,24 +1,45 @@
 package com.capgemini.curso.model;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-
+@Entity
+@Table(name = "libros")
 public class Libro {
-		@Id
+
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
+	
 	@Column(name = "titulo")
 	private String titulo;
+	
 	@Enumerated(EnumType.STRING)
 	private TipoLibro tipoLibro;
-@Column(name = "editorial")
+	
+	@Column(name = "editorial")
 	private String editorial;
+	
 	@Column(name = "año_publicacion")
 	private int anyo;
+	
 	@ManyToOne
 	@JoinColumn(name = "autor_id")
 	private Autor autor;
+	
 	@OneToMany(mappedBy = "ejemplar", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Libro> ejemplares;
 
@@ -98,5 +119,4 @@ public class Libro {
 				+ ", anyo=" + anyo + ", autor=" + autor + ", ejemplares=" + ejemplares + "]";
 	}
 
-	
 }
