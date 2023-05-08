@@ -37,4 +37,71 @@ public class Lector {
 	@OneToOne
 	@JoinColumn(name = "multa")
 	private Multa multa;
+	
+	public Lector() {}
+
+	public Lector(long nSocio, String nombre, String telefono, String direccion, Set<Prestamo> prestamos, Multa multa) {
+		this.nSocio = nSocio;
+		this.nombre = nombre;
+		this.telefono = telefono;
+		this.direccion = direccion;
+		this.prestamos = prestamos;
+		this.multa = multa;
+	}
+
+	public long getnSocio() {
+		return nSocio;
+	}
+
+	public void setnSocio(long nSocio) {
+		this.nSocio = nSocio;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public Set<Prestamo> getPrestamos() {
+		return prestamos;
+	}
+
+	public void setPrestamos(Set<Prestamo> prestamos) {
+		this.prestamos = prestamos;
+	}
+
+	public Multa getMulta() {
+		return multa;
+	}
+
+	public void setMulta(Multa multa) {
+		this.multa = multa;
+	}
+
+	@Override
+	public String toString() {
+		return "Lector [nSocio=" + nSocio + ", nombre=" + nombre + ", telefono=" + telefono + ", direccion=" + direccion
+				+ ", prestamos=" + prestamos + ", multa=" + multa + "]";
+	}
+	
+	
 }

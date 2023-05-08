@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "prestamos")
+@Table(name = "copias")
 public class Copia {
 //TODO: Sin acabar solo para probar el lector y prestamos
 
