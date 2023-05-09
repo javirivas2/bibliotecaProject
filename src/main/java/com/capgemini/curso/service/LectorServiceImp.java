@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.capgemini.curso.model.Copia;
+import com.capgemini.curso.model.EstadoCopia;
 import com.capgemini.curso.model.Lector;
 import com.capgemini.curso.model.Libro;
 import com.capgemini.curso.model.Prestamo;
@@ -79,7 +80,8 @@ public class LectorServiceImp implements LectorService {
 		}
 		
 		Lector lec = getLectorById(idLector);
-		lec.devolver(optPrestamo.get(), fechaAct);		
+		lec.devolver(optPrestamo.get(), fechaAct);	
+		optPrestamo.get().getCopia().setEstadoCopia(EstadoCopia.BIBLIOTECA);
 	}
 
 	@Override
@@ -108,6 +110,7 @@ public class LectorServiceImp implements LectorService {
 		prestamoRepository.save(prestamo);
 		
 		lector.addPrestamo(prestamo);
+		ejemplar.setEstadoCopia(EstadoCopia.PRESTADO);
 		
 	}
 

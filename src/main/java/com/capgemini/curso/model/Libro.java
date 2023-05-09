@@ -57,7 +57,15 @@ public class Libro {
 		this.autor = autor;
 		this.ejemplares = ejemplares;
 	}
-	
+
+	public Libro(String titulo, TipoLibro tipoLibro, String editorial, int anyo, Autor autor) {
+		this.titulo = titulo;
+		this.tipoLibro = tipoLibro;
+		this.editorial = editorial;
+		this.anyo = anyo;
+		this.autor = autor;
+	}
+
 	public List<Copia> getEjemplaresDisponibles(){
 		List<Copia> disponibles = new ArrayList<>();
 		

@@ -1,11 +1,10 @@
-package com.capgemini.proyecto.service;
+package com.capgemini.curso.service;
 
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -13,13 +12,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.capgemini.proyecto.model.Autor;
-import com.capgemini.proyecto.model.Lector;
-import com.capgemini.proyecto.model.Libro;
-import com.capgemini.proyecto.model.TipoLibro;
-import com.capgemini.proyecto.repository.AutorRepository;
-import com.capgemini.proyecto.repository.LectorRepository;
-import com.capgemini.proyecto.repository.LibroRepository;
+import com.capgemini.curso.model.Autor;
+import com.capgemini.curso.model.Lector;
+import com.capgemini.curso.model.Libro;
+import com.capgemini.curso.model.TipoLibro;
+import com.capgemini.curso.repository.AutorRepository;
+import com.capgemini.curso.repository.LectorRepository;
+import com.capgemini.curso.repository.LibroRepository;
 
 import jakarta.annotation.PostConstruct;
 

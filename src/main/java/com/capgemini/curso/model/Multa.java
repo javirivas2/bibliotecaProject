@@ -64,6 +64,6 @@ public class Multa {
 	
 		@Override
 	public String toString() {
-		return "Multa [Id=" + Id + ", fInicio=" + fInicio + ", fFin=" + fFin + "]";
+		return "Multa [Id=" + id + ", fInicio=" + fInicio + ", fFin=" + fFin + "]";
 	}
 }
