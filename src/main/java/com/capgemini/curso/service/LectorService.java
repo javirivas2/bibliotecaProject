@@ -9,4 +9,6 @@ public interface LectorService {
 	List<Lector> getAllLectores();
 	Lector getLectorById(long id);
 	void saveLector(Lector lector);
+	Page<Lector> findAllPage(Pageable pageable);
+
 }

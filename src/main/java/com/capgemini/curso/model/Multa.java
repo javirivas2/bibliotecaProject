@@ -55,5 +55,8 @@ public class Multa {
 		this.fFin = fFin;
 	}
 	
-	
+		@Override
+	public String toString() {
+		return "Multa [Id=" + Id + ", fInicio=" + fInicio + ", fFin=" + fFin + "]";
+	}
 }

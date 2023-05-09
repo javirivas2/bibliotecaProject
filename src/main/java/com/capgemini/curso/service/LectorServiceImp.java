@@ -8,30 +8,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.capgemini.curso.model.Lector;
 import com.capgemini.curso.repository.LectorRepository;
 
+@Service("lectorServiceImpl")
+@Transactional
 public class LectorServiceImp implements LectorService {
 
+	
+	private static final Logger logger = LoggerFactory.getLogger(LectorServiceImpl.class);
 	@Autowired
 	private LectorRepository lectorRepository;
 
+
+	
 	@Override
+	@Transactional(readOnly=true)
 	public List<Lector> getAllLectores() {
-		return lectorRepository.findAll();
+		logger.info("LectorServiceIml getAllLectores");
+		List<Lector> lectores = new ArrayList<>();
+		lectorRepository.findAll().forEach(lectores::add);
+		return lectores;
 	}
 
 	@Override
+	@Transactional(readOnly=true)
 	public Lector getLectorById(long id) {
-		Optional<Lector> optionalLector = lectorRepository.findById(id);
-		if (optionalLector.isPresent()) {
-			return optionalLector.get();
-		} else {
-			throw new RuntimeException("No se encuentra lector con id: " + id);
-		}
-
+	    logger.info("LectorServiceIml getLectorById");
+	    Optional<Lector> optLector = lectorRepository.findById(id);
+	    return optLector.isPresent() ? optLector.get() : null;
 	}
 
 	@Override
 	public void saveLector(Lector lector) {
 		lectorRepository.save(lector);
+	}
+	
+	@Override
+	@Transactional(readOnly=true)
+	public Page<Lector> findAllPage(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

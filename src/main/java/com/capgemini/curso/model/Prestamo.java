@@ -19,19 +19,33 @@ public class Prestamo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	
-	@Column
+	private Long Id;
+	@Column(name = "fecha_prestamo")
 	private LocalDate inicio;
-	
-	@Column
+	@Column(name = "fecha_devolucion")
 	private LocalDate fin;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "lector")
+
+	@ManyToOne()
+	@JoinColumn(name = "lector_id")
 	private Lector lector;
-	
 	@OneToOne
 	@JoinColumn(name = "copia")
 	private Copia copia;
+
+	public Prestamo() {
+	}
+
+	public Prestamo(Long id, LocalDate inicio, LocalDate fin, Lector lector, Copia copia) {
+		this.Id = id;
+		this.inicio = inicio;
+		this.fin = fin;
+		this.lector = lector;
+		this.copia = copia;
+	}
+
+	@Override
+	public String toString() {
+		return "Prestamo [Id=" + Id + ", inicio=" + inicio + ", fin=" + fin + ", lector=" + lector + ", copia=" + copia
+				+ "]";
+	}
 }
