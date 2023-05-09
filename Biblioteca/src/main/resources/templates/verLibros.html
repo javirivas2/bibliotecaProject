@@ -10,7 +10,7 @@
 	crossorigin="anonymous">
 </head>
 <body>
-<div class="container text-center mt-5">
+	<div class="container text-center mt-5">
 		<!-- Barra de navegacion -->
 		<header class="row">
 			<nav
@@ -38,8 +38,8 @@
 				</div>
 			</nav>
 		</header>
-		</div>
-		<div class="container">
+	</div>
+	<div class="container mt-5">
 		<table class="table table-striped table-responsive-md">
 			<thead>
 				<tr>
@@ -48,16 +48,19 @@
 					<th>Autor</th>
 					<th>Acciones</th>
 				</tr>
-
 			</thead>
 			<tbody>
 				<tr th:each="libro:${libros}">
 					<td th:text="${libro.titulo}"></td>
 					<td th:text="${libro.editorial}"></td>
 					<td th:text="${libro.autor.nombre}"></td>
+					<td><button class="btn btn-info">Eliminar</button>
+						<button class="btn btn-success">Modificar</button></td>
 				</tr>
 			</tbody>
+			
 		</table>
-		</div>
+		<button class="btn btn-danger">Anadir libro</button>
+	</div>
 </body>
 </html>
