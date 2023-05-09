@@ -1,5 +1,6 @@
 package com.capgemini.curso.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -55,6 +56,18 @@ public class Libro {
 		this.anyo = anyo;
 		this.autor = autor;
 		this.ejemplares = ejemplares;
+	}
+	
+	public List<Copia> getEjemplaresDisponibles(){
+		List<Copia> disponibles = new ArrayList<>();
+		
+		for (Copia copia : disponibles) {
+			if(copia.isDisponible()) {
+				disponibles.add(copia);
+			}
+		}
+		
+		return disponibles;
 	}
 
 	public Long getId() {

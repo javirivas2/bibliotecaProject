@@ -25,6 +25,13 @@ public class Multa {
 
 	public Multa() {}
 	
+	
+	
+	public Multa(LocalDate fInicio, LocalDate fFin) {
+		this.fInicio = fInicio;
+		this.fFin = fFin;
+	}
+
 	public Multa(long id, LocalDate fInicio, LocalDate fFin) {
 		this.id = id;
 		this.fInicio = fInicio;

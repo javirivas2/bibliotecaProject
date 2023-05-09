@@ -37,6 +37,10 @@ public class Copia {
 		this.estadoCopia = estadoCopia;
 		this.ejemplar = ejemplar;
 	}
+	
+	public boolean isDisponible() {
+		return this.estadoCopia.equals(EstadoCopia.BIBLIOTECA);
+	}
 
 	public Long getId() {
 		return Id;

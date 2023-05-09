@@ -1,6 +1,7 @@
 package com.capgemini.curso.model;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,6 +38,13 @@ public class Prestamo {
 	private Copia copia;
 	
 	public Prestamo() {}
+	
+	public Prestamo(LocalDate inicio, LocalDate fin, Lector lector, Copia copia) {
+		this.inicio = inicio;
+		this.fin = fin;
+		this.lector = lector;
+		this.copia = copia;
+	}
 
 	public Prestamo(long id, LocalDate inicio, LocalDate fin, Lector lector, Copia copia) {
 		this.id = id;
@@ -46,8 +54,8 @@ public class Prestamo {
 		this.copia = copia;
 	}
 	
-	public int getRetrasoPrestamo(LocalDate fechaDevolucion) {
-		int retraso = fechaDevolucion.m
+	public int getDuracionPrestamo(LocalDate fechaDevolucion) {
+		return (int) ChronoUnit.DAYS.between(this.inicio, fechaDevolucion);
 	}
 
 	public long getId() {
