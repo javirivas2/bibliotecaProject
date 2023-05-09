@@ -19,9 +19,11 @@ import com.capgemini.curso.model.Copia;
 import com.capgemini.curso.model.EstadoCopia;
 import com.capgemini.curso.model.Lector;
 import com.capgemini.curso.model.Libro;
+import com.capgemini.curso.model.Multa;
 import com.capgemini.curso.model.Prestamo;
 import com.capgemini.curso.repository.LectorRepository;
 import com.capgemini.curso.repository.LibroRepository;
+import com.capgemini.curso.repository.MultaRepository;
 import com.capgemini.curso.repository.PrestamoRepository;
 
 
@@ -40,6 +42,9 @@ public class LectorServiceImp implements LectorService {
 	
 	@Autowired
 	private LibroRepository libroRepository;
+	
+	@Autowired
+	private MultaRepository multaRepository;
 
 
 	
@@ -57,7 +62,10 @@ public class LectorServiceImp implements LectorService {
 	public Lector getLectorById(long id) {
 	    logger.info("LectorServiceIml getLectorById");
 	    Optional<Lector> optLector = lectorRepository.findById(id);
-	    return optLector.isPresent() ? optLector.get() : null;
+	    if(optLector.isEmpty())
+	    	throw new RuntimeException("No existe el lector " + id);
+	    
+	    return optLector.get();
 	}
 
 	@Override
@@ -78,10 +86,16 @@ public class LectorServiceImp implements LectorService {
 		if(optPrestamo.isEmpty()) {
 			throw new RuntimeException("No existe el prestamo " + idPrestamo);
 		}
+		Prestamo prestamo = optPrestamo.get();
 		
 		Lector lec = getLectorById(idLector);
-		lec.devolver(optPrestamo.get(), fechaAct);	
-		optPrestamo.get().getCopia().setEstadoCopia(EstadoCopia.BIBLIOTECA);
+		
+		prestamo.getCopia().setEstadoCopia(EstadoCopia.BIBLIOTECA);
+		Optional<Multa> multa = lec.devolver(prestamo, fechaAct);	
+		if(multa.isPresent()) {//Hay multa nueva
+			multaRepository.save(multa.get()); //La guardamos en db
+			lec.setMulta(multa.get()); //La linkamos
+		}
 	}
 
 	@Override
@@ -92,7 +106,7 @@ public class LectorServiceImp implements LectorService {
 		}
 		
 		Lector lector = getLectorById(idLector);
-		if(lector.puedeCogerLibro(fechaAct)) {
+		if(!lector.puedeCogerLibro(fechaAct)) {
 			throw new RuntimeException("El lector " + idLector + " no puede coger mas libros");
 		}
 		
@@ -104,9 +118,7 @@ public class LectorServiceImp implements LectorService {
 		
 		Copia ejemplar = ejemplaresDisponibles.get(0);
 		
-		LocalDate fechaFin = fechaAct.plusDays(30);//El 30 tendria que salir a una varible o algo global
-		
-		Prestamo prestamo = new Prestamo(fechaAct, fechaFin, lector, ejemplar);
+		Prestamo prestamo = new Prestamo(fechaAct, lector, ejemplar, true);
 		prestamoRepository.save(prestamo);
 		
 		lector.addPrestamo(prestamo);

@@ -24,16 +24,17 @@ public class Copia {
 	@ManyToOne
 	@JoinColumn(name = "copia_id")
 	private Libro ejemplar;
-	
-	@ManyToOne
-	@JoinColumn(name = "prestamo_id")
-	private Prestamo prestamo;
 
 	public Copia() {
 	}
 
 	public Copia(Long id, EstadoCopia estadoCopia, Libro ejemplar) {
 		this.Id = id;
+		this.estadoCopia = estadoCopia;
+		this.ejemplar = ejemplar;
+	}
+	
+	public Copia(EstadoCopia estadoCopia, Libro ejemplar) {
 		this.estadoCopia = estadoCopia;
 		this.ejemplar = ejemplar;
 	}

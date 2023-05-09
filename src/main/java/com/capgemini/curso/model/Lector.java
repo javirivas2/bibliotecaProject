@@ -1,7 +1,9 @@
 package com.capgemini.curso.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -29,13 +31,14 @@ public class Lector {
 	private String telefono;
 	@Column(name = "direccion")
 	private String direccion;
-	@OneToMany(mappedBy = "copia", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+	@OneToMany(mappedBy = "lector", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Prestamo> prestamos;
+
 	@OneToOne
 	@JoinColumn(name = "multa")
 	private Multa multa;
-	
-	
+
 	public Lector() {
 	}
 
@@ -54,7 +57,9 @@ public class Lector {
 		this.multa = multa;
 	}
 
-	public void devolver(Prestamo prestamo, LocalDate fechaDev) {
+	public Optional<Multa> devolver(Prestamo prestamo, LocalDate fechaDev) {
+		Optional<Multa> multa = Optional.empty();
+		
 		// Comprobamos que la devolución es posible
 		if (prestamos.isEmpty() || !prestamos.contains(prestamo)) {
 			throw new RuntimeException("El lector " + Id + " no tiene asignado el prestamo " + prestamo.getId());
@@ -62,22 +67,22 @@ public class Lector {
 
 		// Comprobamos si debemos multar
 		int duracion = prestamo.getDuracionPrestamo(fechaDev);
-		if (duracion > maxPrestamoDays) { // Multa
+		if (duracion > RestriccionesPrestamo.DIAS_MAX) { // Multa
 			int diasAñadir = duracion - maxPrestamoDays;
-			multar(diasAñadir);
+			multa = multar(fechaDev, diasAñadir);
 		}
 
-		prestamo.setFin(fechaDev);
-		prestamos.remove(prestamo);
-		return;
+		prestamo.setDevolucion(fechaDev);
+		prestamo.setActivo(false);
+		return multa;
 	}
-	
+
 	public boolean puedeCogerLibro(LocalDate fechaInc) {
 		if (multa != null && multa.getfFin().isAfter(fechaInc)) { // Hay multas pendientes
 			return false;
 		}
-		if(prestamos.size() >= 3) { // Tiene mas de tres prestamos
-			return false;
+		if (getPrestamosActivos().size() >= RestriccionesPrestamo.ACTIVOS_MAX) {
+			return false; // Tiene mas de los prestamos permitidos
 		}
 		return true;
 	}
@@ -86,14 +91,30 @@ public class Lector {
 		prestamos.add(prestamo);
 	}
 
-	public void multar(int dias) {
+	public Optional<Multa> multar(LocalDate fechaMulta, int dias) {
+		Optional<Multa> multa = Optional.empty();
+		
 		int diasAñadir = dias * 2;
-		if (multa == null) {
-			LocalDate fechaFinMulta = LocalDate.now().plusDays(diasAñadir);
-			multa = new Multa(LocalDate.now(), fechaFinMulta);
+		if (this.multa == null) {
+			LocalDate fechaFinMulta = fechaMulta.plusDays(diasAñadir);
+			multa = Optional.of(new Multa(fechaMulta, fechaFinMulta));
 		} else {
-			multa.setfFin(multa.getfFin().plusDays(diasAñadir));
+			this.multa.setfFin(this.multa.getfFin().plusDays(diasAñadir));
 		}
+		
+		return multa;
+	}
+
+	public List<Prestamo> getPrestamosActivos() {
+		List<Prestamo> activos = new ArrayList<>();
+
+		for (Prestamo prestamo : prestamos) {
+			if (prestamo.isActivo()) {
+				activos.add(prestamo);
+			}
+		}
+
+		return activos;
 	}
 
 	public Long getId() {
@@ -133,8 +154,9 @@ public class Lector {
 	}
 
 	public void setPrestamos(List<Prestamo> prestamos) {
-		if (prestamos != null && prestamos.size() > 3) {
-			throw new IllegalArgumentException("Solo se permiten hasta 3 prestamos.");
+		if (prestamos != null && prestamos.size() > RestriccionesPrestamo.ACTIVOS_MAX) {
+			throw new IllegalArgumentException(
+					"Solo se permiten hasta " + RestriccionesPrestamo.ACTIVOS_MAX + " prestamos.");
 		}
 		this.prestamos = prestamos;
 	}

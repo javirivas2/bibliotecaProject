@@ -69,7 +69,7 @@ public class Libro {
 	public List<Copia> getEjemplaresDisponibles(){
 		List<Copia> disponibles = new ArrayList<>();
 		
-		for (Copia copia : disponibles) {
+		for (Copia copia : ejemplares) {
 			if(copia.isDisponible()) {
 				disponibles.add(copia);
 			}
