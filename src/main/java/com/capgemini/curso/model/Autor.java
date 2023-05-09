@@ -14,14 +14,15 @@ public class Autor {
 	@Column(name = "nacionalidad")
 	private String nacionalidad;
 	@Column(name = "fecha_nacimiento")
-	private Date fechaNacimiento;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private LocalDate fechaNacimiento;
 	@OneToMany(mappedBy="autor",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private List<Libro>obras;
 
 	public Autor() {
 	}
 
-	public Autor(Long id, String nombre, String nacionalidad, Date fechaNacimiento) {
+	public Autor(Long id, String nombre, String nacionalidad, LocalDate fechaNacimiento) {
 		this.Id = id;
 		this.nombre = nombre;
 		this.nacionalidad = nacionalidad;
@@ -52,11 +53,11 @@ public class Autor {
 		this.nacionalidad = nacionalidad;
 	}
 
-	public Date getFechaNacimiento() {
+	public LocalDate getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
