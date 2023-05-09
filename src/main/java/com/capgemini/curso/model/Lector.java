@@ -1,13 +1,12 @@
 package com.capgemini.curso.model;
 
 import java.time.LocalDate;
-import java.util.Set;
-
-import javax.management.RuntimeErrorException;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,29 +22,31 @@ public class Lector {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long nSocio;
-
-	@Column
+	private Long Id;
+	@Column(name = "nombre")
 	private String nombre;
-
-	@Column
+	@Column(name = "telefono")
 	private String telefono;
-
-	@Column
+	@Column(name = "direccion")
 	private String direccion;
-
-	@OneToMany(mappedBy = "lector", targetEntity = Prestamo.class, cascade = CascadeType.ALL)
-	private Set<Prestamo> prestamos;
-
+	@OneToMany(mappedBy = "copia", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Prestamo> prestamos;
 	@OneToOne
 	@JoinColumn(name = "multa")
 	private Multa multa;
-
+	
+	
 	public Lector() {
 	}
 
-	public Lector(long nSocio, String nombre, String telefono, String direccion, Set<Prestamo> prestamos, Multa multa) {
-		this.nSocio = nSocio;
+	public Lector(String nombre, String telefono, String direccion) {
+		this.nombre = nombre;
+		this.telefono = telefono;
+		this.direccion = direccion;
+	}
+
+	public Lector(Long id, String nombre, String telefono, String direccion, List<Prestamo> prestamos, Multa multa) {
+		this.Id = id;
 		this.nombre = nombre;
 		this.telefono = telefono;
 		this.direccion = direccion;
@@ -56,7 +57,7 @@ public class Lector {
 	public void devolver(Prestamo prestamo, LocalDate fechaDev) {
 		// Comprobamos que la devolución es posible
 		if (prestamos.isEmpty() || !prestamos.contains(prestamo)) {
-			throw new RuntimeException("El lector " + nSocio + " no tiene asignado el prestamo " + prestamo.getId());
+			throw new RuntimeException("El lector " + Id + " no tiene asignado el prestamo " + prestamo.getId());
 		}
 
 		// Comprobamos si debemos multar
@@ -95,12 +96,12 @@ public class Lector {
 		}
 	}
 
-	public long getnSocio() {
-		return nSocio;
+	public Long getId() {
+		return Id;
 	}
 
-	public void setnSocio(long nSocio) {
-		this.nSocio = nSocio;
+	public void setId(Long id) {
+		Id = id;
 	}
 
 	public String getNombre() {
@@ -127,11 +128,14 @@ public class Lector {
 		this.direccion = direccion;
 	}
 
-	public Set<Prestamo> getPrestamos() {
+	public List<Prestamo> getPrestamos() {
 		return prestamos;
 	}
 
-	public void setPrestamos(Set<Prestamo> prestamos) {
+	public void setPrestamos(List<Prestamo> prestamos) {
+		if (prestamos != null && prestamos.size() > 3) {
+			throw new IllegalArgumentException("Solo se permiten hasta 3 prestamos.");
+		}
 		this.prestamos = prestamos;
 	}
 
@@ -145,7 +149,7 @@ public class Lector {
 
 	@Override
 	public String toString() {
-		return "Lector [nSocio=" + nSocio + ", nombre=" + nombre + ", telefono=" + telefono + ", direccion=" + direccion
+		return "Lector [nSocio=" + Id + ", nombre=" + nombre + ", telefono=" + telefono + ", direccion=" + direccion
 				+ ", prestamos=" + prestamos + ", multa=" + multa + "]";
 	}
 

@@ -1,7 +1,9 @@
 package com.capgemini.curso.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -28,16 +30,22 @@ public class Autor {
 	private String nacionalidad;
 	
 	@Column(name = "fecha_nacimiento")
-	private Date fechaNacimiento;
-	
-	@OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Libro> obras;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private LocalDate fechaNacimiento;
+	@OneToMany(mappedBy="autor",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+	private List<Libro>obras;
 
 	public Autor() {
 	}
 
-	public Autor(Long id, String nombre, String nacionalidad, Date fechaNacimiento) {
+	public Autor(Long id, String nombre, String nacionalidad, LocalDate fechaNacimiento) {
 		this.Id = id;
+		this.nombre = nombre;
+		this.nacionalidad = nacionalidad;
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public Autor(String nombre, String nacionalidad, LocalDate fechaNacimiento) {
 		this.nombre = nombre;
 		this.nacionalidad = nacionalidad;
 		this.fechaNacimiento = fechaNacimiento;
@@ -67,11 +75,11 @@ public class Autor {
 		this.nacionalidad = nacionalidad;
 	}
 
-	public Date getFechaNacimiento() {
+	public LocalDate getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
