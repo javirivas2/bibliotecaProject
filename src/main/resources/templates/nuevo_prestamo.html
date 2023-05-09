@@ -12,33 +12,26 @@
 <body>
 	<header th:include="headertemplate"></header>
 
-	<p class="display-3 mt-5">Nuevo Libro</p>
+	<p class="display-3 mt-5">Nuevo prestamo</p>
 	<hr>
 	<div class="row justify-content-center">
 		<form action="#" th:object="${lector}" method="post"
-			th:action="@{/addlector}">
-			<table class="table table-light table-striped text-center mt-5">
-				<tr>
-					<td>Direccion</td>
-					<td><input type="text" th:field="*{direccion}" /></td>
-				</tr>
-				<tr>
-					<td>Nombre</td>
-					<td><input type="text" th:field="*{nombre}" /></td>
-				</tr>
-				<tr>
-					<td>Telefono</td>
-					<td><input type="text" th:field="*{telefono}" /></td>
-				</tr>
-				<tr>
-					<td>Multa</td>
-					<td><input type="text" th:field="*{multa}" /></td>
-				</tr>
-				<tr>
-					<td colspan="2"><input type="submit"
-						class="btn btn-warning text-center mt-2 m-3 mb-3" value="Guardar"></td>
-				</tr>
-			</table>
+			th:action="@{/save_prestamo}">
+
+			<input type="hidden" th:value="${lector.Id}" id="lector">
+			<p class="form-text text-muted" th:text="${lector.nombre}"></p>
+
+			<div class="mb-3">
+				<label for="libros" class="form-label">Libro</label>
+				<select class="form-select form-select-lg" name="libros" id="libro">
+					<option selected>Select one</option>
+					<option th:each=" libro : ${libros}" th:value="${libro.Id}" th:text="${libro.titulo}"></option>
+				</select>
+			</div>
+
+
+			<button type="submit" class="btn btn-primary">Guardar</button>
+			
 			<a class="btn btn-dark  text-center mt-2 m-3 mb-3"
 				th:href="@{/verlectores}">Cancelar</a>
 		</form>

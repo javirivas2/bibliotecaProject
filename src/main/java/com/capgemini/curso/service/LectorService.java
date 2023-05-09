@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import com.capgemini.curso.model.Lector;
 
@@ -16,6 +15,6 @@ public interface LectorService {
 
 	void devolver(long idLector, long idPrestamo, LocalDate fechaAct);
 	void prestar(long idLector, long idLibro, LocalDate fechaAct);
-	Page<Lector> findAllPage(Pageable pageable);
+	Page<Lector> findAllPage(int pageNum, int pageSize, String sortField, String sortDirection);
 
 }

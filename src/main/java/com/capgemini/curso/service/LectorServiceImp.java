@@ -11,7 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -75,9 +77,14 @@ public class LectorServiceImp implements LectorService {
 	
 	@Override
 	@Transactional(readOnly=true)
-	public Page<Lector> findAllPage(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
+	public Page<Lector> findAllPage(int pageNum, int pageSize, String sortField, String sortDirection) {
+		Sort ordenador = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) 
+				? Sort.by(sortField).ascending()
+				: Sort.by(sortField).descending();
+		
+		Pageable pageable = PageRequest.of(pageNum - 1, pageSize, ordenador);
+
+		return lectorRepository.findAll(pageable);
 	}
 
 	@Override
