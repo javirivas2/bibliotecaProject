@@ -12,9 +12,9 @@
 <body>
 	<div class="container text-center mt-5">
 		<!-- Barra de navegacion -->
-		<header class="row">
+		<header th:fragment="header">
 			<nav
-				class="navbar navbar-expand-sm navbar-light bg-light fixed-top mt-2">
+				class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
 				<a class="navbar-brand" th:href="@{/index}"> </a>
 				<button class="navbar-toggler navbar-toggler-right" type="button"
 					data-toggle="collapse" data-target="#navbarNavDropdown"
