@@ -38,4 +38,10 @@ public class bibliotecaController {
 		this.libroService.deleteLibroById(id);
 		return "redirect:/";
 	}
+	@GetMapping("/add")
+	public String showNewLibroForm(Model model) {
+		Libro libro=new Libro();
+		model.addAttribute("libro", libro);
+		return "insertLibro";
+	}
 }
