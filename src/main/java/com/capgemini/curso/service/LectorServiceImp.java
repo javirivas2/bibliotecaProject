@@ -133,4 +133,17 @@ public class LectorServiceImp implements LectorService {
 		
 	}
 
+	@Override
+	public List<Lector> getLectoresQuePuedenPrestamo(LocalDate fechaPrestamo) {
+		List<Lector> lectores = getAllLectores();
+		List<Lector> lectoresPrestamos = new ArrayList<>();
+		
+		for (Lector lector : lectores) {
+			if(lector.puedeCogerLibro(fechaPrestamo)) {
+				lectoresPrestamos.add(lector);
+			}
+		}
+		return lectoresPrestamos;
+	}
+
 }

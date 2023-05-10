@@ -10,6 +10,7 @@ import com.capgemini.curso.model.Lector;
 public interface LectorService {
 
 	List<Lector> getAllLectores();
+	List<Lector> getLectoresQuePuedenPrestamo(LocalDate fechaPrestamo);
 	Lector getLectorById(long id);
 	void saveLector(Lector lector);
 
