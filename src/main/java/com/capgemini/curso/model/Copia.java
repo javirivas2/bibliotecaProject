@@ -1,23 +1,25 @@
-package com.capgemini.curso.model;
+package com.capgemini.proyecto.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "copias")
 public class Copia {
-//TODO: Sin acabar solo para probar el lector y prestamos
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
 	@Enumerated(EnumType.STRING)
 	private EstadoCopia estadoCopia;
 	@ManyToOne
-	@JoinColumn(name = "copia_id")
+	@JoinColumn(name = "ejemplar_id")
 	private Libro ejemplar;
 	@ManyToOne
 	@JoinColumn(name = "prestamo_id")
@@ -31,6 +33,14 @@ public class Copia {
 		this.estadoCopia = estadoCopia;
 		this.ejemplar = ejemplar;
 	}
+	
+
+	public Copia(EstadoCopia estadoCopia, Libro ejemplar) {
+		this.estadoCopia = estadoCopia;
+		this.ejemplar = ejemplar;
+	}
+
+	
 
 	public Long getId() {
 		return Id;
@@ -56,8 +66,17 @@ public class Copia {
 		this.ejemplar = ejemplar;
 	}
 
+	/**
+	 * metodo que verifica el estado de la copia en la Biblioteca
+	 * @return
+	 */
+	public boolean isDisponible() {
+		return this.estadoCopia.equals(EstadoCopia.BIBLIOTECA);
+	}
+
 	@Override
 	public String toString() {
 		return "Copia [Id=" + Id + ", estadoCopia=" + estadoCopia + ", ejemplar=" + ejemplar + "]";
 	}
+
 }

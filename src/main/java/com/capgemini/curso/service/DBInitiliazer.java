@@ -5,7 +5,6 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -14,10 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.proyecto.model.Autor;
+import com.capgemini.proyecto.model.Copia;
+import com.capgemini.proyecto.model.EstadoCopia;
 import com.capgemini.proyecto.model.Lector;
 import com.capgemini.proyecto.model.Libro;
 import com.capgemini.proyecto.model.TipoLibro;
 import com.capgemini.proyecto.repository.AutorRepository;
+import com.capgemini.proyecto.repository.CopiaRepository;
 import com.capgemini.proyecto.repository.LectorRepository;
 import com.capgemini.proyecto.repository.LibroRepository;
 
@@ -33,17 +35,19 @@ public class DBInitiliazer {
 	private LibroRepository libroRepository;
 	@Autowired
 	private LectorRepository lectorRepository;
+	@Autowired
+	private CopiaRepository copiaRepository;
 
 	@PostConstruct
 	public void initDB() {
 		logger.info("Init DB....");
 		List<Autor> autores = new ArrayList<>(
-				Arrays.asList(new Autor("Jose Luis Borges", "argentina", LocalDate.of(1899,Month.JUNE,24)),
-						new Autor("Gabriel García Marquez", "colombiano", LocalDate.of(1927,Month.FEBRUARY,27 )),
-						new Autor("Ray Loriga", "española", LocalDate.of(1967,Month.MARCH,5)),
-						new Autor("Alfonsina Storni", "argentina", LocalDate.of(1892,Month.MAY,29)),
-						new Autor("Alejandra Pitarnik", "argentina", LocalDate.of(1936,Month.APRIL,29)),
-						new Autor("Eduardo Galeano", "uruguaya", LocalDate.of(1940,Month.SEPTEMBER,3))));
+				Arrays.asList(new Autor("Jose Luis Borges", "argentina", LocalDate.of(1899, Month.JUNE, 24)),
+						new Autor("Gabriel García Marquez", "colombiano", LocalDate.of(1927, Month.FEBRUARY, 27)),
+						new Autor("Ray Loriga", "española", LocalDate.of(1967, Month.MARCH, 5)),
+						new Autor("Alfonsina Storni", "argentina", LocalDate.of(1892, Month.MAY, 29)),
+						new Autor("Alejandra Pitarnik", "argentina", LocalDate.of(1936, Month.APRIL, 29)),
+						new Autor("Eduardo Galeano", "uruguaya", LocalDate.of(1940, Month.SEPTEMBER, 3))));
 
 		// SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		Calendar calendar = Calendar.getInstance();
@@ -85,6 +89,23 @@ public class DBInitiliazer {
 			lectorRepository.save(lector);
 		}
 		logger.info("Lectores insertados correctamente");
+
+		List<Copia> copias = new ArrayList<>();
+		Long libroId1 = 1L;
+		Long libroId2 = 2L;
+
+		for (Libro libro : libros) {
+			if (libro.getId().equals(libroId1)) {
+				copias.add(new Copia(EstadoCopia.BIBLIOTECA, libro));
+			} else if (libro.getId().equals(libroId2)) {
+				copias.add(new Copia(EstadoCopia.REPARACION, libro));
+			}
+		}
+		for (Copia copia : copias) {
+			copiaRepository.save(copia);
+		}
+
+		logger.info("Copias insertadas correctamente");
 
 	}
 }
