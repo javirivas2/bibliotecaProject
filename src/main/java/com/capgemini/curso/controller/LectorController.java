@@ -1,6 +1,5 @@
 package com.capgemini.curso.controller;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.capgemini.curso.model.Lector;
@@ -51,7 +49,7 @@ public class LectorController {
 	}
 
 	@GetMapping("/prestamo/{id}")
-	public String createPrestamo(@PathVariable(value = "id") int idLector, Model model) {
+	public String createPrestamoLector(@PathVariable(value = "id") int idLector, Model model) {
 		Lector lector = lectorService.getLectorById(idLector);
 		model.addAttribute("lector", lector);
 
@@ -61,21 +59,9 @@ public class LectorController {
 		return "nuevo_prestamo";
 	}
 
-	@PostMapping("/save_prestamo")
-	public String savePrestamo(@RequestParam("lector") int idLector, @RequestParam("libro") int idLibro, Model model) {
-
-		try { // Intentamos hacer el prestamo
-			lectorService.prestar(idLector, idLibro, LocalDate.now());
-		} catch (RuntimeException e) { // Si algo sale mal, damos el error y volvemos
-			model.addAttribute("error", e.getMessage());
-			return createPrestamo(idLector, model);
-		}
-
-		return viewHomePage(model);
-	}
 	
 	@GetMapping("/devolver/{id}")
-	public String devolver(@PathVariable(value = "id") int idLector, Model model) {
+	public String devolverLector(@PathVariable(value = "id") int idLector, Model model) {
 		Lector lector = lectorService.getLectorById(idLector);
 		
 
@@ -89,19 +75,6 @@ public class LectorController {
 		model.addAttribute("prestamos", prestamos);
 
 		return "devolucion";
-	}
-
-	@PostMapping("/devolver_prestamo")
-	public String devolverPrestamo(@RequestParam("lector") int idLector, @RequestParam("prestamo") int idPrestamo, Model model) {
-
-		try { // Intentamos hacer el prestamo
-			lectorService.devolver(idLector, idPrestamo, LocalDate.now());
-		} catch (RuntimeException e) { // Si algo sale mal, damos el error y volvemos
-			model.addAttribute("error", e.getMessage());
-			return devolver(idLector, model);
-		}
-
-		return viewHomePage(model);
 	}
 
 }
