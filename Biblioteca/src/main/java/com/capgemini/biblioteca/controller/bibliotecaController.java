@@ -22,6 +22,12 @@ public class bibliotecaController {
 		model.addAttribute("libros", libroService.getAllLibros());
 		return "verLibros";
 	}
+	@GetMapping("/")
+	public String verAutores(Model model) {
+		model.addAttribute("autores", libroService.getAllAutores());
+		model.addAttribute("libros");
+		return "verLibros";
+	}
 	@GetMapping("/edit/{id}")
 	public String showFormForUpdate(@PathVariable(value = "id") long id, Model model) {
 		Libro libro = this.libroService.getLibroById(id);

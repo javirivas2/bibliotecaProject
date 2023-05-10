@@ -9,14 +9,18 @@
 <body>
 	<div class="container">
 		<h2>Introduce un nuevo Libro</h2>
-		<form action="#" th:action="@{/save}" th:object="${libro}" method="post">
+		<form action="#" th:action="@{/save}" th:object="${libro}"
+			method="post">
 			<input type="hidden" th:field="*{id}"> <input type="text"
 				placeholder="aqui el titulo del libro" th:field="*{titulo}"
 				class="form-control mb-4 col-4"> <input type="text"
 				placeholder="aqui la editorial" th:field="*{editorial}"
-				class="form-control mb-4 col-4"> <input type="text"
-				placeholder="aqui el autor" th:field="*{autor.nombre}"
-				class="form-control mb-4 col-4">
+				class="form-control mb-4 col-4"> 
+				<select>
+				<option th:each="autor:${libro.autor}"
+				 th:value="*{autor.nombre}"
+				th:text="*{autor.nombre}"></option>
+			</select>
 
 			<button type="submit" class="btn btn-success col-2">Guardar
 				Libro</button>

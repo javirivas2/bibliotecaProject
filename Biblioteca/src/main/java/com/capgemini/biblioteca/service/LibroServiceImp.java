@@ -25,7 +25,13 @@ public class LibroServiceImp implements LibroService {
 		libroRepository.findAll().forEach(libros::add);
 		return libros;
 	}
-
+	@Override
+	public List<Libro> getAllAutores() {
+		logger.info("LibroServiceIml getAllAutores");
+		List<Libro> autores = new ArrayList<>();
+		libroRepository.findAll().forEach(autores::add);
+		return autores;
+	}
 	@Override
 	public Libro getLibroById(long id) {
 		Optional<Libro> optionalLibro = this.libroRepository.findById(id);
