@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.capgemini.biblioteca.model.Autor;
 import com.capgemini.biblioteca.model.Libro;
 import com.capgemini.biblioteca.service.AutorService;
 import com.capgemini.biblioteca.service.LibroService;
@@ -31,6 +32,8 @@ public class bibliotecaController {
 	@GetMapping("/edit/{id}")
 	public String showFormForUpdate(@PathVariable(value = "id") long id, Model model) {
 		Libro libro = this.libroService.getLibroById(id);
+		Autor autor = this.autorService.getAutorById(id);
+		model.addAttribute("autor",autor);
 		model.addAttribute("libro", libro);
 		return "editLibro";
 	}
