@@ -16,10 +16,13 @@
 				class="form-control mb-4 col-4"> <input type="text"
 				placeholder="aqui la editorial" th:field="*{editorial}"
 				class="form-control mb-4 col-4"> 
-				<select>
-				<option th:each="autor:${libro.autor}"
-				 th:value="*{autor.nombre}"
-				th:text="*{autor.nombre}"></option>
+				
+				<select name="autor" th:object="${autor}">
+				<option value="">Escoge una opcion</option>
+				<option th:each="autor:${autores}"
+				 th:value="${autor.Id}"
+				th:text="${autor.nombre}">
+				</option>
 			</select>
 
 			<button type="submit" class="btn btn-success col-2">Guardar

@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.capgemini.biblioteca.model.Libro;
+import com.capgemini.biblioteca.service.AutorService;
 import com.capgemini.biblioteca.service.LibroService;
 
 
@@ -16,18 +18,16 @@ import com.capgemini.biblioteca.service.LibroService;
 public class bibliotecaController {
 	@Autowired
 	private LibroService libroService;
+	@Autowired
+	private AutorService autorService;
+	
 
 	@GetMapping("/")
 	public String verLibros(Model model) {
 		model.addAttribute("libros", libroService.getAllLibros());
 		return "verLibros";
 	}
-	@GetMapping("/")
-	public String verAutores(Model model) {
-		model.addAttribute("autores", libroService.getAllAutores());
-		model.addAttribute("libros");
-		return "verLibros";
-	}
+	
 	@GetMapping("/edit/{id}")
 	public String showFormForUpdate(@PathVariable(value = "id") long id, Model model) {
 		Libro libro = this.libroService.getLibroById(id);
@@ -35,8 +35,9 @@ public class bibliotecaController {
 		return "editLibro";
 	}
 	@PostMapping("/save")
-	public String saveLibro(@ModelAttribute("libros") Libro libro) {
+	public String saveLibro(@ModelAttribute("libros") Libro libro, @RequestParam("autor") Long id) {
 		libroService.saveLibro(libro);
+		autorService.getAutorById(id);
 		return "redirect:/";
 	}
 	@GetMapping("/delete/{id}")
@@ -48,6 +49,7 @@ public class bibliotecaController {
 	public String showNewLibroForm(Model model) {
 		Libro libro=new Libro();
 		model.addAttribute("libro", libro);
+		model.addAttribute("autores", autorService.getAllAutores());
 		return "insertLibro";
 	}
 }

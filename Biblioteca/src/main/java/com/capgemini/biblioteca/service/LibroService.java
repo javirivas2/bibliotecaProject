@@ -5,9 +5,8 @@ import java.util.List;
 import com.capgemini.biblioteca.model.Libro;
 
 public interface LibroService {
+
 	List<Libro> getAllLibros();
-	
-	List<Libro> getAllAutores();
 
 	void deleteLibroById(long id);
 
