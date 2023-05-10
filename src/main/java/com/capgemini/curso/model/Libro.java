@@ -77,6 +77,10 @@ public class Libro {
 		
 		return disponibles;
 	}
+	
+	public int countEjemplaresDisponibles() {
+		return getEjemplaresDisponibles().size();
+	}
 
 	public Long getId() {
 		return Id;

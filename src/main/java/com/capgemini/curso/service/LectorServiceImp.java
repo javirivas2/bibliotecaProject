@@ -114,13 +114,13 @@ public class LectorServiceImp implements LectorService {
 		
 		Lector lector = getLectorById(idLector);
 		if(!lector.puedeCogerLibro(fechaAct)) {
-			throw new RuntimeException("El lector " + idLector + " no puede coger mas libros");
+			throw new RuntimeException("El lector " + lector.getNombre() + "(" + idLector  + ") no puede coger mas libros");
 		}
 		
 		Libro libro = optLibro.get();
 		List<Copia> ejemplaresDisponibles = libro.getEjemplaresDisponibles();
 		if(ejemplaresDisponibles.isEmpty()) {
-			throw new RuntimeException("No hay copias disponibles de " + idLibro);
+			throw new RuntimeException("No hay copias disponibles de " + libro.getTitulo());
 		}
 		
 		Copia ejemplar = ejemplaresDisponibles.get(0);
