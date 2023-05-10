@@ -29,9 +29,13 @@ public class bibliotecaController {
 		return "editLibro";
 	}
 	@PostMapping("/save")
-	public String saveLibro(@ModelAttribute("libro") Libro libro) {
+	public String saveLibro(@ModelAttribute("libros") Libro libro) {
 		libroService.saveLibro(libro);
 		return "redirect:/";
 	}
-	
+	@GetMapping("/delete/{id}")
+	public String deleteLibro(@PathVariable(value = "id") long id) {
+		this.libroService.deleteLibroById(id);
+		return "redirect:/";
+	}
 }

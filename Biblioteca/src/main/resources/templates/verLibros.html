@@ -55,7 +55,7 @@
 					<td th:text="${libro.titulo}"></td>
 					<td th:text="${libro.editorial}"></td>
 					<td th:text="${libro.autor.nombre}"></td>
-					<td><a class="btn btn-info" >Eliminar</a>
+					<td><a class="btn btn-info" th:href="@{/delete/{id}(id=${libro.id})}">Eliminar</a>
 						<a class="btn btn-success" th:href="@{/edit/{id}(id=${libro.id})}">Modificar</a></td>
 				</tr>
 			</tbody>

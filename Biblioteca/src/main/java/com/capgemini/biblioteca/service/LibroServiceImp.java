@@ -27,12 +27,6 @@ public class LibroServiceImp implements LibroService {
 	}
 
 	@Override
-	public Libro deleteLibroById(long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Libro getLibroById(long id) {
 		Optional<Libro> optionalLibro = this.libroRepository.findById(id);
 		Libro libro = null;
@@ -48,5 +42,9 @@ public class LibroServiceImp implements LibroService {
 	public void saveLibro(Libro libro) {
 		this.libroRepository.save(libro);
 	}
+	@Override
+	public void deleteLibroById(long id) {
+		this.libroRepository.deleteById(id);
 
+	}
 }
