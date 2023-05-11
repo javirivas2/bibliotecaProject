@@ -19,7 +19,7 @@
       <h1>Realizar devolución</h1>
       <hr />
       <div class="row justify-content-center">
-        <form action="#" method="post" th:action="@{/prestamos/save_prestamo}">
+        <form action="#" method="post" th:action="@{/devolver_prestamo}">
           <input
             type="hidden"
             th:value="${lector.Id}"
@@ -55,23 +55,6 @@
       </div>
     </div>
 
-    <div
-      th:if="${error != null}"
-      class="toast fade show align-items-center text-bg-danger border-0"
-      role="alert"
-      aria-live="assertive"
-      aria-atomic="true"
-    >
-      <div class="d-flex">
-        <div class="toast-body" th:text="${error}"></div>
-        <button
-          type="button"
-          class="btn-close btn-close-white me-2 m-auto"
-          data-bs-dismiss="toast"
-          aria-label="Close"
-        ></button>
-      </div>
-    </div>
   </body>
 
   <footer th:insert="~{footertemplate :: footer}"></footer>

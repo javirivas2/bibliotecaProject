@@ -9,7 +9,7 @@
 <body>
 	<div class="container">
 		<h2>Introduce un nuevo Libro</h2>
-		<form action="#" th:action="@{/save}" th:object="${libro}"
+		<form action="#" th:action="@{/libro/save}" th:object="${libro}"
 			method="post">
 			<input type="hidden" th:field="*{id}"> <input type="text"
 				placeholder="aqui el titulo del libro" th:field="*{titulo}"

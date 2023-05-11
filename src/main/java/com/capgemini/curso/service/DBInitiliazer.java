@@ -85,8 +85,8 @@ public class DBInitiliazer {
 
 		List<Copia> ejemplares = new ArrayList<>(
 				Arrays.asList(
-						new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(0)),
-						new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(0)),
+						new Copia(EstadoCopia.PRESTADO, librosExistentes.get(0)),
+						new Copia(EstadoCopia.PRESTADO, librosExistentes.get(0)),
 						new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(0)),
 						new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(1)),
 						new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(1)),

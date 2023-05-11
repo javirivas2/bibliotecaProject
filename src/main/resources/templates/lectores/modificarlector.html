@@ -5,7 +5,8 @@
 <title>Modificar lector</title>
 </head>
 <body>
-	<header th:include="headertemplate"></header>
+	<header th:insert="~{headertemplate :: header}"></header>
+
 	<p class="display-3 mt-5">Modificar Libro</p>
 	<hr>
 	<div class="row justify-content-center">
@@ -40,6 +41,7 @@
 			</section>
 		</form>
 	</div>
-	<footer th:include="footertemplate"></footer>
+	
+	<footer th:insert="~{footertemplate :: footer}"></footer>
 </body>
 </html>

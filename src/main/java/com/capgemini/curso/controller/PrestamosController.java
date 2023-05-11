@@ -30,7 +30,7 @@ public class PrestamosController {
 	@Autowired
 	private PrestamoService	prestamoService;
 
-	@GetMapping("/prestamos")
+	@GetMapping("/verprestamos")
 	public String viewPrestamos(Model model) {
 		List<Prestamo> prestamos = prestamoService.getAllActivePrestamo();
 		
