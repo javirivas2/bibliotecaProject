@@ -35,20 +35,18 @@
 							<!--  <td><a class="btn btn-info"
 								th:href="@{/lectoressusprestamos/{id}(id=${lector.id})}">Ver
 									Préstamos</a></td> -->
-							<td><a th:href="@{/eliminar(id=${lector.id})}"
-								class="btn btn-info">Eliminar</a></td>
+							<td><a th:href="@{/eliminar/{id}(id=${lector.id})}"
+								class="btn btn-danger">Eliminar</a></td>
 							<td><a th:href="@{/modificar(id=${lector.id})}"
-								class="btn btn-success">Modificar</td>
+								class="btn btn-info">Modificar</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr>
 							<td colspan="4"><a th:href="@{/insertar}"
-								class="btn btn-danger text-center mt-2 ml-3 mb-3">Añadir
+								class="btn btn-success text-center mt-2 ml-3 mb-3">Añadir
 									lector</a></td>
-									<td></td>
-									<td></td>
-									<td></td>
+									
 
 						</tr>
 					</tfoot>
