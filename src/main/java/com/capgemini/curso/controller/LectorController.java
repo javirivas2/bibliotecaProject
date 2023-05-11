@@ -106,7 +106,7 @@ public class LectorController {
 		@RequestMapping("/modificar")
 		public String modificar(@RequestParam Long id, Model model) {
 			model.addAttribute("lector", lectorService.getLectorById(id));
-			return "lectores/modificarlector";
+			return "/lectores/modificarlector";
 		}
 		
 
@@ -118,7 +118,7 @@ public class LectorController {
 		@RequestMapping("/insertar")
 		public String insertar(Model model) {
 			model.addAttribute("lector", new Lector());
-			return "/nuevo_lector";
+			return "/lectores/nuevo_lector";
 		}
 
 		/**
