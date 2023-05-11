@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.capgemini.curso.model.Copia;
 import com.capgemini.curso.model.EstadoCopia;
@@ -110,12 +111,16 @@ public class BibliotecaController {
 	}
 
 	@RequestMapping(value = "/addcopia", method = RequestMethod.POST)
-	public String addcopia(@ModelAttribute Copia copia, @RequestParam("estadoCopia") EstadoCopia estadoCopia,@RequestParam("ejemplar.id") Long ejemplarId) {
-		Libro ejemplar=libroService.getLibroById(ejemplarId);
+	public String addcopia(@ModelAttribute Copia copia, @RequestParam("estadoCopia") EstadoCopia estadoCopia,
+			@RequestParam("ejemplar.id") Long ejemplarId,RedirectAttributes redirectAttributes) { 
+		Libro ejemplar = libroService.getLibroById(ejemplarId);
 		copia.setEjemplar(ejemplar);
 		copia.setEstadoCopia(estadoCopia);
 		copiaService.saveCopia(copia);
-		Long idLibro=copia.getEjemplar().getId();//Obtenemos el ID del libro
-		return "redirect:/libros/{idLibro}/vercopias(idLibro=" + copia.getEjemplar().getId() + ")";
+		Long idLibro = ejemplar.getId();// Obtenemos el ID del libro
+		redirectAttributes.addAttribute("idLibro", idLibro);
+		// model.addAttribute("idLibro",idLibro);
+		return "redirect:/libros/{idLibro}/vercopias"; // ?idLibro=" + idLibro;//Usamos idLibro en lugar de
+														// copia.getEjemplar().getId()
 	}
 }
