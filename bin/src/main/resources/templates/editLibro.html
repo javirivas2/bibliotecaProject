@@ -2,31 +2,31 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insertar Libro</title>
+<title>Modifico Curso</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 </head>
 <body>
-	<div th:insert="~{headertemplate :: header}"></div>
 	<div class="container">
-		<h2>Introduce un nuevo Libro</h2>
-		<form action="#" th:action="@{/libro/save}" th:object="${libro}"
-			method="post">
+		<h2>Actualizacion de Libro</h2>
+		<form action="#" th:action="@{/save}" th:object="${libro}" method="post">
 			<input type="hidden" th:field="*{id}"> <input type="text"
 				placeholder="aqui el titulo del libro" th:field="*{titulo}"
 				class="form-control mb-4 col-4"> <input type="text"
 				placeholder="aqui la editorial" th:field="*{editorial}"
-				class="form-control mb-4 col-4"> <select name="autor"
-				th:object="${autor}">
+				class="form-control mb-4 col-4"> 
+				
+				<select name="autor" th:object="${autor}">
 				<option value="">Escoge una opcion</option>
-				<option th:each="autor:${autores}" th:value="${autor.Id}"
-					th:text="${autor.nombre}"></option>
+				<option th:each="autor:${autores}"
+				 th:value="${autor.id}"
+				th:text="${autor.nombre}">
+				</option>
 			</select>
 
 			<button type="submit" class="btn btn-success col-2">Guardar
 				Libro</button>
 		</form>
 	</div>
-	<div th:insert="~{footertemplate :: footer}"></div>
 </body>
 </html>

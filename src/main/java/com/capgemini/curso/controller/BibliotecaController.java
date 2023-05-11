@@ -15,7 +15,7 @@ import com.capgemini.curso.service.LibroService;
 
 @Controller
 public class BibliotecaController {
-	
+
 	@Autowired
 	private LibroService libroService;
 	@Autowired
@@ -40,15 +40,13 @@ public class BibliotecaController {
 	public String saveLibro(@ModelAttribute("libros") Libro libro, @RequestParam("autor") Long id) {
 		libroService.saveLibro(libro);
 		autorService.getAutorById(id);
-
-		return "redirect:/";
+		return "redirect:/verLibros";
 	}
 
 	@GetMapping("libro/delete/{id}")
 	public String deleteLibro(@PathVariable(value = "id") long id) {
 		this.libroService.deleteLibroById(id);
-		
-		return "redirect:/";
+		return "redirect:/verLibros";
 	}
 
 	@GetMapping("libro/add")
@@ -56,7 +54,7 @@ public class BibliotecaController {
 		Libro libro = new Libro();
 		model.addAttribute("libro", libro);
 		model.addAttribute("autores", autorService.getAllAutores());
-		
+
 		return "libros/insertLibro";
 	}
 }

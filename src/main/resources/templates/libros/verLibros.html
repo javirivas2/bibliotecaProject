@@ -10,10 +10,10 @@
 	crossorigin="anonymous">
 </head>
 <body>
-	<header th:insert="~{headertemplate :: header}"></header>
+	<div th:insert="~{headertemplate :: header}"></div>
 
 	<div class="container mt-5">
-	<h1>Gestion de libros</h1>
+		<h1>Gestion de libros</h1>
 		<table class="table table-striped table-responsive-md">
 			<thead>
 				<tr>
@@ -28,15 +28,17 @@
 					<td th:text="${libro.titulo}"></td>
 					<td th:text="${libro.editorial}"></td>
 					<td th:text="${libro.autor.nombre}"></td>
-					<td><a class="btn btn-info" th:href="@{/libro/delete/{id}(id=${libro.id})}">Eliminar</a>
-						<a class="btn btn-success" th:href="@{/libro/edit/{id}(id=${libro.id})}">Modificar</a></td>
+					<td><a class="btn btn-info"
+						th:href="@{/libro/delete/{id}(id=${libro.id})}">Eliminar</a> <a
+						class="btn btn-success"
+						th:href="@{/libro/edit/{id}(id=${libro.id})}">Modificar</a></td>
 				</tr>
 			</tbody>
-			
+
 		</table>
 		<a class="btn btn-danger" th:href="@{/libro/add}">Anadir libro</a>
 	</div>
 
-	<footer th:insert="~{footertemplate :: footer}"></footer>
+	<div th:insert="~{footertemplate :: footer}"></div>
 </body>
 </html>

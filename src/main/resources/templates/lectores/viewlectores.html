@@ -39,7 +39,7 @@
 							<td th:text="${lector.nombre}"></td>
 							<td th:text="${lector.telefono}"></td>
 							<td th:text="${lector.multa}"></td>
-							<td><a class="btn btn-warning mt-4">Eliminiar</a></td>
+							<td><a class="btn btn-warning mt-4" th:href="@{/eliminar/{id}(id=${lector.id})}">Eliminar</a></td>
 							<td><a class="btn btn-dark mt-4">Modificar</td>
 						</tr>
 					</tbody>
