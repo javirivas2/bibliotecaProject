@@ -16,12 +16,12 @@ public class MultaServiceImp implements MultaService {
 	private MultaRepository multaRepository;
 
 	@Override
-	public List<Multa> getAllMultaes() {
+	public List<Multa> getAllMultas() {
 		return multaRepository.findAll();
 	}
 
 	@Override
-	public Multa getMultaById(long id) {
+	public Multa getMultaById(Long id) {
 		Optional<Multa> optionalMulta = multaRepository.findById(id);
 		if (optionalMulta.isPresent()) {
 			return optionalMulta.get();
@@ -37,8 +37,9 @@ public class MultaServiceImp implements MultaService {
 	}
 
 	@Override
-	public void deleteMultaById(long id) {
+	public void deleteMultaById(Long id) {
 		multaRepository.deleteById(id);		
 	}
+
 
 }

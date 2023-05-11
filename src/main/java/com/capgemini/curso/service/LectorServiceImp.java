@@ -146,4 +146,15 @@ public class LectorServiceImp implements LectorService {
 		return lectoresPrestamos;
 	}
 
+	@Override
+	public void deleteById(Long id) {
+		lectorRepository.deleteById(id);		
+	}
+
+	@Override
+	public List<Object[]> countPrestamosByLector() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

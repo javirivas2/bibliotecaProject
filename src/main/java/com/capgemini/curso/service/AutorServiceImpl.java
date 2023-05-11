@@ -1,4 +1,4 @@
-package com.capgemini.proyecto.service;
+package com.capgemini.curso.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.capgemini.proyecto.model.Autor;
-import com.capgemini.proyecto.model.Libro;
-import com.capgemini.proyecto.repository.AutorRepository;
+import com.capgemini.curso.model.Autor;
+import com.capgemini.curso.model.Libro;
+import com.capgemini.curso.repository.AutorRepository;
 
 @Service("autorServiceImpl")
 @Transactional

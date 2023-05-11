@@ -1,4 +1,4 @@
-package com.capgemini.proyecto.model;
+package com.capgemini.curso.model;
 
 import java.time.LocalDate;
 import java.util.List;

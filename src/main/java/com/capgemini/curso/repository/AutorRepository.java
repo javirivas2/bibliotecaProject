@@ -1,4 +1,4 @@
-package com.capgemini.proyecto.repository;
+package com.capgemini.curso.repository;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.capgemini.proyecto.model.Autor;
-import com.capgemini.proyecto.model.Libro;
+import com.capgemini.curso.model.Autor;
+import com.capgemini.curso.model.Libro;
 
 @Repository
 public interface AutorRepository extends JpaRepository<Autor, Long> {

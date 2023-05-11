@@ -1,8 +1,8 @@
-package com.capgemini.proyecto.service;
+package com.capgemini.curso.service;
 
 import java.util.List;
 
-import com.capgemini.proyecto.model.Multa;
+import com.capgemini.curso.model.Multa;
 
 public interface MultaService {
 

@@ -17,5 +17,7 @@ public interface LectorService {
 	void devolver(long idLector, long idPrestamo, LocalDate fechaAct);
 	void prestar(long idLector, long idLibro, LocalDate fechaAct);
 	Page<Lector> findAllPage(int pageNum, int pageSize, String sortField, String sortDirection);
+	void deleteById(Long id);
+	List<Object[]> countPrestamosByLector();
 
 }

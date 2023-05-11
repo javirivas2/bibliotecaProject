@@ -1,4 +1,4 @@
-package com.capgemini.proyecto.model;
+package com.capgemini.curso.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

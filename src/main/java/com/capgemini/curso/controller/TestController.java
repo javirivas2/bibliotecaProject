@@ -1,4 +1,4 @@
-package com.capgemini.proyecto.controller;
+package com.capgemini.curso.controller;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -17,25 +17,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.capgemini.proyecto.model.Autor;
-import com.capgemini.proyecto.model.Lector;
-import com.capgemini.proyecto.service.AutorService;
-import com.capgemini.proyecto.service.LectorService;
-import com.capgemini.proyecto.service.MultaService;
+import com.capgemini.curso.model.Autor;
+import com.capgemini.curso.model.Lector;
+import com.capgemini.curso.model.RestriccionesPrestamo;
+import com.capgemini.curso.service.AutorService;
+import com.capgemini.curso.service.LectorService;
 
 @Controller
 public class TestController {
 
 	@Autowired
 	private LectorService lectorService;
-
+	
 	@Autowired
-	private DBInitiliazer dbInitialazer;
+	private AutorService autorService;
 
-	@GetMapping("/loadTest")
-	public void loadTestData() {
-		dbInitialazer.initDB();
-	}
 
 	// Probamos a hacer 3 prestamos con un lector
 	@GetMapping("/simularPrestamoA")
@@ -125,10 +121,8 @@ public class TestController {
 		
 		//Podemos coger una vez pasada la multa
 		lectorService.prestar(lector.getId(), 5, pastDate.plusDays(diasDeMulta + 1));
-	private MultaService multaService;
-
-	@Autowired
-	private AutorService autorService;
+	}
+	
 
 	@GetMapping("/")
 	public String viewHomePage() {

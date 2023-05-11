@@ -1,13 +1,11 @@
-package com.capgemini.proyecto.service;
+package com.capgemini.curso.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import com.capgemini.proyecto.model.Lector;
-import com.capgemini.proyecto.model.Libro;
+import com.capgemini.curso.model.Libro;
 
 public interface LibroService {
 
