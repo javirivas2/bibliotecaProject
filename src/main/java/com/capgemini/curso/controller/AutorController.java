@@ -2,7 +2,9 @@ package com.capgemini.curso.controller;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -55,7 +57,10 @@ public class AutorController {
 
 	@RequestMapping("/modificarautor")
 	public String modificarAutor(@RequestParam Long id, Model model) {
-		model.addAttribute("autor", autorService.getAutorById(id));
+		Autor autor = autorService.getAutorById(id);
+		String fechaNa = autor.getFechaNacimiento().toString();
+		model.addAttribute("autor", autor);
+		model.addAttribute("fecha", fechaNa);
 		return "autores/modificarautor";
 	}
 
