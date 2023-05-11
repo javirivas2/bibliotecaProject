@@ -11,21 +11,22 @@
 </head>
 <body>
 	<div th:insert="~{headertemplate :: header}"></div>
-	<div class="container text-center">
-		<h2>Introduce un nuevo Libro</h2>
+	<div class="container text-center mt-5 w-50">
+		<h1 class="text-start">Introduce un nuevo Libro</h1>
+		<hr>
 		<form action="#" th:action="@{/libro/save}" th:object="${libro}"
 			method="post">
 			<input type="hidden" th:field="*{id}"> <input type="text"
 				placeholder="aqui el titulo del libro" th:field="*{titulo}"
 				class="form-control mb-4 col-4"> <input type="text"
 				placeholder="aqui la editorial" th:field="*{editorial}"
-				class="form-control mb-4 col-4"> <select name="autor"
+				class="form-control mb-4 col-4"> <select class="form-select" name="autor"
 				th:object="${autor}">
 				<option value="">Escoge una opcion</option>
 				<option th:each="autor:${autores}" th:value="${autor.Id}"
 					th:text="${autor.nombre}"></option>
 			</select>
-
+				<br><hr>	
 			<button type="submit" class="btn btn-success col-2">Guardar
 				Libro</button>
 		</form>
