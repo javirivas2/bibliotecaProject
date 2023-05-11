@@ -11,14 +11,13 @@
 </head>
 <body>
 	<div th:insert="~{headertemplate :: header}"></div>
-
-	<p class="display-3 mt-5">Nuevo Lector</p>
-	<hr>
-	<div class="row justify-content-center">
+	<div class="container w-50">
+		<h1 class="text-start">Nuevo Lector</h1>
+		<hr>
 		<form action="#" th:object="${lector}" method="post"
 			th:action="@{/addlector}">
 			<table class="table table-light table-striped text-center mt-5">
-				<tr >
+				<tr>
 					<td>Direccion</td>
 					<td><input type="text" th:field="*{direccion}" /></td>
 				</tr>
@@ -36,17 +35,15 @@
 				</tr>
 				<tr class="mb-3">
 					<td scope="col" colspan="1"><input type="submit"
-						class="btn btn-primary text-center mt-2 m-3 mb-3" value="Guardar"></td>
+						class="btn btn-success text-center mt-2 m-3 mb-3" value="Guardar"></td>
 					<td colspan="1"><a
-						class="btn btn-dark  text-center mt-2 m-3 mb-3"
+						class="btn btn-danger  text-center mt-2 m-3 mb-3"
 						th:href="@{/verlectores}">Cancelar</a></td>
 				</tr>
 			</table>
 
 		</form>
-
 	</div>
-
 	<div th:insert="~{footertemplate :: footer}"></div>
 </body>
 </html>

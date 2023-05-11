@@ -10,11 +10,10 @@
 	crossorigin="anonymous">
 </head>
 <body>
-<<<<<<< HEAD
-	<div class="container text-center mt-5">
+	<div class="container w-50">
 		<header th:insert="~{headertemplate :: header}"></header>
 
-		<p class="display-3 mt-5">Modificar Libro</p>
+		<h1 class="text-start">Modificar Lector</h1>
 		<hr>
 		<div class="row justify-content-center">
 			<form id="" th:object="${lector}" method="post"
@@ -40,11 +39,11 @@
 					<td colspan="4"></td>
 					<tr>
 						<td colspan="2"><input type="submit"
-							class="btn btn-primary text-center mt-2 m-3 mb-3" value="Guardar"></td>
+							class="btn btn-success text-center mt-2 m-3 mb-3" value="Guardar"></td>
 					</tr>
 				</table>
 				<section class="d-flex justify-content-center">
-					<a class="btn btn-dark  text-center mt-2 m-3 mb-3"
+					<a class="btn btn-danger  text-center mt-2 m-3 mb-3"
 						th:href="@{/verlectores}">Cancelar</a>
 				</section>
 			</form>
