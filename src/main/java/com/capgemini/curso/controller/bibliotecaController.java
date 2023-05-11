@@ -1,4 +1,4 @@
-package com.capgemini.biblioteca.controller;
+package com.capgemini.curso.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.capgemini.biblioteca.model.Autor;
-import com.capgemini.biblioteca.model.Libro;
-import com.capgemini.biblioteca.service.AutorService;
-import com.capgemini.biblioteca.service.LibroService;
+import com.capgemini.curso.model.Autor;
+import com.capgemini.curso.model.Libro;
+import com.capgemini.curso.service.AutorService;
+import com.capgemini.curso.service.LibroService;
 
 
 @Controller

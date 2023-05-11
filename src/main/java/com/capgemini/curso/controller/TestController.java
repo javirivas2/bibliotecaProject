@@ -32,7 +32,6 @@ public class TestController {
 	@Autowired
 	private AutorService autorService;
 
-
 	// Probamos a hacer 3 prestamos con un lector
 	@GetMapping("/simularPrestamoA")
 	public void simularPrestamoA() {
@@ -108,32 +107,19 @@ public class TestController {
 		// Deberiamos tener una multa
 		System.out.println("*****Multas*****");
 		System.out.println("Tenemos multa: " + lector.getMulta() != null);
-		System.out.println("Fin de la multa: " 
-				+ pastDate.plusDays(diasDeMulta)
-				+ " | " + lector.getMulta().getfFin());
-		
-		//No podemos coger mas prestamos hoy
+		System.out.println("Fin de la multa: " + pastDate.plusDays(diasDeMulta) + " | " + lector.getMulta().getfFin());
+
+		// No podemos coger mas prestamos hoy
 		try {
 			lectorService.prestar(lector.getId(), 5, LocalDate.now());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			System.err.println("Fallo al coger prestado");
 		}
-		
-		//Podemos coger una vez pasada la multa
+
+		// Podemos coger una vez pasada la multa
 		lectorService.prestar(lector.getId(), 5, pastDate.plusDays(diasDeMulta + 1));
 	}
 	
-
-	@GetMapping("/")
-	public String viewHomePage() {
-
-		return "testfragments";
-	}
-
-	@GetMapping("/add")
-	public String showFormNuevoLibro(Model model) {
-		return "nuevo_libro";
-	}
 
 	// Controlador para los lectores
 	/**
@@ -159,27 +145,6 @@ public class TestController {
 		return "lectoresPrestamosView";
 	}
 
-	/**
-	 * 
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping("/insertar")
-	public String insertar(Model model) {
-		model.addAttribute("lector", new Lector());
-		return "/nuevo_lector";
-	}
-
-	/**
-	 * 
-	 * @param lector
-	 * @return
-	 */
-	@RequestMapping(value = "/addlector", method = RequestMethod.POST)
-	public String addlector(@ModelAttribute Lector lector) {
-		lectorService.saveLector(lector);
-		return "redirect:/verlectores";
-	}
 
 //	@RequestMapping("/eliminar/{id}")
 //	public String eliminar(@PathVariable("id") Long id) {
@@ -243,5 +208,32 @@ public class TestController {
 		model.addAttribute("autor", autorService.getAutorById(id));
 		return "modificarautor";
 	}
+
+
+
+
+
+	/**
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/insertar")
+	public String insertar(Model model) {
+		model.addAttribute("lector", new Lector());
+		return "/nuevo_lector";
+	}
+
+	/**
+	 * 
+	 * @param lector
+	 * @return
+	 */
+	@RequestMapping(value = "/addlector", method = RequestMethod.POST)
+	public String addlector(@ModelAttribute Lector lector) {
+		lectorService.saveLector(lector);
+		return "redirect:/verlectores";
+	}
+
 
 }

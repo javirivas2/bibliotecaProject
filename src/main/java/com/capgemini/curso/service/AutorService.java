@@ -21,4 +21,5 @@ public interface AutorService {
 	List<Object[]> countLibrosByAutor();
 
 	List<Libro> findLibrosByAutorId(Long autorId);
+
 }

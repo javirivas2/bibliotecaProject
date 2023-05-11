@@ -10,16 +10,15 @@ import com.capgemini.curso.model.Libro;
 public interface LibroService {
 
 	List<Libro> getAllLibros();
+
 	List<Libro> getLibrosDisponibles();
 
 	Libro getLibroById(Long id);
 
-	void saveLector(Libro libro);
-//
-//	void devolver(Long idLector, Long idPrestamo, LocalDate fechaDevolucion);
-//
-//	void prestar(Long idLector, Long idLibro, LocalDate fechaPrestamo);
+	void saveLibro(Libro libro);
 
 	Page<Libro> findAllPage(Pageable pageable);
+
+	void deleteLibroById(long id);
 
 }

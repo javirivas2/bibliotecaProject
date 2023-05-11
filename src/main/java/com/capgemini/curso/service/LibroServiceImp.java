@@ -2,6 +2,7 @@ package com.capgemini.curso.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,18 +36,31 @@ public class LibroServiceImp implements LibroService {
 		
 		return librosAct;
 	}
-
+	
+	
 	@Override
 	public Libro getLibroById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Libro> optionalLibro = this.libroRepository.findById(id);
+		Libro libro = null;
+		if (optionalLibro.isPresent()) {
+			libro = optionalLibro.get();
+		} else {
+			System.out.println("el libro no se encuentra nro " + id);
+		}
+		return libro;
 	}
 
 	@Override
-	public void saveLector(Libro libro) {
-		// TODO Auto-generated method stub
-		
+	public void saveLibro(Libro libro) {
+		this.libroRepository.save(libro);
 	}
+	@Override
+	public void deleteLibroById(long id) {
+		this.libroRepository.deleteById(id);
+
+	}
+
+
 
 	@Override
 	public Page<Libro> findAllPage(Pageable pageable) {
