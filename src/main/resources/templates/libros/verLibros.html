@@ -10,7 +10,7 @@
 	crossorigin="anonymous">
 </head>
 <body>
-	<header th:insert="~{headertemplate :: header}"></header>
+	<div th:insert="~{headertemplate :: header}"></div>
 
 	<div class="container mt-5">
 	<h1>Gestion de libros</h1>
@@ -37,6 +37,6 @@
 		<a class="btn btn-danger" th:href="@{/libro/add}">Anadir libro</a>
 	</div>
 
-	<footer th:insert="~{footertemplate :: footer}"></footer>
+	<div th:insert="~{footertemplate :: footer}"></div>
 </body>
 </html>
