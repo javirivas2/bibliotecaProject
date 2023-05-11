@@ -19,17 +19,16 @@
 				class="text-center text-success text-md-start text-capitalize btn-light p-2 mb-5">
 				Gestión de Lectores</h3>
 			<div class="row text-center">
-				<table class="table table-light table-striped text-center mt-5">
+				<table class="table table-striped table-responsive-md">
 					<thead>
 						<tr>
-							<th scope="col" colspan="7" class="h5">Lista de Lectores</th>
+							<th scope="col" colspan="6" class="h5">Lista de Lectores</th>
 						</tr>
-						<tr>
+						<tr class="table-dark">
 							<th>Direccion</th>
 							<th>Nombre</th>
 							<th>Telefono</th>
 							<th>Multa</th>
-							<th></th>
 							<th></th>
 							<th></th>
 						</tr>
@@ -42,19 +41,19 @@
 							<td><span th:if="${lector.multa != null}"
 								th:text="${lector.multa}"></span> <span
 								th:unless="${lector.multa != null}">Sin Multa</span></td>
-							<td><a class="btn btn-info mt-4"
+							<!--  <td><a class="btn btn-info"
 								th:href="@{/lectoressusprestamos/{id}(id=${lector.id})}">Ver
-									Préstamos</a></td>
+									Préstamos</a></td> -->
 							<td><a th:href="@{/eliminar(id=${lector.id})}"
-								class="btn btn-warning mt-4">Eliminar</a></td>
+								class="btn btn-info">Eliminar</a></td>
 							<td><a th:href="@{/modificar(id=${lector.id})}"
-								class="btn btn-dark mt-4">Modificar</td>
+								class="btn btn-success">Modificar</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr>
 							<td colspan="4"><a th:href="@{/insertar}"
-								class="btn btn-success text-center mt-2 ml-3 mb-3">Añadir
+								class="btn btn-danger text-center mt-2 ml-3 mb-3">Añadir
 									lector</a></td>
 									<td></td>
 									<td></td>
