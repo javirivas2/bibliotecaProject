@@ -95,7 +95,8 @@ public class Lector {
 		Optional<Multa> multa = Optional.empty();
 		
 		int diasAñadir = dias * 2;
-		if (this.multa == null) {
+		if (this.multa == null) {//Si no tiene multa la creamos y la mandamos
+			// para arriba para que la guarde el service
 			LocalDate fechaFinMulta = fechaMulta.plusDays(diasAñadir);
 			multa = Optional.of(new Multa(fechaMulta, fechaFinMulta));
 		} else {
@@ -115,6 +116,10 @@ public class Lector {
 		}
 
 		return activos;
+	}
+	
+	public int countPrestamosActivos() {
+		return getPrestamosActivos().size();
 	}
 
 	public Long getId() {

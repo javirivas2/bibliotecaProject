@@ -104,28 +104,29 @@ public class LectorController {
 		return "redirect:/verlectores";
 	}
 
-	/**
-	 * 
-	 * @param id
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping("/modificar")
-	public String modificar(@RequestParam Long id, Model model) {
-		model.addAttribute("lector", lectorService.getLectorById(id));
-		return "lectores/modificarlector";
-	}
+		/**
+		 * 
+		 * @param id
+		 * @param model
+		 * @return
+		 */
+		@RequestMapping("/modificar")
+		public String modificar(@RequestParam Long id, Model model) {
+			model.addAttribute("lector", lectorService.getLectorById(id));
+			return "/lectores/modificarlector";
+		}
+		
 
-	/**
-	 * 
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping("/insertar")
-	public String insertar(Model model) {
-		model.addAttribute("lector", new Lector());
-		return "/nuevo_lector";
-	}
+		/**
+		 * 
+		 * @param model
+		 * @return
+		 */
+		@RequestMapping("/insertar")
+		public String insertar(Model model) {
+			model.addAttribute("lector", new Lector());
+			return "/lectores/nuevo_lector";
+		}
 
 	/**
 	 * 

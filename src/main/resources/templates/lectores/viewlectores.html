@@ -29,23 +29,43 @@
 							<td th:text="${lector.direccion}"></td>
 							<td th:text="${lector.nombre}"></td>
 							<td th:text="${lector.telefono}"></td>
-							<td th:text="${lector.multa}"></td>
-							<td><a class="btn btn-warning mt-4" th:href="@{/eliminar/{id}(id=${lector.id})}">Eliminar</a></td>
-							<td><a class="btn btn-dark mt-4">Modificar</td>
+							<td><span th:if="${lector.multa != null}"
+								th:text="${lector.multa}"></span> <span
+								th:unless="${lector.multa != null}">Sin Multa</span></td>
+							<!--  <td><a class="btn btn-info"
+								th:href="@{/lectoressusprestamos/{id}(id=${lector.id})}">Ver
+									Préstamos</a></td> -->
+							<td><a th:href="@{/eliminar(id=${lector.id})}"
+								class="btn btn-info">Eliminar</a></td>
+							<td><a th:href="@{/modificar(id=${lector.id})}"
+								class="btn btn-success">Modificar</td>
 						</tr>
 					</tbody>
 					<tfoot>
 						<tr>
 							<td colspan="4"><a th:href="@{/insertar}"
-								class="btn btn-success text-center mt-2 ml-3 mb-3">Añadir
+								class="btn btn-danger text-center mt-2 ml-3 mb-3">Añadir
 									lector</a></td>
 									<td></td>
 									<td></td>
+									<td></td>
+
 						</tr>
 					</tfoot>
 				</table>
 			</div>
 	<footer th:insert="~{footertemplate :: footer}"></footer>
-
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+		integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
+		integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+		crossorigin="anonymous"></script>
 </body>
 </html>

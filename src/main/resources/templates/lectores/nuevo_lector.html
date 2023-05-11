@@ -10,15 +10,15 @@
 	crossorigin="anonymous">
 </head>
 <body>
-	<header th:insert="~{headertemplate :: header}"></header>
+	<div th:insert="~{headertemplate :: header}"></div>
 
-	<p class="display-3 mt-5">Nuevo Lector</p>	
+	<p class="display-3 mt-5">Nuevo Lector</p>
 	<hr>
 	<div class="row justify-content-center">
 		<form action="#" th:object="${lector}" method="post"
 			th:action="@{/addlector}">
 			<table class="table table-light table-striped text-center mt-5">
-				<tr>
+				<tr >
 					<td>Direccion</td>
 					<td><input type="text" th:field="*{direccion}" /></td>
 				</tr>
@@ -34,17 +34,19 @@
 					<td>Multa</td>
 					<td><input type="text" th:field="*{multa}" /></td>
 				</tr>
-				<tr>
-					<td colspan="2"><input type="submit"
-						class="btn btn-warning text-center mt-2 m-3 mb-3" value="Guardar"></td>
+				<tr class="mb-3">
+					<td scope="col" colspan="1"><input type="submit"
+						class="btn btn-primary text-center mt-2 m-3 mb-3" value="Guardar"></td>
+					<td colspan="1"><a
+						class="btn btn-dark  text-center mt-2 m-3 mb-3"
+						th:href="@{/verlectores}">Cancelar</a></td>
 				</tr>
 			</table>
-			<a class="btn btn-dark  text-center mt-2 m-3 mb-3"
-				th:href="@{/verlectores}">Cancelar</a>
+
 		</form>
 
 	</div>
-	
-	<footer th:insert="~{footertemplate :: footer}"></footer>
+
+	<div th:insert="~{footertemplate :: footer}"></div>
 </body>
 </html>
