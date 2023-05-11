@@ -28,13 +28,13 @@ public class AutorController {
 	@GetMapping("/verautores")
 	public String viewAutores(Model model) {
 		model.addAttribute("autores", autorService.getAllAutores());
-		return "viewautores";
+		return "autores/viewautores";
 	}
 
 	@RequestMapping("/insertarautor")
 	public String insertarAutor(Model model) {
 		model.addAttribute("autor", new Autor());
-		return "nuevo_autor";
+		return "autores/nuevo_autor";
 	}
 
 	@InitBinder
@@ -56,7 +56,7 @@ public class AutorController {
 	@RequestMapping("/modificarautor")
 	public String modificarAutor(@RequestParam Long id, Model model) {
 		model.addAttribute("autor", autorService.getAutorById(id));
-		return "modificarautor";
+		return "autores/modificarautor";
 	}
 
 
