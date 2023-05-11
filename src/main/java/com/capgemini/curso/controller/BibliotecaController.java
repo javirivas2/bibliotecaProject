@@ -49,15 +49,15 @@ public class BibliotecaController {
 	public String saveLibro(@ModelAttribute("libros") Libro libro, @RequestParam("autor") Long id) {
 		libroService.saveLibro(libro);
 		autorService.getAutorById(id);
-
-		return "redirect:/";
+		return "redirect:/verLibros";
 	}
 
 	@GetMapping("libro/delete/{id}")
 	public String deleteLibro(@PathVariable(value = "id") long id) {
 		this.libroService.deleteLibroById(id);
 
-		return "redirect:/";
+		return "redirect:/verLibros";
+
 	}
 
 	@GetMapping("libro/add")
