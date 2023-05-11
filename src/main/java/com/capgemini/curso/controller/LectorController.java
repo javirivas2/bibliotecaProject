@@ -25,7 +25,7 @@ public class LectorController {
 	@Autowired
 	private LibroService libroService;
 
-	@GetMapping("/")
+	@GetMapping("/lectores")
 	public String viewHomePage(Model model) {
 		return findPaginated(1, "nombre", "asc", model);
 	}
