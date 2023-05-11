@@ -1,4 +1,4 @@
-package com.capgemini.curso.model;
+package com.capgemini.proyecto.model;
 
 public final class RestriccionesPrestamo {
 

@@ -1,4 +1,4 @@
-package com.capgemini.curso.model;
+package com.capgemini.proyecto.model;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,19 +18,17 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "autores")
 public class Autor {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
-	
-	@Column(name = "nombre")
+	@Column(name = "nombre",unique=true,nullable=false)
 	private String nombre;
 	
 	@Column(name = "nacionalidad")
 	private String nacionalidad;
 	
 	@Column(name = "fecha_nacimiento")
-	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@DateTimeFormat(pattern="mm-dd-yyyy")
 	private LocalDate fechaNacimiento;
 	@OneToMany(mappedBy="autor",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	private List<Libro>obras;

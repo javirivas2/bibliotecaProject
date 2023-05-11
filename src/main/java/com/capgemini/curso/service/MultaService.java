@@ -1,13 +1,17 @@
-package com.capgemini.curso.service;
+package com.capgemini.proyecto.service;
 
 import java.util.List;
 
-import com.capgemini.curso.model.Multa;
+import com.capgemini.proyecto.model.Multa;
 
 public interface MultaService {
 
-	List<Multa> getAllMultaes();
-	Multa getMultaById(long id);
+	List<Multa> getAllMultas();
+
+	Multa getMultaById(Long id);
+
 	void saveMulta(Multa multa);
-	void deleteMultaById(long id);
+
+	void deleteMultaById(Long id);
+
 }
