@@ -33,7 +33,7 @@ public class bibliotecaController {
 	public String showFormForUpdate(@PathVariable(value = "id") long id, Model model) {
 		Libro libro = this.libroService.getLibroById(id);
 		Autor autor = this.autorService.getAutorById(id);
-		model.addAttribute("autor",autor);
+		model.addAttribute("autores", autorService.getAllAutores());
 		model.addAttribute("libro", libro);
 		return "editLibro";
 	}

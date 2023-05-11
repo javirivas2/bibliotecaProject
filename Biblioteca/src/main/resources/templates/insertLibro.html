@@ -16,7 +16,6 @@
 				class="form-control mb-4 col-4"> <input type="text"
 				placeholder="aqui la editorial" th:field="*{editorial}"
 				class="form-control mb-4 col-4"> 
-				
 				<select name="autor" th:object="${autor}">
 				<option value="">Escoge una opcion</option>
 				<option th:each="autor:${autores}"

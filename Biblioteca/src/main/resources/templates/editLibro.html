@@ -19,7 +19,7 @@
 				<select name="autor" th:object="${autor}">
 				<option value="">Escoge una opcion</option>
 				<option th:each="autor:${autores}"
-				 th:value="${autor.Id}"
+				 th:value="${autor.id}"
 				th:text="${autor.nombre}">
 				</option>
 			</select>

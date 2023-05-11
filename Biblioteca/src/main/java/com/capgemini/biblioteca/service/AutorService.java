@@ -6,9 +6,8 @@ import com.capgemini.biblioteca.model.Autor;
 import com.capgemini.biblioteca.model.Libro;
 
 public interface AutorService {
-	
 
-		List<Autor> getAllAutores();
-		
-		Autor getAutorById(long id);
+	List<Autor> getAllAutores();
+
+	Autor getAutorById(long id);
 }
