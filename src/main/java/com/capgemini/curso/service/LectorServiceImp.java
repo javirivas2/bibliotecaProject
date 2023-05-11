@@ -11,7 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -75,9 +77,14 @@ public class LectorServiceImp implements LectorService {
 	
 	@Override
 	@Transactional(readOnly=true)
-	public Page<Lector> findAllPage(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
+	public Page<Lector> findAllPage(int pageNum, int pageSize, String sortField, String sortDirection) {
+		Sort ordenador = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) 
+				? Sort.by(sortField).ascending()
+				: Sort.by(sortField).descending();
+		
+		Pageable pageable = PageRequest.of(pageNum - 1, pageSize, ordenador);
+
+		return lectorRepository.findAll(pageable);
 	}
 
 	@Override
@@ -107,13 +114,13 @@ public class LectorServiceImp implements LectorService {
 		
 		Lector lector = getLectorById(idLector);
 		if(!lector.puedeCogerLibro(fechaAct)) {
-			throw new RuntimeException("El lector " + idLector + " no puede coger mas libros");
+			throw new RuntimeException("El lector " + lector.getNombre() + "(" + idLector  + ") no puede coger mas libros");
 		}
 		
 		Libro libro = optLibro.get();
 		List<Copia> ejemplaresDisponibles = libro.getEjemplaresDisponibles();
 		if(ejemplaresDisponibles.isEmpty()) {
-			throw new RuntimeException("No hay copias disponibles de " + idLibro);
+			throw new RuntimeException("No hay copias disponibles de " + libro.getTitulo());
 		}
 		
 		Copia ejemplar = ejemplaresDisponibles.get(0);
@@ -124,6 +131,19 @@ public class LectorServiceImp implements LectorService {
 		lector.addPrestamo(prestamo);
 		ejemplar.setEstadoCopia(EstadoCopia.PRESTADO);
 		
+	}
+
+	@Override
+	public List<Lector> getLectoresQuePuedenPrestamo(LocalDate fechaPrestamo) {
+		List<Lector> lectores = getAllLectores();
+		List<Lector> lectoresPrestamos = new ArrayList<>();
+		
+		for (Lector lector : lectores) {
+			if(lector.puedeCogerLibro(fechaPrestamo)) {
+				lectoresPrestamos.add(lector);
+			}
+		}
+		return lectoresPrestamos;
 	}
 
 }

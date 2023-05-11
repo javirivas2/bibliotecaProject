@@ -16,11 +16,13 @@ import com.capgemini.curso.model.Copia;
 import com.capgemini.curso.model.EstadoCopia;
 import com.capgemini.curso.model.Lector;
 import com.capgemini.curso.model.Libro;
+import com.capgemini.curso.model.Prestamo;
 import com.capgemini.curso.model.TipoLibro;
 import com.capgemini.curso.repository.AutorRepository;
 import com.capgemini.curso.repository.CopiaRepository;
 import com.capgemini.curso.repository.LectorRepository;
 import com.capgemini.curso.repository.LibroRepository;
+import com.capgemini.curso.repository.PrestamoRepository;
 
 import jakarta.annotation.PostConstruct;
 
@@ -36,6 +38,8 @@ public class DBInitiliazer {
 	private LectorRepository lectorRepository;
 	@Autowired
 	private CopiaRepository copiaRepository;
+	@Autowired
+	private PrestamoRepository prestamoRepository;
 
 	@PostConstruct
 	public void initDB() {
@@ -100,6 +104,8 @@ public class DBInitiliazer {
 		for (Copia ejemplar : ejemplares) {
 			copiaRepository.save(ejemplar);
 		}
+		List<Copia> copiasExistentes = copiaRepository.findAll();
+		
 		logger.info("Libros insertados correctamente");
 
 		List<Lector> lectores = new ArrayList<>(
@@ -114,5 +120,16 @@ public class DBInitiliazer {
 		}
 		logger.info("Lectores insertados correctamente");
 
+		List<Lector> lectoresExistentes = lectorRepository.findAll();
+		
+		List<Prestamo> prestamos = new ArrayList<>(
+				Arrays.asList(new Prestamo(LocalDate.of(2023, 5, 5), lectoresExistentes.get(0), copiasExistentes.get(0), true),
+						new Prestamo(LocalDate.of(2023, 5, 7), lectoresExistentes.get(0), copiasExistentes.get(1), true)));
+
+		for (Prestamo prestamo : prestamos) {
+			prestamoRepository.save(prestamo);
+		}
+		logger.info("Prestamos insertados correctamente");
+		
 	}
 }
