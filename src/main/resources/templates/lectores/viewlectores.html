@@ -11,20 +11,11 @@
 </head>
 <body>
 	<header th:insert="~{headertemplate :: header}"></header>
-
-	<div class="container text-center mt-5">
-
-		<section class="mt-5 justify-content-around">
-			<h3
-				class="text-center text-success text-md-start text-capitalize btn-light p-2 mb-5">
-				Gestión de Lectores</h3>
-			<div class="row text-center">
-				<table class="table table-light table-striped text-center mt-5">
+	<div class="container mt-5">
+		<h1 class="text-center">Gestion de Lectores</h1>
+				<table class="table table-striped table-responsive-md">
 					<thead>
-						<tr>
-							<th scope="col" colspan="6" class="h5">Lista de Lectores</th>
-						</tr>
-						<tr>
+						<tr class="table-dark">
 							<th>direccion</th>
 							<th>nombre</th>
 							<th>telefono</th>
@@ -54,10 +45,6 @@
 					</tfoot>
 				</table>
 			</div>
-		</section>
-
-	</div>
-
 	<footer th:insert="~{footertemplate :: footer}"></footer>
 
 </body>
