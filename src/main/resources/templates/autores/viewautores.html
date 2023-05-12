@@ -27,8 +27,8 @@
         <tbody>
           <tr th:each="autor:${autores}">
             <td th:text="${autor.fechaNacimiento}"></td>
-            <td th:text="${autor.nombre}"></td>
             <td th:text="${autor.nacionalidad}"></td>
+            <td th:text="${autor.nombre}"></td>
             <td>
               <a
                 th:href="@{/eliminarAutor(id=${autor.id})}"
