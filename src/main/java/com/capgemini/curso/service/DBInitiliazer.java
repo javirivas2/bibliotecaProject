@@ -45,12 +45,12 @@ public class DBInitiliazer {
 	public void initDB() {
 		logger.info("Init DB....");
 		List<Autor> autores = new ArrayList<>(
-				Arrays.asList(new Autor("Jose Luis Borges", "argentina", LocalDate.of(1899, Month.JUNE, 24)),
-						new Autor("Gabriel García Marquez", "colombiano", LocalDate.of(1927, Month.FEBRUARY, 27)),
-						new Autor("Ray Loriga", "española", LocalDate.of(1967, Month.MARCH, 5)),
-						new Autor("Alfonsina Storni", "argentina", LocalDate.of(1892, Month.MAY, 29)),
-						new Autor("Alejandra Pitarnik", "argentina", LocalDate.of(1936, Month.APRIL, 29)),
-						new Autor("Eduardo Galeano", "uruguaya", LocalDate.of(1940, Month.SEPTEMBER, 3))));
+				Arrays.asList(new Autor("Jose Luis Borges", "Argentino", LocalDate.of(1899, Month.JUNE, 24)),
+						new Autor("Gabriel García Marquez", "Colombiano", LocalDate.of(1927, Month.FEBRUARY, 27)),
+						new Autor("Ray Loriga", "Española", LocalDate.of(1967, Month.MARCH, 5)),
+						new Autor("Alfonsina Storni", "Argentina", LocalDate.of(1892, Month.MAY, 29)),
+						new Autor("Alejandra Pitarnik", "Argentina", LocalDate.of(1936, Month.APRIL, 29)),
+						new Autor("Eduardo Galeano", "Uruguayo", LocalDate.of(1940, Month.SEPTEMBER, 3))));
 
 		// SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		// Calendar calendar = Calendar.getInstance();
