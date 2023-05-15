@@ -44,7 +44,10 @@
 							<tr>
 								<td th:text="${copia.Id}"></td>
 								<td th:text="${copia.estadoCopia}"></td>
-								<td></td>
+								<td>
+								 <!-- Enlace o botón para cambiar el estado -->
+								<a th:href="@{/libros/{idLibro}/cambioestado/{idCopia}(idLibro=${libro.id}, idCopia=${copia.Id})}" class="btn btn-secondary">Cambiar estado</a>
+								</td>
 								<td></td>
 							</tr>
 						</th:block>
@@ -53,12 +56,12 @@
 						<tr>
 							<td colspan="2"><a class="btn btn-danger"
 								th:href="@{/verLibros}">Volver a la Lista de Libros</a></td>
-							<td>
-															<!--  th:href="@{/libros/{idLibro}/cambioestado/{idCopia}(idLibro=${libro.Id},idCopia=${copia.Id})}"-->
-															<!-- th:href="@{'cambioestadocopia.html?id=' + ${copia.Id}}" -->
-							<a
-								class="btn btn-dark text-center mt-2 ml-3 mb-3">Cambiar
-									estado</a></td>
+<!-- 							 <td> -->
+<!-- 															 th:href="@{/libros/{idLibro}/cambioestado/{idCopia}(idLibro=${libro.Id},idCopia=${copia.Id})}" -->
+<!-- 															th:href="@{'cambioestadocopia.html?id=' + ${copia.Id}}" -->
+<!-- 							<a -->
+<!-- 								class="btn btn-dark text-center mt-2 ml-3 mb-3">Cambiar -->
+<!-- 									estado</a></td>  -->
 							<td><a
 								th:href="@{/libros/{id}/insertarcopia(id=${libro.id})}"
 								class="btn btn-success text-center mt-2 ml-3 mb-3">Añadir

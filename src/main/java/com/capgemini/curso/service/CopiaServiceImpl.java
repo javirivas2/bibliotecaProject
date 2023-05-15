@@ -1,6 +1,7 @@
 package com.capgemini.curso.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.capgemini.curso.model.Copia;
+import com.capgemini.curso.model.Libro;
 import com.capgemini.curso.repository.CopiaRepository;
 import com.capgemini.curso.repository.LibroRepository;
 
@@ -29,8 +31,14 @@ public class CopiaServiceImpl implements CopiaService {
 
 	@Override
 	public Copia getCopiaById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Copia> optionalCopia = this.copiaRepository.findById(id);
+		Copia copia = null;
+		if (optionalCopia.isPresent()) {
+			copia = optionalCopia.get();
+		} else {
+			System.out.println("La copia no se encuentra nro " + id);
+		}
+		return copia;
 	}
 
 	@Override

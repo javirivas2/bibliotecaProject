@@ -4,5 +4,6 @@ public enum EstadoCopia {
 	PRESTADO,
 	RETRASO,
 	BIBLIOTECA,
-	REPARACION
+	REPARACION,
+	RESERVADO
 }

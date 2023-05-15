@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,13 +17,16 @@ public class Copia {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
-	
+
 	@Enumerated(EnumType.STRING)
 	private EstadoCopia estadoCopia;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "ejemplar_id")
 	private Libro ejemplar;
+
+	@OneToOne(mappedBy = "copia")
+	private Reserva reserva;
 
 	public Copia() {
 	}
@@ -32,10 +36,17 @@ public class Copia {
 		this.estadoCopia = estadoCopia;
 		this.ejemplar = ejemplar;
 	}
-	
+
 	public Copia(EstadoCopia estadoCopia, Libro ejemplar) {
 		this.estadoCopia = estadoCopia;
 		this.ejemplar = ejemplar;
+	}
+
+	public Copia(Long id, EstadoCopia estadoCopia, Libro ejemplar, Reserva reserva) {
+		this.Id = id;
+		this.estadoCopia = estadoCopia;
+		this.ejemplar = ejemplar;
+		this.reserva = reserva;
 	}
 
 	public Long getId() {
@@ -62,8 +73,17 @@ public class Copia {
 		this.ejemplar = ejemplar;
 	}
 
+	public Reserva getReserva() {
+		return reserva;
+	}
+
+	public void setReserva(Reserva reserva) {
+		this.reserva = reserva;
+	}
+
 	/**
 	 * metodo que verifica el estado de la copia en la Biblioteca
+	 * 
 	 * @return
 	 */
 	public boolean isDisponible() {

@@ -1,5 +1,6 @@
 package com.capgemini.curso.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,8 +128,34 @@ public class BibliotecaController {
 	@GetMapping("/libros/{idLibro}/cambioestado/{idCopia}")
 	public String mostrarFormularioCambioEstado(@PathVariable("idLibro") Long idLibro,
 			@PathVariable("idCopia") Long idCopia, Model model) {
+		Libro libro=libroService.getLibroById(idLibro);
+		Copia copia=copiaService.getCopiaById(idCopia);
+		
+		String nombreLibro = libro.getTitulo();
+		String estadoActual = copia.getEstadoCopia().toString();
+
+		// Obtener los estados disponibles según las restricciones
+		List<EstadoCopia> estadosDisponibles = new ArrayList<>();
+		if(copia.getEstadoCopia()==EstadoCopia.BIBLIOTECA && copia.getEstadoCopia()==EstadoCopia.REPARACION) {
+			estadosDisponibles.add(EstadoCopia.BIBLIOTECA);
+			estadosDisponibles.add(EstadoCopia.REPARACION);
+		}
+
 		model.addAttribute("idLibro", idLibro);
+		model.addAttribute("copia", copia);
 		model.addAttribute("idCopia", idCopia);
-		return "libros/cambioestadocopia";
+		model.addAttribute("nombreLibro", nombreLibro);
+		model.addAttribute("estadoActual", estadoActual);
+		model.addAttribute("estadosDisponibles", estadosDisponibles);
+		
+		return "/libros/cambioestadocopia";
+	}
+	
+	@PostMapping("/libros/{idLibro}/cambioestado/{idCopia}")
+	public String cambiarEstadoCopia(@PathVariable("idLibro")Long idLibro,@PathVariable("idCopia") Long idcopia,@RequestParam("nuevoEstado")EstadoCopia nuevoEstado) {
+		Copia copia=copiaService.getCopiaById(idcopia);
+		copia.setEstadoCopia(nuevoEstado);
+		copiaService.saveCopia(copia);
+		return "redirect:/libros/{idLibro}";
 	}
 }

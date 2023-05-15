@@ -48,6 +48,9 @@ public class Lector {
 	@JoinColumn(name = "multa")
 	private Multa multa;
 
+	@OneToMany(mappedBy = "lector")
+	private List<Reserva> reservas;
+
 	public Lector() {
 	}
 
@@ -149,6 +152,14 @@ public class Lector {
 
 	public void setRoles(String roles) {
 		this.roles = roles;
+	}
+
+	public List<Reserva> getReservas() {
+		return reservas;
+	}
+
+	public void setReservas(List<Reserva> reservas) {
+		this.reservas = reservas;
 	}
 
 	public Optional<Multa> devolver(Prestamo prestamo, LocalDate fechaDev) {
