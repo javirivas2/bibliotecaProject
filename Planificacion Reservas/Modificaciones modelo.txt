@@ -1,0 +1,11 @@
+Modificaciones modelo:
+
+-Ahora las copias tienen un nuevo estado, RESERVADA
+-Cada vez que devuelvo un prestamo, debo comprobar si el libro tiene alguna Reserva pendiente, si es asi reservar la copia devuelta.
+
+
+Modificaciones vista:
+-Gestion de reservas.
+-Vista para pasar una reserva de copia a prestamo.
+-Cuando me piden un prestamo de un libro no disponible debo ofrecer la posibilidad de reservar.
+

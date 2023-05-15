@@ -1,0 +1,19 @@
+Reserva Copia
+
+Atributos:
+
+-Fecha de realizacion
+-Lector que reserva
+-Copia del libro que quiero reservar
+-Plazo para prestamo
+
+
+Procesos
+
++ reservar():
+	LLamado por devolucionCopia(), reservamos la 	copia para el lector y le fijamos un plazo 	en el cual se acabaria la reserva.
+
++ finalizar():
+	Siempre y cuando dentro de plazo.
+	Termina la reserva y le da un prestamo del 	libro al lector.
+

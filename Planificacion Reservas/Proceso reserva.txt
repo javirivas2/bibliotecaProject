@@ -1,0 +1,21 @@
+Proceso reserva
+
+-Me piden prestamo de libro x
+-No hay copias disponibles de x
+
+-Ofrezco hacer reserva de x
+-Reservo x a nombre de lector l
+
+-Me devuelven copia de x
+-Reservo esa copia de x para l
+-Notificar a l
+
+-l hace prestamo de x; se acaba la reserva
+
+¿Cuantas reservas puede tener un libro?
+¿Que reservamos la copia o "el libro"?
+¿Caduca una reserva?
+¿Cuantas reservas puede hacer un lector?
+¿Existe multa por no cumplir con la reserva?
+¿Se hay mas de una reserva cual tiene prioridad?
+¿Durante cuanto tiempo se reserva una copia?

@@ -1,0 +1,16 @@
+Reserva Libro
+
+Atributos:
+
+-Fecha realizacion
+-Lector que reserva
+-Libro que reserva
+
+Procesos
+
++ reservar():
+	Solo posible si el libro no tiene copias 	disponibles y si el lector no tiene multas 	pendientes.
+	Reservamos el libro para el lector.
+
++ devolucionCopia():
+	Termina la reserva del libro, realizamos una 	reserva de la copia para el lector.
