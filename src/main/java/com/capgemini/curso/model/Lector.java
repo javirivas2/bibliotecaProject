@@ -31,6 +31,12 @@ public class Lector {
 	private String telefono;
 	@Column(name = "direccion")
 	private String direccion;
+	@Column
+	private String username;
+	@Column 
+	private String password;
+	@Column 
+	private String roles;
 
 	@OneToMany(mappedBy = "lector", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Prestamo> prestamos;
@@ -46,6 +52,14 @@ public class Lector {
 		this.nombre = nombre;
 		this.telefono = telefono;
 		this.direccion = direccion;
+	}
+	public Lector(String nombre, String telefono, String direccion, String username, String password, String roles) {
+		this.nombre = nombre;
+		this.telefono = telefono;
+		this.direccion = direccion;
+		this.username = username;
+		this.password = password;
+		this.roles = roles;
 	}
 
 	public Lector(Long id, String nombre, String telefono, String direccion, List<Prestamo> prestamos, Multa multa) {
@@ -118,6 +132,7 @@ public class Lector {
 		return activos;
 	}
 	
+	
 	public int countPrestamosActivos() {
 		return getPrestamosActivos().size();
 	}
@@ -178,6 +193,30 @@ public class Lector {
 	public String toString() {
 		return "Lector [nSocio=" + Id + ", nombre=" + nombre + ", telefono=" + telefono + ", direccion=" + direccion
 				+ ", prestamos=" + prestamos + ", multa=" + multa + "]";
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getRoles() {
+		return roles;
+	}
+
+	public void setRoles(String roles) {
+		this.roles = roles;
 	}
 
 }

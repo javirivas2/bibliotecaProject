@@ -11,35 +11,37 @@
 </head>
 <body>
 	<header th:include="headertemplate"></header>
+	<div class="container w-50">
+		<h1 class="text-start">Nuevo Autor</h1>
+		<hr>
+		<div class="row justify-content-center">
+			<form action="#" th:object="${autor}" method="post"
+				th:action="@{/addautor}">
+				<table class="table table-light table-striped text-center mt-5">
+					<tr>
+						<td>Fecha Nacimiento</td>
+						<td><input type="date" th:field="*{fechaNacimiento}"
+							placeholder="yyyy-MM-dd" required /></td>
+					</tr>
+					<tr>
+						<td>Nacionalidad</td>
+						<td><input type="text" th:field="*{nacionalidad}" required /></td>
+					</tr>
+					<tr>
+						<td>Nombre</td>
+						<td><input type="text" th:field="*{Nombre}" /></td>
+					</tr>
 
-	<p class="display-3 mt-5">Nuevo Autor</p>
-	<hr>
-	<div class="row justify-content-center">
-		<form action="#" th:object="${autor}" method="post"
-			th:action="@{/addautor}">
-			<table class="table table-light table-striped text-center mt-5">
-				<tr>
-					<td>Fecha Nacimiento</td>
-					<td><input type="date" th:field="*{fechaNacimiento}" placeholder="yyyy-MM-dd"  required/></td>
-				</tr>
-				<tr>
-					<td>Nacionalidad</td>
-					<td><input type="text" th:field="*{nacionalidad}" required/></td>
-				</tr>
-				<tr>
-					<td>Nombre</td>
-					<td><input type="text" th:field="*{Nombre}" /></td>
-				</tr>
-
-				<tr>
-					<td colspan="2"><input type="submit"
-						class="btn btn-warning text-center mt-2 m-3 mb-3" value="Guardar"></td>
-				</tr>
-			</table>
-			<a class="btn btn-dark  text-center mt-2 m-3 mb-3"
-				th:href="@{/verautores}">Cancelar</a>
-		</form>
-
+					<tr>
+						<td colspan="2"><input type="submit"
+							class="btn btn-success text-center" value="Guardar">
+							<a class="btn btn-danger text-center"
+					th:href="@{/verautores}">Cancelar</a></td>
+					</tr>
+				</table>
+				
+			</form>
+		</div>
 	</div>
 	<footer th:include="footertemplate"></footer>
 
