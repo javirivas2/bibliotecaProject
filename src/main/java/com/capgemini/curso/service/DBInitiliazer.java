@@ -109,11 +109,11 @@ public class DBInitiliazer {
 		logger.info("Libros insertados correctamente");
 
 		List<Lector> lectores = new ArrayList<>(
-				Arrays.asList(new Lector("Ricardo Darín", "22-1234-5678", "c/Santa Fe 1860"),
-						new Lector("Dario Grandinetti", "23-1234-5678", "c/México 564"),
-						new Lector("Juan José Campanella", "15-1234-5678", "c/Corrientes 1439"),
-						new Lector("Guillermo Francella", "24-1234-5678", "c/Lavalle 3025"),
-						new Lector("Federico Luppi", "11-1234-5678", "c/Solís 475")));
+				Arrays.asList(new Lector("Ricardo Darín", "22-1234-5678", "c/Santa Fe 1860","darin","darin","USER"),
+						new Lector("Dario Grandinetti", "23-1234-5678", "c/México 564","grandinetti","grandinetti","USER"),
+						new Lector("Juan José Campanella", "15-1234-5678", "c/Corrientes 1439","campanella","campanella","USER"),
+						new Lector("Guillermo Francella", "24-1234-5678", "c/Lavalle 3025","francella","francella","USER"),
+						new Lector("Federico Luppi", "11-1234-5678", "c/Solís 475","luppi","luppi","USER")));
 
 		for (Lector lector : lectores) {
 			lectorRepository.save(lector);

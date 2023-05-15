@@ -112,7 +112,7 @@ public class BibliotecaController {
 
 	@RequestMapping(value = "/addcopia", method = RequestMethod.POST)
 	public String addcopia(@ModelAttribute Copia copia, @RequestParam("estadoCopia") EstadoCopia estadoCopia,
-			@RequestParam("ejemplar.id") Long ejemplarId,RedirectAttributes redirectAttributes) { 
+			@RequestParam("ejemplar.id") Long ejemplarId, RedirectAttributes redirectAttributes) {
 		Libro ejemplar = libroService.getLibroById(ejemplarId);
 		copia.setEjemplar(ejemplar);
 		copia.setEstadoCopia(estadoCopia);
@@ -120,7 +120,15 @@ public class BibliotecaController {
 		Long idLibro = ejemplar.getId();// Obtenemos el ID del libro
 		redirectAttributes.addAttribute("idLibro", idLibro);
 		// model.addAttribute("idLibro",idLibro);
-		return "redirect:/libros/{idLibro}/vercopias"; // ?idLibro=" + idLibro;//Usamos idLibro en lugar de
-														// copia.getEjemplar().getId()
+		return "redirect:/libros/{idLibro}/vercopias";
+
+	}
+
+	@GetMapping("/libros/{idLibro}/cambioestado/{idCopia}")
+	public String mostrarFormularioCambioEstado(@PathVariable("idLibro") Long idLibro,
+			@PathVariable("idCopia") Long idCopia, Model model) {
+		model.addAttribute("idLibro", idLibro);
+		model.addAttribute("idCopia", idCopia);
+		return "libros/cambioestadocopia";
 	}
 }

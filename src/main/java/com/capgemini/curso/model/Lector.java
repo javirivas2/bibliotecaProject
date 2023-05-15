@@ -31,6 +31,15 @@ public class Lector {
 	private String telefono;
 	@Column(name = "direccion")
 	private String direccion;
+	@Column(nullable = false, unique = true)
+	private String username;
+
+	@Column(nullable = false)
+	private String password;
+
+	// Asumimos que un usuario solo pueda tener un solo rol
+	@Column(nullable = false)
+	private String roles;
 
 	@OneToMany(mappedBy = "lector", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Prestamo> prestamos;
@@ -57,69 +66,13 @@ public class Lector {
 		this.multa = multa;
 	}
 
-	public Optional<Multa> devolver(Prestamo prestamo, LocalDate fechaDev) {
-		Optional<Multa> multa = Optional.empty();
-		
-		// Comprobamos que la devolución es posible
-		if (prestamos.isEmpty() || !prestamos.contains(prestamo)) {
-			throw new RuntimeException("El lector " + Id + " no tiene asignado el prestamo " + prestamo.getId());
-		}
-
-		// Comprobamos si debemos multar
-		int duracion = prestamo.getDuracionPrestamo(fechaDev);
-		if (duracion > RestriccionesPrestamo.DIAS_MAX) { // Multa
-			int diasAñadir = duracion - maxPrestamoDays;
-			multa = multar(fechaDev, diasAñadir);
-		}
-
-		prestamo.setDevolucion(fechaDev);
-		prestamo.setActivo(false);
-		return multa;
-	}
-
-	public boolean puedeCogerLibro(LocalDate fechaInc) {
-		if (multa != null && multa.getfFin().isAfter(fechaInc)) { // Hay multas pendientes
-			return false;
-		}
-		if (getPrestamosActivos().size() >= RestriccionesPrestamo.ACTIVOS_MAX) {
-			return false; // Tiene mas de los prestamos permitidos
-		}
-		return true;
-	}
-
-	public void addPrestamo(Prestamo prestamo) {
-		prestamos.add(prestamo);
-	}
-
-	public Optional<Multa> multar(LocalDate fechaMulta, int dias) {
-		Optional<Multa> multa = Optional.empty();
-		
-		int diasAñadir = dias * 2;
-		if (this.multa == null) {//Si no tiene multa la creamos y la mandamos
-			// para arriba para que la guarde el service
-			LocalDate fechaFinMulta = fechaMulta.plusDays(diasAñadir);
-			multa = Optional.of(new Multa(fechaMulta, fechaFinMulta));
-		} else {
-			this.multa.setfFin(this.multa.getfFin().plusDays(diasAñadir));
-		}
-		
-		return multa;
-	}
-
-	public List<Prestamo> getPrestamosActivos() {
-		List<Prestamo> activos = new ArrayList<>();
-
-		for (Prestamo prestamo : prestamos) {
-			if (prestamo.isActivo()) {
-				activos.add(prestamo);
-			}
-		}
-
-		return activos;
-	}
-	
-	public int countPrestamosActivos() {
-		return getPrestamosActivos().size();
+	public Lector(String nombre, String telefono, String direccion, String username, String password, String roles) {
+		this.nombre = nombre;
+		this.telefono = telefono;
+		this.direccion = direccion;
+		this.username = username;
+		this.password = password;
+		this.roles = roles;
 	}
 
 	public Long getId() {
@@ -174,10 +127,99 @@ public class Lector {
 		this.multa = multa;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getRoles() {
+		return roles;
+	}
+
+	public void setRoles(String roles) {
+		this.roles = roles;
+	}
+
+	public Optional<Multa> devolver(Prestamo prestamo, LocalDate fechaDev) {
+		Optional<Multa> multa = Optional.empty();
+
+		// Comprobamos que la devolución es posible
+		if (prestamos.isEmpty() || !prestamos.contains(prestamo)) {
+			throw new RuntimeException("El lector " + Id + " no tiene asignado el prestamo " + prestamo.getId());
+		}
+
+		// Comprobamos si debemos multar
+		int duracion = prestamo.getDuracionPrestamo(fechaDev);
+		if (duracion > RestriccionesPrestamo.DIAS_MAX) { // Multa
+			int diasAñadir = duracion - maxPrestamoDays;
+			multa = multar(fechaDev, diasAñadir);
+		}
+
+		prestamo.setDevolucion(fechaDev);
+		prestamo.setActivo(false);
+		return multa;
+	}
+
+	public boolean puedeCogerLibro(LocalDate fechaInc) {
+		if (multa != null && multa.getfFin().isAfter(fechaInc)) { // Hay multas pendientes
+			return false;
+		}
+		if (getPrestamosActivos().size() >= RestriccionesPrestamo.ACTIVOS_MAX) {
+			return false; // Tiene mas de los prestamos permitidos
+		}
+		return true;
+	}
+
+	public void addPrestamo(Prestamo prestamo) {
+		prestamos.add(prestamo);
+	}
+
+	public Optional<Multa> multar(LocalDate fechaMulta, int dias) {
+		Optional<Multa> multa = Optional.empty();
+
+		int diasAñadir = dias * 2;
+		if (this.multa == null) {// Si no tiene multa la creamos y la mandamos
+			// para arriba para que la guarde el service
+			LocalDate fechaFinMulta = fechaMulta.plusDays(diasAñadir);
+			multa = Optional.of(new Multa(fechaMulta, fechaFinMulta));
+		} else {
+			this.multa.setfFin(this.multa.getfFin().plusDays(diasAñadir));
+		}
+
+		return multa;
+	}
+
+	public List<Prestamo> getPrestamosActivos() {
+		List<Prestamo> activos = new ArrayList<>();
+
+		for (Prestamo prestamo : prestamos) {
+			if (prestamo.isActivo()) {
+				activos.add(prestamo);
+			}
+		}
+
+		return activos;
+	}
+
+	public int countPrestamosActivos() {
+		return getPrestamosActivos().size();
+	}
+
 	@Override
 	public String toString() {
-		return "Lector [nSocio=" + Id + ", nombre=" + nombre + ", telefono=" + telefono + ", direccion=" + direccion
-				+ ", prestamos=" + prestamos + ", multa=" + multa + "]";
+		return "Lector [Id=" + Id + ", nombre=" + nombre + ", telefono=" + telefono + ", direccion=" + direccion
+				+ ", username=" + username + ", password=" + password + ", roles=" + roles + ", multa=" + multa + "]";
 	}
 
 }

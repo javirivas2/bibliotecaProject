@@ -2,6 +2,7 @@ package com.capgemini.curso.service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,9 +13,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 
 import com.capgemini.curso.model.Copia;
 import com.capgemini.curso.model.EstadoCopia;
@@ -29,11 +34,15 @@ import com.capgemini.curso.repository.PrestamoRepository;
 
 @Service("lectorServiceImpl")
 @Transactional
-public class LectorServiceImp implements LectorService {
+public class LectorServiceImp implements LectorService, UserDetailsService {
 
 	private static final Logger logger = LoggerFactory.getLogger(LectorServiceImp.class);
 	@Autowired
 	private LectorRepository lectorRepository;
+
+	public LectorServiceImp(LectorRepository lectorRepository) {
+		this.lectorRepository = lectorRepository;
+	}
 
 	@Autowired
 	private PrestamoRepository prestamoRepository;
@@ -154,6 +163,22 @@ public class LectorServiceImp implements LectorService {
 	public List<Object[]> countPrestamosByLector() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Lector lector = lectorRepository.findByUsername(username);
+		if (lector == null) {
+			throw new UsernameNotFoundException("Lector no enonctrado: " + username);
+		}
+		//List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(lector.getRoles()));
+		UserDetails userDetails = 
+				org.springframework.security.core.userdetails.User.builder()
+				.username(lector.getUsername())
+				.password(lector.getPassword())
+				.roles(lector.getRoles())
+				.build();
+		return userDetails;
 	}
 
 }
