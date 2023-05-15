@@ -24,23 +24,23 @@ public class Libro {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
-	
+
 	@Column(name = "titulo")
 	private String titulo;
-	
+
 	@Enumerated(EnumType.STRING)
 	private TipoLibro tipoLibro;
-	
+
 	@Column(name = "editorial")
 	private String editorial;
-	
+
 	@Column(name = "año_publicacion")
 	private int anyo;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "autor_id")
 	private Autor autor;
-	
+
 	@OneToMany(mappedBy = "ejemplar", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Copia> ejemplares;
 
@@ -66,18 +66,18 @@ public class Libro {
 		this.autor = autor;
 	}
 
-	public List<Copia> getEjemplaresDisponibles(){
+	public List<Copia> getEjemplaresDisponibles() {
 		List<Copia> disponibles = new ArrayList<>();
-		
+
 		for (Copia copia : ejemplares) {
-			if(copia.isDisponible()) {
+			if (copia.isDisponible()) {
 				disponibles.add(copia);
 			}
 		}
-		
+
 		return disponibles;
 	}
-	
+
 	public int countEjemplaresDisponibles() {
 		return getEjemplaresDisponibles().size();
 	}
