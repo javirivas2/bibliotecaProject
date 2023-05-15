@@ -17,27 +17,27 @@
 		<h1>Gestion de libros</h1>
 		<table class="table table-striped table-responsive-md">
 
-			<thead>
+			<thead class="text-center mt-5">
 				<tr class="table-dark">
 					<th>Titulo</th>
 					<th>Editorial</th>
 					<th>Autor</th>
 					<th>Acciones</th>
-					<th></th>
-					<th></th>
+					
+					
 				</tr>
 			</thead>
-			<tbody>
+			<tbody class="text-center mt-5">
 				<tr th:each="libro:${libros}">
 					<td th:text="${libro.titulo}"></td>
 					<td th:text="${libro.editorial}"></td>
 					<td th:text="${libro.autor.nombre}"></td>
 
 					<td><a class="btn btn-info"
-						th:href="@{/libro/delete/{id}(id=${libro.id})}">Eliminar</a></td>
-					<td><a class="btn btn-success"
-						th:href="@{/libro/edit/{id}(id=${libro.id})}">Modificar</a></td>
-					<td><a class="btn btn-dark"
+						th:href="@{/libro/delete/{id}(id=${libro.id})}">Eliminar</a>
+					<a class="btn btn-success"
+						th:href="@{/libro/edit/{id}(id=${libro.id})}">Modificar</a>
+					<a class="btn btn-dark"
 						th:href="@{/libros/{idLibro}/vercopias(idLibro=${libro.Id})}">Ver Copias</a>
 
 					</td>

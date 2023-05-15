@@ -23,13 +23,13 @@
 			<div class="mt-5 justify-content-around">
 
 				<table class="table table-striped table-responsive-md">
-					<thead>
+					<thead class="text-center mt-5">
 						<tr>
 							<th class="text-center">Título del Libro: <span
 								class="m-4 text-uppercase" th:text="${libro.titulo}"></span></th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody class="text-center mt-5">
 						<tr class="table-dark">
 							<td>ID</td>
 							<td>Estado</td>
@@ -38,7 +38,7 @@
 
 						</tr>
 					</tbody>
-					<tbody >
+					<tbody class="text-center mt-5">
 						<!-- Iterar sobre las copias del libro -->
 						<th:block th:each="copia : ${copias}">
 							<tr>
@@ -52,7 +52,7 @@
 							</tr>
 						</th:block>
 					</tbody>
-					<tfoot>
+					<tfoot >
 						<tr>
 							<td colspan="2"><a class="btn btn-danger"
 								th:href="@{/verLibros}">Volver a la Lista de Libros</a></td>

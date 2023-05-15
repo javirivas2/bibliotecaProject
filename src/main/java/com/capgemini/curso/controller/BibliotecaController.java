@@ -136,7 +136,7 @@ public class BibliotecaController {
 
 		// Obtener los estados disponibles según las restricciones
 		List<EstadoCopia> estadosDisponibles = new ArrayList<>();
-		if(copia.getEstadoCopia()==EstadoCopia.BIBLIOTECA && copia.getEstadoCopia()==EstadoCopia.REPARACION) {
+		if(copia.getEstadoCopia()==EstadoCopia.BIBLIOTECA || copia.getEstadoCopia()==EstadoCopia.REPARACION) {
 			estadosDisponibles.add(EstadoCopia.BIBLIOTECA);
 			estadosDisponibles.add(EstadoCopia.REPARACION);
 		}
@@ -151,11 +151,16 @@ public class BibliotecaController {
 		return "/libros/cambioestadocopia";
 	}
 	
-	@PostMapping("/libros/{idLibro}/cambioestado/{idCopia}")
-	public String cambiarEstadoCopia(@PathVariable("idLibro")Long idLibro,@PathVariable("idCopia") Long idcopia,@RequestParam("nuevoEstado")EstadoCopia nuevoEstado) {
+	@PostMapping("/libros/{idLibro}/save_cambioestado/{idCopia}")
+	public String cambiarEstadoCopia(@PathVariable("idLibro")Long idLibro,@PathVariable("idCopia") Long idcopia,@RequestParam("nuevoEstado")EstadoCopia nuevoEstado,Model model) {
 		Copia copia=copiaService.getCopiaById(idcopia);
+		if(copia.getEstadoCopia()==EstadoCopia.PRESTADO || copia.getEstadoCopia()==EstadoCopia.RETRASO || copia.getEstadoCopia()==EstadoCopia.RESERVADO) {
+			String mensajeError="No se puede cambiar el estado de una copia si su estado esta en PRESTADA, CON RETRASO o RESERVADO";
+		model.addAttribute("mensajeError",mensajeError);
+		return "/libros/cambioestadocopia";
+		}
 		copia.setEstadoCopia(nuevoEstado);
 		copiaService.saveCopia(copia);
-		return "redirect:/libros/{idLibro}";
+		return "redirect:/libros/{idLibro}/vercopias";
 	}
 }

@@ -1,6 +1,9 @@
 package com.capgemini.curso.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -9,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.capgemini.curso.model.Lector;
 import com.capgemini.curso.model.Reserva;
 import com.capgemini.curso.repository.ReservaRepository;
 
@@ -63,6 +67,15 @@ public class ReservaServiceImpl implements ReservaService {
 	public List<Reserva> findReservasByLectorId(Long ReservaId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Reserva> findReservasByFechaAndLector() {
+		List<Reserva> todaslasReservas = reservaRepository.findAll();
+
+		Collections.sort(todaslasReservas, Comparator.comparing(Reserva::getFechaPeticionReserva)
+				.thenComparing(reserva -> reserva.getLector().getNombre()));
+		return todaslasReservas;
 	}
 
 }

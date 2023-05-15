@@ -20,8 +20,8 @@
 				<input type="hidden" name="ejemplar.id" th:value="${libro.id}" />
 				<table class="table table-striped table-responsive-md">
 
-					<tr class="table-light">
-						<td>Estado copia</td>
+					<tr class="table-light text-center mt-5">
+						<td><p class="display-6">Estado copia</td>
 						<td><select class="form-select form-select-lg" name="estado"
 							id="estado" th:field="*{estadoCopia}">
 								<option selected value="-1">Elige un estado</option>
@@ -31,12 +31,11 @@
 						<td>
 					</tr>
 					<tr>
-					<td></td>
-					<td></td>
-					<td></td>					
+					
+										
 					</tr>
 				</table>
-				<div class="mb-3">
+				<div class="mb-3 text-center mt-5">
 					<button type="submit" class="btn btn-danger text-center mt-2">Guardar</button>
 
 					<a class="btn btn-dark text-center mt-2"

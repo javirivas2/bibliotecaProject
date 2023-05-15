@@ -104,8 +104,7 @@ public class DBInitiliazer {
 				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(5)),
 				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(6)),
 				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(7)),
-				new Copia(EstadoCopia.PRESTADO, librosExistentes.get(7))
-				));
+				new Copia(EstadoCopia.PRESTADO, librosExistentes.get(7))));
 
 		for (Copia ejemplar : ejemplares) {
 			copiaRepository.save(ejemplar);
@@ -132,19 +131,25 @@ public class DBInitiliazer {
 
 		List<Prestamo> prestamos = new ArrayList<>(Arrays.asList(
 				new Prestamo(LocalDate.of(2023, 5, 5), lectoresExistentes.get(0), copiasExistentes.get(0), true),
-				new Prestamo(LocalDate.of(2023, 5, 7), lectoresExistentes.get(0), copiasExistentes.get(1), true)));
+				new Prestamo(LocalDate.of(2023, 5, 7), lectoresExistentes.get(0), copiasExistentes.get(1), true),
+				new Prestamo(LocalDate.of(2023, 5, 1), lectoresExistentes.get(1), copiasExistentes.get(3), true)
+				));
 
 		for (Prestamo prestamo : prestamos) {
 			prestamoRepository.save(prestamo);
 		}
 		logger.info("Prestamos insertados correctamente");
 
-		List<Reserva> reservas = new ArrayList<>(
-				Arrays.asList(new Reserva(LocalDate.of(2023,Month.MAY ,10 ),libros.get(0),lectores.get(0),copiasExistentes.get(0)),
-						new Reserva(LocalDate.of(2023, Month.MAY,12 ),libros.get(1),lectores.get(0),copiasExistentes.get(1)),
-						new Reserva(LocalDate.of(2023, Month.MAY,11 ),libros.get(3),lectores.get(3),copiasExistentes.get(2))));
-		
-		for(Reserva reserva: reservas) {
+		List<Reserva> reservas = new ArrayList<>(Arrays.asList(
+				new Reserva(LocalDate.of(2023, Month.MAY, 10), libros.get(0), lectores.get(0), copiasExistentes.get(0)),
+				new Reserva(LocalDate.of(2023, Month.MAY, 12), libros.get(1), lectores.get(0), copiasExistentes.get(1)),
+				new Reserva(LocalDate.of(2023, Month.MAY, 11), libros.get(3), lectores.get(3), copiasExistentes.get(2)),
+				new Reserva(LocalDate.of(2023, Month.MAY, 8), libros.get(2), lectores.get(1), copiasExistentes.get(1)),
+				new Reserva(LocalDate.of(2023, Month.MAY, 7), libros.get(1), lectores.get(0), copiasExistentes.get(0)),
+				new Reserva(LocalDate.of(2023, Month.MAY, 5), libros.get(4), lectores.get(4),
+						copiasExistentes.get(1))));
+
+		for (Reserva reserva : reservas) {
 			reservaRepository.save(reserva);
 		}
 		logger.info("Reservas insertadas correctamente");

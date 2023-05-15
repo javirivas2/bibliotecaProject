@@ -15,7 +15,10 @@
 		<p class="display-5 mt-5">Cambio de estado de la copia</p>
 		<hr>
 		<div class="row justify-content-center">
-			<form th:action="@{/libros/{idLibro}/cambioestado/{idCopia}(idLibro=${idLibro}, idCopia=${idCopia})}"  method="post" th:object="${copia}">
+			<form
+				th:action="@{/libros/{idLibro}/save_cambioestado/{idCopia}(idLibro=${idLibro}, idCopia=${idCopia})}"
+				method="post" th:object="${copia}">
+
 				<p>
 					<strong>Libro:</strong> <span th:text="${nombreLibro}"></span>
 				</p>
@@ -29,13 +32,18 @@
 					name="nuevoEstado">
 					<option selected value="-1">Elige un estado</option>
 					<option th:each="estado : ${estadosDisponibles}"
-					th:value="${estado}"
-					ths:text="${estado}"/> 
+						th:value="${estado}" ths:text="${estado}" />
 					<option value="BIBLIOTECA">BIBLIOTECA</option>
 					<option value="REPARACION">REPARACION</option>
 				</select>
-				<button type="submit" class="btn btn-success">Guardar</button>
+				<button type="submit" class="btn btn-success m-5">Guardar</button>
 			</form>
+			<section class="text-center mt-5">
+				<p th:if="${mensajeError}" class="text-dark text-center mt-5 shadow-lg p-3 mb-5 bg-body-tertiary rounded"
+					th:text="${mensajeError}"></p>
+				<a class="btn btn-danger" th:href="@{/verLibros}">Volver a la
+					Lista de Libros</a>
+			</section>
 		</div>
 	</div>
 	<footer th:include="footertemplate"></footer>

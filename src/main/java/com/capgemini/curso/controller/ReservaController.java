@@ -1,5 +1,7 @@
 package com.capgemini.curso.controller;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +23,7 @@ public class ReservaController {
 	@GetMapping("/verReservas")
 	public String viewReservas(Model model) {
 		
-		model.addAttribute("reservas", reservaService.getAllReservas());
+		model.addAttribute("reservas", reservaService.findReservasByFechaAndLector());
 
 		return "reservas/ver_reservas";
 	}

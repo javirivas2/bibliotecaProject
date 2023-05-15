@@ -16,7 +16,7 @@
     <div class="container mt-5">
       <h1 class="text-center">Gestión de autores</h1>
       <table class="table table-striped table-responsive-md">
-        <thead>
+        <thead class="text-center mt-5">
           <tr class="table-dark">
             <th>Fecha Nacimiento</th>
             <th>Nacionalidad</th>
@@ -24,7 +24,7 @@
             <th>Acciones</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody class="text-center mt-5">
           <tr th:each="autor:${autores}">
             <td th:text="${autor.fechaNacimiento}"></td>
             <td th:text="${autor.nacionalidad}"></td>

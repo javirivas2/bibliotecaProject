@@ -17,6 +17,7 @@ import com.capgemini.curso.model.Prestamo;
 import com.capgemini.curso.service.LectorService;
 import com.capgemini.curso.service.LibroService;
 import com.capgemini.curso.service.PrestamoService;
+import com.capgemini.curso.service.ReservaService;
 
 @Controller
 public class PrestamosController {
@@ -26,16 +27,19 @@ public class PrestamosController {
 
 	@Autowired
 	private LibroService libroService;
-	
+
 	@Autowired
-	private PrestamoService	prestamoService;
+	private PrestamoService prestamoService;
+
+	@Autowired
+	private ReservaService reservaService;
 
 	@GetMapping("/verprestamos")
 	public String viewPrestamos(Model model) {
 		List<Prestamo> prestamos = prestamoService.getAllActivePrestamo();
-		
+
 		model.addAttribute("prestamos", prestamos);
-		
+
 		return "prestamos/view_prestamos";
 	}
 
@@ -62,14 +66,14 @@ public class PrestamosController {
 
 		return viewPrestamos(model);
 	}
-	
+
 	@GetMapping("/prestamos/devolver/{id}")
 	public String devolver(@PathVariable(value = "id") int idPrestamo, Model model) {
 		Prestamo prestamo = prestamoService.getPrestamoById(idPrestamo);
-		
+
 		Lector lector = prestamo.getLector();
 		Libro libro = prestamo.getCopia().getEjemplar();
-		
+
 		model.addAttribute("prestamo", prestamo);
 		model.addAttribute("lector", lector);
 		model.addAttribute("libro", libro);
@@ -78,7 +82,8 @@ public class PrestamosController {
 	}
 
 	@PostMapping("/prestamos/devolver_prestamo")
-	public String devolverPrestamo(@RequestParam("lector") int idLector, @RequestParam("prestamo") int idPrestamo, Model model) {
+	public String devolverPrestamo(@RequestParam("lector") int idLector, @RequestParam("prestamo") int idPrestamo,
+			Model model) {
 
 		try { // Intentamos hacer el prestamo
 			lectorService.devolver(idLector, idPrestamo, LocalDate.now());
