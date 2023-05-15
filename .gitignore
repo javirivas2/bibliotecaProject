@@ -31,6 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
-pom.xml
+
+#Archivos individuales
 src/main/resources/application.properties
 *.properties
+src/main/resources/application.properties

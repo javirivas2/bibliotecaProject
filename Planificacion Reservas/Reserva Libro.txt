@@ -1,4 +1,4 @@
-Reserva Libro
+Reserva
 
 Atributos:
 
@@ -6,6 +6,9 @@ Atributos:
 -Fecha estimada de devolucion de la copia
 -Lector que reserva
 -Libro que reserva
+-Pendiente de copia
+-Copia reservada
+-Fecha maxima de recogida
 
 Procesos
 
@@ -15,3 +18,10 @@ Procesos
 
 + devolucionCopia():
 	Termina la reserva del libro, realizamos una 	reserva de la copia para el lector.
+	Notificamos al lector.
+
++ finalizar():
+	Siempre y cuando dentro de plazo.
+	Termina la reserva y le da un prestamo del 	libro al lector.
+	Si se pasa el plazo.
+	Terminamos la reserva de la copia y 	revisamos si existen mas reservas del libro.
