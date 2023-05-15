@@ -40,6 +40,9 @@ public class Lector {
 
 	@OneToMany(mappedBy = "lector", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Prestamo> prestamos;
+	
+	@OneToMany(mappedBy = "lector", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Reserva> reservasLibros;
 
 	@OneToOne
 	@JoinColumn(name = "multa")
@@ -90,9 +93,16 @@ public class Lector {
 		prestamo.setActivo(false);
 		return multa;
 	}
+	
+	public boolean tieneMultasPendientes(LocalDate fecha) {
+		if (multa != null && multa.getfFin().isAfter(fecha)) { // Hay multas pendientes
+			return true;
+		}
+		return false;
+	}
 
 	public boolean puedeCogerLibro(LocalDate fechaInc) {
-		if (multa != null && multa.getfFin().isAfter(fechaInc)) { // Hay multas pendientes
+		if (tieneMultasPendientes(fechaInc)) { // Hay multas pendientes
 			return false;
 		}
 		if (getPrestamosActivos().size() >= RestriccionesPrestamo.ACTIVOS_MAX) {

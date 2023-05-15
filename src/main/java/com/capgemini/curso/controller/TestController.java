@@ -1,27 +1,20 @@
 package com.capgemini.curso.controller;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.capgemini.curso.model.Autor;
 import com.capgemini.curso.model.Lector;
+import com.capgemini.curso.model.Libro;
 import com.capgemini.curso.model.RestriccionesPrestamo;
 import com.capgemini.curso.service.AutorService;
+import com.capgemini.curso.service.CopiaService;
 import com.capgemini.curso.service.LectorService;
+import com.capgemini.curso.service.LibroService;
+import com.capgemini.curso.service.ReservaService;
 
 @Controller
 public class TestController {
@@ -31,6 +24,15 @@ public class TestController {
 	
 	@Autowired
 	private AutorService autorService;
+	
+	@Autowired
+	private CopiaService copiaService;
+	
+	@Autowired
+	private LibroService libroService;
+	
+	@Autowired
+	private ReservaService reservaService;
 
 	// Probamos a hacer 3 prestamos con un lector
 	@GetMapping("/simularPrestamoA")
@@ -118,5 +120,25 @@ public class TestController {
 
 		// Podemos coger una vez pasada la multa
 		lectorService.prestar(lector.getId(), 5, pastDate.plusDays(diasDeMulta + 1));
+	}
+	
+	@GetMapping("/testReserva")
+	public void testReserva() {
+		
+		lectorService.prestar(2, 1, LocalDate.now());
+		
+		Libro libro1 = libroService.getLibroById(1L);
+		System.out.println("No hay copias disponibles de libro 1: " + libro1.getEjemplaresDisponibles().isEmpty());
+		
+		reservaService.reservar(1L, 1L);
+		System.out.println(reservaService.getAllReservas());
+	}
+	
+	@GetMapping("/testAsignacion")
+	public void testAsignacion() {
+		//Asumimos que se corrio antes testReserva
+		
+		//Liberamos una copia del primer libro
+		lectorService.devolver(1L, 1L, LocalDate.now());
 	}
 }

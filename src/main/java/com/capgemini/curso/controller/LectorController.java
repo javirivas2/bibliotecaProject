@@ -1,7 +1,6 @@
 package com.capgemini.curso.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +17,6 @@ import com.capgemini.curso.model.Libro;
 import com.capgemini.curso.model.Prestamo;
 import com.capgemini.curso.service.LectorService;
 import com.capgemini.curso.service.LibroService;
-import com.capgemini.curso.service.PrestamoService;
 
 @Controller
 public class LectorController {
@@ -28,9 +26,6 @@ public class LectorController {
 
 	@Autowired
 	private LibroService libroService;
-
-	@Autowired
-	private PrestamoService prestamoService;
 
 	@GetMapping("lector/prestamo/{id}")
 	public String createPrestamoLector(@PathVariable(value = "id") int idLector, Model model) {

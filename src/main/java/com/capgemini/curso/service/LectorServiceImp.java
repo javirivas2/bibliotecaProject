@@ -46,8 +46,9 @@ public class LectorServiceImp implements LectorService, UserDetailsService {
 
 	@Autowired
 	private MultaRepository multaRepository;
+
 	@Autowired
-	private CopiaRepository copiaRepository;
+	private ReservaService reservaService;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -101,6 +102,9 @@ public class LectorServiceImp implements LectorService, UserDetailsService {
 			multaRepository.save(multa.get()); // La guardamos en db
 			lec.setMulta(multa.get()); // La linkamos
 		}
+		
+		//Comprobamos que no existan reservas pendientes
+		reservaService.comprobarReservas(prestamo.getCopia());
 	}
 
 	@Override

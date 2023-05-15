@@ -43,6 +43,9 @@ public class Libro {
 	
 	@OneToMany(mappedBy = "ejemplar", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Copia> ejemplares;
+	
+	@OneToMany(mappedBy = "libro", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Reserva> reservas;
 
 	public Libro() {
 	}
