@@ -6,6 +6,8 @@ Modificaciones modelo:
 
 Modificaciones vista:
 -Gestion de reservas.
--Vista para pasar una reserva de copia a prestamo.
+-Vista para pasar reserva de libro a reserva de copia.
+-Vista para finalizar reserva de copia.
 -Cuando me piden un prestamo de un libro no disponible debo ofrecer la posibilidad de reservar.
+-Cuando me devuelven un libro reservado mostrar la creacion de reserva de la copia.
 
