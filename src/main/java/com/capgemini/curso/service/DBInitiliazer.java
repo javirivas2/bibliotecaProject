@@ -83,37 +83,36 @@ public class DBInitiliazer {
 
 		List<Libro> librosExistentes = libroRepository.findAll();
 
-		List<Copia> ejemplares = new ArrayList<>(
-				Arrays.asList(
-						new Copia(EstadoCopia.PRESTADO, librosExistentes.get(0)),
-						new Copia(EstadoCopia.PRESTADO, librosExistentes.get(0)),
-						new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(0)),
-						new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(1)),
-						new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(1)),
-						new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(2)),
-						new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(3)),
-						new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(3)),
-						new Copia(EstadoCopia.REPARACION, librosExistentes.get(3)),
-						new Copia(EstadoCopia.REPARACION, librosExistentes.get(3)),
-						new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(4)),
-						new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(4)),
-						new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(5)),
-						new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(6))
-						));
+		List<Copia> ejemplares = new ArrayList<>(Arrays.asList(new Copia(EstadoCopia.PRESTADO, librosExistentes.get(0)),
+				new Copia(EstadoCopia.PRESTADO, librosExistentes.get(0)),
+				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(0)),
+				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(1)),
+				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(1)),
+				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(2)),
+				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(3)),
+				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(3)),
+				new Copia(EstadoCopia.REPARACION, librosExistentes.get(3)),
+				new Copia(EstadoCopia.REPARACION, librosExistentes.get(3)),
+				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(4)),
+				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(4)),
+				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(5)),
+				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(6))));
 
 		for (Copia ejemplar : ejemplares) {
 			copiaRepository.save(ejemplar);
 		}
 		List<Copia> copiasExistentes = copiaRepository.findAll();
-		
+
 		logger.info("Libros insertados correctamente");
 
-		List<Lector> lectores = new ArrayList<>(
-				Arrays.asList(new Lector("Ricardo Darín", "22-1234-5678", "c/Santa Fe 1860"),
-						new Lector("Dario Grandinetti", "23-1234-5678", "c/México 564"),
-						new Lector("Juan José Campanella", "15-1234-5678", "c/Corrientes 1439"),
-						new Lector("Guillermo Francella", "24-1234-5678", "c/Lavalle 3025"),
-						new Lector("Federico Luppi", "11-1234-5678", "c/Solís 475")));
+		List<Lector> lectores = new ArrayList<>(Arrays.asList(
+				new Lector("Ricardo Darín", "22-1234-5678", "c/Santa Fe 1860", "darin", "darin", "USER"),
+				new Lector("Dario Grandinetti", "23-1234-5678", "c/México 564", "grandinetti", "grandinetti", "USER"),
+				new Lector("Juan José Campanella", "15-1234-5678", "c/Corrientes 1439", "campanella", "campanella",
+						"USER"),
+				new Lector("Guillermo Francella", "24-1234-5678", "c/Lavalle 3025", "francella", "francella", "USER"),
+				new Lector("Federico Luppi", "11-1234-5678", "c/Solís 475", "luppi", "luppi", "USER"),
+				new Lector("Umberto Eco", "11-6634-5678", "c/Biblioteca", "admin", "admin", "ADMIN")));
 
 		for (Lector lector : lectores) {
 			lectorRepository.save(lector);
@@ -121,15 +120,15 @@ public class DBInitiliazer {
 		logger.info("Lectores insertados correctamente");
 
 		List<Lector> lectoresExistentes = lectorRepository.findAll();
-		
-		List<Prestamo> prestamos = new ArrayList<>(
-				Arrays.asList(new Prestamo(LocalDate.of(2023, 5, 5), lectoresExistentes.get(0), copiasExistentes.get(0), true),
-						new Prestamo(LocalDate.of(2023, 5, 7), lectoresExistentes.get(0), copiasExistentes.get(1), true)));
+
+		List<Prestamo> prestamos = new ArrayList<>(Arrays.asList(
+				new Prestamo(LocalDate.of(2023, 5, 5), lectoresExistentes.get(0), copiasExistentes.get(0), true),
+				new Prestamo(LocalDate.of(2023, 5, 7), lectoresExistentes.get(0), copiasExistentes.get(1), true)));
 
 		for (Prestamo prestamo : prestamos) {
 			prestamoRepository.save(prestamo);
 		}
 		logger.info("Prestamos insertados correctamente");
-		
+
 	}
 }

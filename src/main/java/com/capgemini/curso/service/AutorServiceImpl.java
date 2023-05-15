@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.capgemini.curso.model.Autor;
 import com.capgemini.curso.model.Libro;
 import com.capgemini.curso.repository.AutorRepository;
+import com.capgemini.curso.repository.LibroRepository;
 
 @Service("autorServiceImpl")
 @Transactional
@@ -20,6 +21,8 @@ public class AutorServiceImpl implements AutorService {
 	private static final Logger logger = LoggerFactory.getLogger(AutorServiceImpl.class);
 	@Autowired
 	private AutorRepository autorRepository;
+	@Autowired
+	private LibroRepository libroRepository;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -49,6 +52,12 @@ public class AutorServiceImpl implements AutorService {
 	public void deleteById(Long id) {
 		// TODO Auto-generated method stub
 
+		List<Libro> optCopia = libroRepository.findByAutor(getAutorById(id));
+		if (optCopia.isEmpty()) {
+			autorRepository.deleteById(id);
+		} else {
+			throw new RuntimeException("El autor con id: " + id + " tiene copias disponibles");
+		}
 	}
 
 	@Override

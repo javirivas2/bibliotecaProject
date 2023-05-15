@@ -9,7 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.capgemini.curso.model.Copia;
 import com.capgemini.curso.model.Libro;
+import com.capgemini.curso.repository.CopiaRepository;
 import com.capgemini.curso.repository.LibroRepository;
 
 @Service
@@ -17,6 +19,8 @@ public class LibroServiceImp implements LibroService {
 	
 	@Autowired
 	private LibroRepository libroRepository;
+	@Autowired
+	private CopiaRepository copiaRepository;
 
 	@Override
 	public List<Libro> getAllLibros() {
@@ -56,11 +60,14 @@ public class LibroServiceImp implements LibroService {
 	}
 	@Override
 	public void deleteLibroById(long id) {
-		this.libroRepository.deleteById(id);
+		List<Copia> optCopia = copiaRepository.findByEjemplar(getLibroById(id));
+		if (optCopia.isEmpty()) {
+		libroRepository.deleteById(id);
+		} else {
+			throw new RuntimeException("El autor con id: " + id + " tiene copias disponibles");
+		}
 
 	}
-
-
 
 	@Override
 	public Page<Libro> findAllPage(Pageable pageable) {

@@ -52,10 +52,15 @@ public class BibliotecaController {
 		autorService.getAutorById(id);
 		return "redirect:/verLibros";
 	}
-
+	
 	@GetMapping("libro/delete/{id}")
-	public String deleteLibro(@PathVariable(value = "id") long id) {
-		this.libroService.deleteLibroById(id);
+	public String deleteLibro(@PathVariable(value = "id") long id, Model model) {
+		try {
+			this.libroService.deleteLibroById(id);
+		} catch (Exception e) {
+			model.addAttribute("error", e.getMessage());
+			return verLibros(model);
+		}
 
 		return "redirect:/verLibros";
 
@@ -123,4 +128,5 @@ public class BibliotecaController {
 		return "redirect:/libros/{idLibro}/vercopias"; // ?idLibro=" + idLibro;//Usamos idLibro en lugar de
 														// copia.getEjemplar().getId()
 	}
+	
 }
