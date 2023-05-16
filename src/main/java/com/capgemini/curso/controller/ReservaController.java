@@ -12,6 +12,7 @@ import com.capgemini.curso.model.Libro;
 import com.capgemini.curso.service.GestionReservasPrestamosService;
 import com.capgemini.curso.service.LectorService;
 import com.capgemini.curso.service.LibroService;
+import com.capgemini.curso.service.ReservaService;
 
 @Controller
 public class ReservaController {
@@ -21,13 +22,17 @@ public class ReservaController {
 	
 	@Autowired
 	private LibroService libroService;
+	
+	@Autowired
+	private ReservaService reservaService;
 
 	@Autowired
 	private GestionReservasPrestamosService gestionReservasPrestamosService;
 	
 	@GetMapping("/verReservas")
 	private String viewReservas(Model model) {
-		return "index";
+//		model.addAttribute("reservas", reservaService;
+		return "reservas/verReservas";
 	}
 
 	@GetMapping("/reserva/add")
