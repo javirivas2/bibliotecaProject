@@ -1,6 +1,7 @@
 package com.capgemini.curso.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.capgemini.curso.model.Copia;
+import com.capgemini.curso.model.Libro;
 import com.capgemini.curso.repository.CopiaRepository;
 import com.capgemini.curso.repository.LibroRepository;
 
@@ -23,14 +25,17 @@ public class CopiaServiceImpl implements CopiaService {
 
 	@Override
 	public List<Copia> getAllCopias() {
-		// TODO Auto-generated method stub
-		return null;
+		return copiaRepository.findAll();
 	}
 
 	@Override
 	public Copia getCopiaById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Copia> optCopia = copiaRepository.findById(id);
+		if(optCopia.isEmpty()) {
+			throw new RuntimeException("No existe la copia con id: " + id);
+		}
+		
+		return optCopia.get();
 	}
 
 	@Override
@@ -41,14 +46,12 @@ public class CopiaServiceImpl implements CopiaService {
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
-
+		copiaRepository.deleteById(id);
 	}
 
 	@Override
 	public Copia update(Copia copia) {
-		// TODO Auto-generated method stub
-		return null;
+		return copiaRepository.save(copia);
 	}
 
 	@Override
@@ -58,9 +61,8 @@ public class CopiaServiceImpl implements CopiaService {
 	}
 
 	@Override
-	public List<Copia> findCopiasByLibroId(Long copiaId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Copia> findCopiasByLibro(Libro libro) {
+		return copiaRepository.findByEjemplar(libro);
 	}
 
 }
