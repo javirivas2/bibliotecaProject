@@ -44,14 +44,13 @@ public class ReservaServiceImpl implements ReservaService {
 
 	@Override
 	public void saveReserva(Reserva reserva) {
-		// TODO Auto-generated method stub
+		reservaRepository.save(reserva);
 
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
-
+		reservaRepository.deleteById(id);
 	}
 
 	@Override
@@ -80,9 +79,15 @@ public class ReservaServiceImpl implements ReservaService {
 				.thenComparing(reserva -> reserva.getLector().getNombre()));
 		return todaslasReservas;
 	}
+
 	@Override
 	public List<Reserva> getReservasByLibro(Libro libro) {
 		return reservaRepository.findByLibro(libro);
+	}
+
+	@Override
+	public List<Reserva> getReservasActivas() {
+		return reservaRepository.findByIsActive(true);
 	}
 
 }

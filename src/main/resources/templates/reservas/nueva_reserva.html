@@ -41,7 +41,7 @@
 							name="idLector" required>
 								<option selected value="-1">Escoge un lector</option>
 								<option th:each="lector : ${lectores}" th:value="${lector.id}"
-									th:text="'Lector: ' + ${lector.nombre} + ' | ' + ${lector.id}"></option>
+									th:text="${lector.nombre}"></option>
 						</select></td>
 					</tr>
 					<tr>
@@ -50,7 +50,7 @@
 							required>
 								<option selected value="-1">Escoge un libro</option>
 								<option th:each="libro : ${libros}" th:value="${libro.id}"
-									th:text="'Libro: ' + ${libro.titulo} + ' | Ejemplares Disponibles: ' + ${libro.countEjemplaresDisponibles}"></option>
+									th:text="${libro.titulo}"></option>
 						</select></td>
 					</tr>
 				</tbody>

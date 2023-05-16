@@ -125,7 +125,14 @@ public class DBInitiliazer {
 				new Copia(EstadoCopia.PRESTADO, librosExistentes.get(9)),
 				new Copia(EstadoCopia.PRESTADO, librosExistentes.get(10)),
 				new Copia(EstadoCopia.PRESTADO, librosExistentes.get(10)),
-				new Copia(EstadoCopia.PRESTADO, librosExistentes.get(10))
+				new Copia(EstadoCopia.PRESTADO, librosExistentes.get(10)),
+				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(0)),
+				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(1)),
+				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(2)),
+				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(3)),
+				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(4)),
+				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(5))
+
 				));
 
 		for (Copia ejemplar : ejemplares) {

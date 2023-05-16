@@ -12,6 +12,8 @@ public interface ReservaService {
 	List<Reserva> getAllReservas();
 
 	Reserva getReservaById(Long id);
+	
+	List<Reserva> getReservasActivas();
 
 	void saveReserva(Reserva reserva);
 
