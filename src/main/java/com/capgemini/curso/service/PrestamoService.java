@@ -12,5 +12,7 @@ public interface PrestamoService {
 	Prestamo getPrestamoById(long id);
 	
 	Prestamo getPrestamoActivoByCopia(Copia copia);
+	
+	void savePrestamo(Prestamo prestamo);
 
 }

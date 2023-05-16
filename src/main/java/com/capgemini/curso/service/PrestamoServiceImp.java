@@ -50,4 +50,9 @@ public class PrestamoServiceImp implements PrestamoService {
 		throw new RuntimeException("No se encuentra prestamo activo para la copia: " + copia.getId());
 	}
 
+	@Override
+	public void savePrestamo(Prestamo prestamo) {
+		prestamoRepository.save(prestamo);		
+	}
+
 }
