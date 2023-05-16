@@ -18,16 +18,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.capgemini.curso.model.Copia;
-import com.capgemini.curso.model.EstadoCopia;
 import com.capgemini.curso.model.Lector;
-import com.capgemini.curso.model.Libro;
-import com.capgemini.curso.model.Multa;
 import com.capgemini.curso.model.Prestamo;
-import com.capgemini.curso.repository.CopiaRepository;
 import com.capgemini.curso.repository.LectorRepository;
-import com.capgemini.curso.repository.LibroRepository;
-import com.capgemini.curso.repository.MultaRepository;
 import com.capgemini.curso.repository.PrestamoRepository;
 
 @Service("lectorServiceImpl")
@@ -40,15 +33,7 @@ public class LectorServiceImp implements LectorService, UserDetailsService {
 
 	@Autowired
 	private PrestamoRepository prestamoRepository;
-
-	@Autowired
-	private LibroRepository libroRepository;
-
-	@Autowired
-	private MultaRepository multaRepository;
-
-	@Autowired
-	private ReservaService reservaService;
+	
 
 	@Override
 	@Transactional(readOnly = true)
@@ -84,56 +69,6 @@ public class LectorServiceImp implements LectorService, UserDetailsService {
 		Pageable pageable = PageRequest.of(pageNum - 1, pageSize, ordenador);
 
 		return lectorRepository.findAll(pageable);
-	}
-
-	@Override
-	public void devolver(long idLector, long idPrestamo, LocalDate fechaAct) {
-		Optional<Prestamo> optPrestamo = prestamoRepository.findById(idPrestamo);
-		if (optPrestamo.isEmpty()) {
-			throw new RuntimeException("No existe el prestamo " + idPrestamo);
-		}
-		Prestamo prestamo = optPrestamo.get();
-
-		Lector lec = getLectorById(idLector);
-
-		prestamo.getCopia().setEstadoCopia(EstadoCopia.BIBLIOTECA);
-		Optional<Multa> multa = lec.devolver(prestamo, fechaAct);
-		if (multa.isPresent()) {// Hay multa nueva
-			multaRepository.save(multa.get()); // La guardamos en db
-			lec.setMulta(multa.get()); // La linkamos
-		}
-		
-		//Comprobamos que no existan reservas pendientes
-		reservaService.comprobarReservas(prestamo.getCopia());
-	}
-
-	@Override
-	public void prestar(long idLector, long idLibro, LocalDate fechaAct) {
-		Optional<Libro> optLibro = libroRepository.findById(idLibro);
-		if (optLibro.isEmpty()) {
-			throw new RuntimeException("No existe el libro " + idLibro);
-		}
-
-		Lector lector = getLectorById(idLector);
-		if (!lector.puedeCogerLibro(fechaAct)) {
-			throw new RuntimeException(
-					"El lector " + lector.getNombre() + "(" + idLector + ") no puede coger mas libros");
-		}
-
-		Libro libro = optLibro.get();
-		List<Copia> ejemplaresDisponibles = libro.getEjemplaresDisponibles();
-		if (ejemplaresDisponibles.isEmpty()) {
-			throw new RuntimeException("No hay copias disponibles de " + libro.getTitulo());
-		}
-
-		Copia ejemplar = ejemplaresDisponibles.get(0);
-
-		Prestamo prestamo = new Prestamo(fechaAct, lector, ejemplar, true);
-		prestamoRepository.save(prestamo);
-
-		lector.addPrestamo(prestamo);
-		ejemplar.setEstadoCopia(EstadoCopia.PRESTADO);
-
 	}
 
 	@Override

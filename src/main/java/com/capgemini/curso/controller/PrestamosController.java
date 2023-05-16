@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.capgemini.curso.model.Lector;
 import com.capgemini.curso.model.Libro;
 import com.capgemini.curso.model.Prestamo;
+import com.capgemini.curso.service.GestionReservasPrestamosService;
 import com.capgemini.curso.service.LectorService;
 import com.capgemini.curso.service.LibroService;
 import com.capgemini.curso.service.PrestamoService;
@@ -29,6 +30,9 @@ public class PrestamosController {
 	
 	@Autowired
 	private PrestamoService	prestamoService;
+	
+	@Autowired
+	private GestionReservasPrestamosService gestionReservasPrestamosService;
 
 	@GetMapping("/verprestamos")
 	public String viewPrestamos(Model model) {
@@ -54,7 +58,7 @@ public class PrestamosController {
 	public String savePrestamo(@RequestParam("lector") int idLector, @RequestParam("libro") int idLibro, Model model) {
 
 		try { // Intentamos hacer el prestamo
-			lectorService.prestar(idLector, idLibro, LocalDate.now());
+			gestionReservasPrestamosService.prestar(idLector, idLibro, LocalDate.now());
 		} catch (RuntimeException e) { // Si algo sale mal, damos el error y volvemos
 			model.addAttribute("error", e.getMessage());
 			return createPrestamo(model);
@@ -81,7 +85,7 @@ public class PrestamosController {
 	public String devolverPrestamo(@RequestParam("lector") int idLector, @RequestParam("prestamo") int idPrestamo, Model model) {
 
 		try { // Intentamos hacer el prestamo
-			lectorService.devolver(idLector, idPrestamo, LocalDate.now());
+			gestionReservasPrestamosService.devolver(idLector, idPrestamo, LocalDate.now());
 		} catch (RuntimeException e) { // Si algo sale mal, damos el error y volvemos
 			model.addAttribute("error", e.getMessage());
 			return devolver(idLector, model);
