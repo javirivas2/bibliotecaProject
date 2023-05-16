@@ -19,7 +19,7 @@
         <form id="" th:object="${autor}" method="post" th:action="@{/addautor}">
           <input type="hidden" th:field="*{id}" />
           <table class="table table-light table-striped text-center mt-5">
-            <tr>
+            <tr class="text-center mt-5">
               <td>Fecha Nacimiento</td>
               <td>
                 <input
@@ -30,7 +30,7 @@
                 />
               </td>
             </tr>
-            <tr>
+            <tr class="text-center mt-5">
               <td>Nacionalidad</td>
               <td><input type="text" th:field="*{nacionalidad}" /></td>
             </tr>
@@ -38,7 +38,7 @@
               <td>Nombre</td>
               <td><input type="text" th:field="*{nombre}" /></td>
             </tr>
-            <tr>
+            <tr class="text-center mt-5">
               <td colspan="2">
                 <input
                   type="submit"

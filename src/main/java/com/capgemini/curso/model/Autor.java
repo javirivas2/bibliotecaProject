@@ -21,17 +21,17 @@ public class Autor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
-	@Column(name = "nombre",unique=true,nullable=false)
+	@Column(name = "nombre", unique = true, nullable = false)
 	private String nombre;
-	
+
 	@Column(name = "nacionalidad")
 	private String nacionalidad;
-	
+
 	@Column(name = "fecha_nacimiento")
-	@DateTimeFormat(pattern="mm-dd-yyyy")
+	@DateTimeFormat(pattern = "mm-dd-yyyy")
 	private LocalDate fechaNacimiento;
-	@OneToMany(mappedBy="autor",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-	private List<Libro>obras;
+	@OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Libro> obras;
 
 	public Autor() {
 	}
@@ -79,6 +79,14 @@ public class Autor {
 
 	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public List<Libro> getObras() {
+		return obras;
+	}
+
+	public void setObras(List<Libro> obras) {
+		this.obras = obras;
 	}
 
 	@Override

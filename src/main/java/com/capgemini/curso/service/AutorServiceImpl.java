@@ -37,9 +37,9 @@ public class AutorServiceImpl implements AutorService {
 	@Transactional(readOnly = true)
 	public Autor getAutorById(Long id) {
 		Optional<Autor> optAutor = autorRepository.findById(id);
-		if(optAutor.isEmpty())
+		if (optAutor.isEmpty())
 			throw new RuntimeException("No existe autor con id: " + id);
-		
+
 		return optAutor.get();
 	}
 
@@ -50,7 +50,8 @@ public class AutorServiceImpl implements AutorService {
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
+		Autor autor = autorRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Autor no encontrado con ID: " + id));
 
 		List<Libro> optCopia = libroRepository.findByAutor(getAutorById(id));
 		if (optCopia.isEmpty()) {

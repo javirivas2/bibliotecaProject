@@ -25,9 +25,9 @@ public class PrestamoServiceImp implements PrestamoService {
 	public List<Prestamo> getAllActivePrestamo() {
 		return prestamoRepository.findByActivo(true);
 	}
-	
+
 	@Override
-	public Prestamo getPrestamoById(long id) {		
+	public Prestamo getPrestamoById(long id) {
 		Optional<Prestamo> optionalPrestamo = prestamoRepository.findById(id);
 		if (optionalPrestamo.isPresent()) {
 			return optionalPrestamo.get();

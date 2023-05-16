@@ -10,6 +10,5 @@ import com.capgemini.curso.model.Libro;
 
 @Repository
 public interface CopiaRepository extends JpaRepository<Copia, Long> {
-
 	List<Copia> findByEjemplar(Libro libro);
 }

@@ -75,4 +75,10 @@ public class LibroServiceImp implements LibroService {
 		return null;
 	}
 
+	@Override
+	public void deleteLibro(Libro libro) {
+		libroRepository.delete(libro);
+		
+	}
+
 }

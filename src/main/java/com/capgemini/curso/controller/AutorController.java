@@ -22,7 +22,7 @@ import com.capgemini.curso.service.AutorService;
 
 @Controller
 public class AutorController {
-	
+
 	@Autowired
 	private AutorService autorService;
 
@@ -76,6 +76,16 @@ public class AutorController {
 
 	}
 
-
+	public String eliminarAutor(@RequestParam Long id) {
+		try {
+			autorService.deleteById(id);
+			return "redirect:/autores/viewautores";
+		} catch (IllegalStateException e) {
+			// Manejar la excepción en caso de que no se pueda eliminar el autor
+			// Puedes agregar un mensaje de error al modelo y redirigir a la página de
+			// autores
+			return "redirect:/verautores";
+		}
+	}
 
 }
