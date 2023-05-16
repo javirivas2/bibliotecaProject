@@ -2,9 +2,7 @@ package com.capgemini.curso.controller;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +22,7 @@ import com.capgemini.curso.service.AutorService;
 
 @Controller
 public class AutorController {
-	
+
 	@Autowired
 	private AutorService autorService;
 
@@ -64,7 +63,18 @@ public class AutorController {
 		return "autores/modificarautor";
 	}
 
+	@GetMapping("/eliminarAutor/{id}")
 
-
+	public String eliminarAutor(@RequestParam Long id) {
+		try {
+			autorService.deleteById(id);
+			return "redirect:/autores/viewautores";
+		} catch (IllegalStateException e) {
+			// Manejar la excepción en caso de que no se pueda eliminar el autor
+			// Puedes agregar un mensaje de error al modelo y redirigir a la página de
+			// autores
+			return "redirect:/verautores";
+		}
+	}
 
 }

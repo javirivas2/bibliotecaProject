@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.capgemini.curso.model.Copia;
-import com.capgemini.curso.model.Libro;
+import com.capgemini.curso.model.EstadoCopia;
 import com.capgemini.curso.repository.CopiaRepository;
 import com.capgemini.curso.repository.LibroRepository;
 
@@ -49,7 +49,7 @@ public class CopiaServiceImpl implements CopiaService {
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
+		this.copiaRepository.deleteById(id);
 
 	}
 
@@ -69,6 +69,23 @@ public class CopiaServiceImpl implements CopiaService {
 	public List<Copia> findCopiasByLibroId(Long copiaId) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void deleteCopiasPorLibro(Long libroId) {
+		Optional<Copia> copias = copiaRepository.findById(libroId);
+
+		copias.ifPresent(copia -> {
+			if (copia.getEstadoCopia() == EstadoCopia.BIBLIOTECA || copia.getEstadoCopia() == EstadoCopia.REPARACION) {
+				copiaRepository.delete(copia);
+			}
+		});
+	}
+
+	@Override
+	public void deleteCopia(Copia copia) {
+		copiaRepository.delete(copia);
+		
 	}
 
 }

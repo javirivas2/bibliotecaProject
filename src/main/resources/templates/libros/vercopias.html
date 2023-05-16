@@ -40,35 +40,41 @@
 					</tbody>
 					<tbody class="text-center mt-5">
 						<!-- Iterar sobre las copias del libro -->
-						<th:block th:each="copia : ${copias}">
-							<tr>
-								<td th:text="${copia.Id}"></td>
-								<td th:text="${copia.estadoCopia}"></td>
-								<td>
-								 <!-- Enlace o botón para cambiar el estado -->
-								<a th:href="@{/libros/{idLibro}/cambioestado/{idCopia}(idLibro=${libro.id}, idCopia=${copia.Id})}" class="btn btn-secondary">Cambiar estado</a>
-								</td>
-								<td></td>
-							</tr>
-						</th:block>
+
+						<tr th:each="copia : ${copias}">
+							<td th:text="${copia.Id}"></td>
+							<td th:text="${copia.estadoCopia}"></td>
+							<td>
+								<!-- Enlace o botón para cambiar el estado --> <a
+								th:href="@{/libros/{idLibro}/cambioestado/{idCopia}(idLibro=${libro.id}, idCopia=${copia.Id})}"
+								class="btn btn-secondary">Cambiar estado</a> <a
+								th:href="@{/libros/{idLibro}/eliminarcopia/{idCopia}(idLibro=${libro.id}, idCopia=${copia.Id})}"
+								class="btn btn-primary">Eliminar copia</a>
+
+							</td>
+							<td></td>
+						</tr>
 					</tbody>
-					<tfoot >
-						<tr>
-							<td colspan="2"><a class="btn btn-danger"
-								th:href="@{/verLibros}">Volver a la Lista de Libros</a></td>
-<!-- 							 <td> -->
-<!-- 															 th:href="@{/libros/{idLibro}/cambioestado/{idCopia}(idLibro=${libro.Id},idCopia=${copia.Id})}" -->
-<!-- 															th:href="@{'cambioestadocopia.html?id=' + ${copia.Id}}" -->
-<!-- 							<a -->
-<!-- 								class="btn btn-dark text-center mt-2 ml-3 mb-3">Cambiar -->
-<!-- 									estado</a></td>  -->
-							<td><a
+					<tfoot>
+						<tr class="text-center mt-5">
+
+							<td colspan="4"><a
 								th:href="@{/libros/{id}/insertarcopia(id=${libro.id})}"
 								class="btn btn-success text-center mt-2 ml-3 mb-3">Añadir
 									copia</a></td>
 						</tr>
 					</tfoot>
 				</table>
+
+				<section class="text-center mt-5">
+					<p th:if="${mensajeError}"
+						class="text-dark text-center mt-5 shadow-lg p-3 mb-5 bg-body-tertiary rounded"
+						th:text="${mensajeError}"></p>
+					<a class="btn btn-danger" th:href="@{/verLibros}">Volver a la
+						Lista de Libros</a>
+				</section>
+
+
 			</div>
 		</div>
 

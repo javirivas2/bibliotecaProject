@@ -48,7 +48,7 @@ public class Lector {
 	@JoinColumn(name = "multa")
 	private Multa multa;
 
-	@OneToMany(mappedBy = "lector")
+	@OneToMany(mappedBy = "lector", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Reserva> reservas;
 
 	public Lector() {
@@ -225,6 +225,13 @@ public class Lector {
 
 	public int countPrestamosActivos() {
 		return getPrestamosActivos().size();
+	}
+
+	public boolean tieneMultasPendientes(LocalDate fecha) {
+		if (multa != null && multa.getfFin().isAfter(fecha)) { // Hay multas pendientes
+			return true;
+		}
+		return false;
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.capgemini.curso.model.Lector;
+import com.capgemini.curso.model.Libro;
 import com.capgemini.curso.model.Reserva;
 
 @Repository
@@ -21,4 +22,6 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
 	List<Reserva> findByFechaPeticionReserva(LocalDate fechaPeticionReserva);
 
 	List<Reserva> findBylector(Lector lector);
+	
+	List<Reserva> findByLibro(Libro libro);
 }

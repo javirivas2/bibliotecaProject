@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Ver Reservas</title>
@@ -19,9 +19,9 @@
 				<thead>
 					<tr class="text-center table-dark">
 						<th>Fecha de la Reserva</th>
+						<th>Fecha Estimada</th>
 						<th>Lector</th>
 						<th>Libro</th>
-						<th>Copia</th>
 						<th></th>
 						<th></th>
 					</tr>
@@ -31,15 +31,23 @@
 					<th:block th:each="reserva : ${reservas}">
 						<tr class="text-center">
 							<td th:text="${reserva.fechaPeticionReserva}"></td>
+							<td th:text="${reserva.fechaEstimada}"></td>
 							<td th:text="${reserva.lector.nombre}"></td>
 							<td th:text="${reserva.libro.titulo}"></td>
-							<td th:text="${reserva.copia.Id}"></td>
 							<td></td>
 							<td></td>
 						</tr>
 					</th:block>
 				</tbody>
+				<tfoot>
+					<tr class="text-center mt-5">
+
+						<td colspan="4"><a class="btn btn-success text-center"
+							th:href="@{/reservas/formaddReserva}">Anadir Reserva</a></td>
+					</tr>
+				</tfoot>
 			</table>
+
 		</div>
 	</div>
 	<footer th:include="footertemplate"></footer>

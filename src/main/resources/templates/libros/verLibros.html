@@ -23,8 +23,8 @@
 					<th>Editorial</th>
 					<th>Autor</th>
 					<th>Acciones</th>
-					
-					
+
+
 				</tr>
 			</thead>
 			<tbody class="text-center mt-5">
@@ -34,20 +34,24 @@
 					<td th:text="${libro.autor.nombre}"></td>
 
 					<td><a class="btn btn-info"
-						th:href="@{/libro/delete/{id}(id=${libro.id})}">Eliminar</a>
-					<a class="btn btn-success"
-						th:href="@{/libro/edit/{id}(id=${libro.id})}">Modificar</a>
-					<a class="btn btn-dark"
-						th:href="@{/libros/{idLibro}/vercopias(idLibro=${libro.Id})}">Ver Copias</a>
-
-					</td>
+						th:href="@{/libro/delete/{id}(id=${libro.id})}">Eliminar</a> <a
+						class="btn btn-success"
+						th:href="@{/libro/edit/{id}(id=${libro.id})}">Modificar</a> <a
+						class="btn btn-dark"
+						th:href="@{/libros/{idLibro}/vercopias(idLibro=${libro.Id})}">Ver
+							Copias</a></td>
 
 				</tr>
 			</tbody>
 
 		</table>
-		<a class="btn btn-success text-center" th:href="@{/libro/add}">Anadir
-			libro</a>
+		<section class="text-center mt-5">
+			<p th:if="${mensajeError}"
+				class="text-dark text-center mt-5 shadow-lg p-3 mb-5 bg-body-tertiary rounded"
+				th:text="${mensajeError}"></p>
+			<a class="btn btn-success text-center" th:href="@{/libro/add}">Anadir
+				libro</a>
+		</section>
 	</div>
 
 	<div th:insert="~{footertemplate :: footer}"></div>

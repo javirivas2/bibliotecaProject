@@ -56,7 +56,12 @@ public class DBInitiliazer {
 						new Autor("Ray Loriga", "Española", LocalDate.of(1967, Month.MARCH, 5)),
 						new Autor("Alfonsina Storni", "Argentina", LocalDate.of(1892, Month.MAY, 29)),
 						new Autor("Alejandra Pitarnik", "Argentina", LocalDate.of(1936, Month.APRIL, 29)),
-						new Autor("Eduardo Galeano", "Uruguayo", LocalDate.of(1940, Month.SEPTEMBER, 3))));
+						new Autor("Eduardo Galeano", "Uruguayo", LocalDate.of(1940, Month.SEPTEMBER, 3)),
+						new Autor("Hannah Arendt", "Alemana", LocalDate.of(1906, Month.OCTOBER, 14)),
+						new Autor("Noam Chomsky", "NorteAmericano", LocalDate.of(1928, Month.DECEMBER, 7)),
+						new Autor("Charles Bukowski", "NorteAmericano", LocalDate.of(1920, Month.AUGUST, 16))
+
+						));
 
 		// SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		// Calendar calendar = Calendar.getInstance();
@@ -80,7 +85,14 @@ public class DBInitiliazer {
 				new Libro("Las venas abiertas de América Latina", TipoLibro.ENSAYO, "Ediciones Siglo XXI", 1971,
 						autoresexistentes.get(5)),
 				new Libro("Memoria del fuego", TipoLibro.NOVELA, "Ediciones Siglo XXI", 1982,
-						autoresexistentes.get(5))));
+						autoresexistentes.get(5)),
+				new Libro("Eichmann en Jerusalén: Un estudio sobre la banalidad del mal", TipoLibro.ENSAYO, "Viking Press", 1963,
+						autoresexistentes.get(6)),
+				new Libro("Los orígenes del totalitarismo", TipoLibro.ENSAYO, "Harcourt & Brace", 1951,
+						autoresexistentes.get(6)),
+				new Libro("El miedo a la democracia", TipoLibro.ENSAYO, "GRIJALBO MONDADORI", 1993,
+						autoresexistentes.get(7))
+				));
 
 		for (Libro libro : libros) {
 			libroRepository.save(libro);
@@ -89,7 +101,8 @@ public class DBInitiliazer {
 
 		List<Libro> librosExistentes = libroRepository.findAll();
 
-		List<Copia> ejemplares = new ArrayList<>(Arrays.asList(new Copia(EstadoCopia.PRESTADO, librosExistentes.get(0)),
+		List<Copia> ejemplares = new ArrayList<>(Arrays.asList(
+				new Copia(EstadoCopia.PRESTADO, librosExistentes.get(0)),
 				new Copia(EstadoCopia.PRESTADO, librosExistentes.get(0)),
 				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(0)),
 				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(1)),
@@ -104,7 +117,16 @@ public class DBInitiliazer {
 				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(5)),
 				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(6)),
 				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(7)),
-				new Copia(EstadoCopia.PRESTADO, librosExistentes.get(7))));
+				new Copia(EstadoCopia.PRESTADO, librosExistentes.get(7)),
+				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(8)),
+				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(8)),
+				new Copia(EstadoCopia.REPARACION, librosExistentes.get(9)),
+				new Copia(EstadoCopia.BIBLIOTECA, librosExistentes.get(9)),
+				new Copia(EstadoCopia.PRESTADO, librosExistentes.get(9)),
+				new Copia(EstadoCopia.PRESTADO, librosExistentes.get(10)),
+				new Copia(EstadoCopia.PRESTADO, librosExistentes.get(10)),
+				new Copia(EstadoCopia.PRESTADO, librosExistentes.get(10))
+				));
 
 		for (Copia ejemplar : ejemplares) {
 			copiaRepository.save(ejemplar);
@@ -114,13 +136,13 @@ public class DBInitiliazer {
 		logger.info("Libros insertados correctamente");
 
 		List<Lector> lectores = new ArrayList<>(Arrays.asList(
-				new Lector("Ricardo Darín", "22-1234-5678", "c/Santa Fe 1860", "darin", "darin", "USER"),
-				new Lector("Dario Grandinetti", "23-1234-5678", "c/México 564", "grandinetti", "grandinetti", "USER"),
-				new Lector("Juan José Campanella", "15-1234-5678", "c/Corrientes 1439", "campanella", "campanella",
+				new Lector("Ricardo Darín", "22-1234-5678", "c/Santa Fe 1860", "darin@", "darin", "USER"),
+				new Lector("Dario Grandinetti", "23-1234-5678", "c/México 564", "grandinetti@", "grandinetti", "USER"),
+				new Lector("Juan José Campanella", "15-1234-5678", "c/Corrientes 1439", "campanella@", "campanella",
 						"USER"),
-				new Lector("Guillermo Francella", "24-1234-5678", "c/Lavalle 3025", "francella", "francella", "USER"),
-				new Lector("Federico Luppi", "11-1234-5678", "c/Solís 475", "luppi", "luppi", "USER"),
-				new Lector("Umberto Eco", "11-6634-5678", "c/Biblioteca", "admin", "admin", "ADMIN")));
+				new Lector("Guillermo Francella", "24-1234-5678", "c/Lavalle 3025", "francella@", "francella", "USER"),
+				new Lector("Federico Luppi", "11-1234-5678", "c/Solís 475", "luppi", "luppi@", "USER"),
+				new Lector("Jorge de Burgos", "11-6634-5678", "Abadía de Melk s/n", "admin@", "admin", "ADMIN")));
 
 		for (Lector lector : lectores) {
 			lectorRepository.save(lector);
@@ -141,13 +163,12 @@ public class DBInitiliazer {
 		logger.info("Prestamos insertados correctamente");
 
 		List<Reserva> reservas = new ArrayList<>(Arrays.asList(
-				new Reserva(LocalDate.of(2023, Month.MAY, 10), libros.get(0), lectores.get(0), copiasExistentes.get(0)),
-				new Reserva(LocalDate.of(2023, Month.MAY, 12), libros.get(1), lectores.get(0), copiasExistentes.get(1)),
-				new Reserva(LocalDate.of(2023, Month.MAY, 11), libros.get(3), lectores.get(3), copiasExistentes.get(2)),
-				new Reserva(LocalDate.of(2023, Month.MAY, 8), libros.get(2), lectores.get(1), copiasExistentes.get(1)),
-				new Reserva(LocalDate.of(2023, Month.MAY, 7), libros.get(1), lectores.get(0), copiasExistentes.get(0)),
-				new Reserva(LocalDate.of(2023, Month.MAY, 5), libros.get(4), lectores.get(4),
-						copiasExistentes.get(1))));
+				new Reserva(LocalDate.of(2023, Month.MAY, 10),LocalDate.of(2023, Month.MAY, 17), libros.get(0), lectores.get(0)),
+				new Reserva(LocalDate.of(2023, Month.MAY, 12),LocalDate.of(2023, Month.MAY, 19), libros.get(1), lectores.get(0)),
+				new Reserva(LocalDate.of(2023, Month.MAY, 11),LocalDate.of(2023, Month.MAY, 18), libros.get(3), lectores.get(3)),
+				new Reserva(LocalDate.of(2023, Month.MAY, 8),LocalDate.of(2023, Month.MAY, 16), libros.get(2), lectores.get(1)),
+				new Reserva(LocalDate.of(2023, Month.MAY, 7),LocalDate.of(2023, Month.MAY, 15), libros.get(1), lectores.get(0)),
+				new Reserva(LocalDate.of(2023, Month.MAY, 5),LocalDate.of(2023, Month.MAY, 14), libros.get(4), lectores.get(4))));
 
 		for (Reserva reserva : reservas) {
 			reservaRepository.save(reserva);

@@ -14,9 +14,13 @@ public interface CopiaService {
 
 	void deleteById(Long id);
 
+	void deleteCopia(Copia copia);
+
 	Copia update(Copia copia);
 
 	List<Object[]> countCopiasByLibro();
 
 	List<Copia> findCopiasByLibroId(Long copiaId);
+
+	void deleteCopiasPorLibro(Long libroId);
 }

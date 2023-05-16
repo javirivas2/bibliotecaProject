@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.capgemini.curso.model.Lector;
+import com.capgemini.curso.model.Libro;
 import com.capgemini.curso.model.Reserva;
 
 public interface ReservaService {
@@ -23,5 +24,7 @@ public interface ReservaService {
 	List<Reserva> findReservasByLectorId(Long ReservaId);
 
 	List<Reserva> findReservasByFechaAndLector();
+
+	List<Reserva> getReservasByLibro(Libro libro);
 
 }

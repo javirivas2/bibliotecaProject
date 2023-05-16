@@ -1,8 +1,10 @@
 package com.capgemini.curso.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,8 +27,6 @@ public class Copia {
 	@JoinColumn(name = "ejemplar_id")
 	private Libro ejemplar;
 
-	@OneToOne(mappedBy = "copia")
-	private Reserva reserva;
 
 	public Copia() {
 	}
@@ -42,12 +42,6 @@ public class Copia {
 		this.ejemplar = ejemplar;
 	}
 
-	public Copia(Long id, EstadoCopia estadoCopia, Libro ejemplar, Reserva reserva) {
-		this.Id = id;
-		this.estadoCopia = estadoCopia;
-		this.ejemplar = ejemplar;
-		this.reserva = reserva;
-	}
 
 	public Long getId() {
 		return Id;
@@ -73,13 +67,6 @@ public class Copia {
 		this.ejemplar = ejemplar;
 	}
 
-	public Reserva getReserva() {
-		return reserva;
-	}
-
-	public void setReserva(Reserva reserva) {
-		this.reserva = reserva;
-	}
 
 	/**
 	 * metodo que verifica el estado de la copia en la Biblioteca
