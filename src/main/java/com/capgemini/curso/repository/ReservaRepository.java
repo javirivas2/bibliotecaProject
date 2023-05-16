@@ -9,5 +9,6 @@ import com.capgemini.curso.model.Reserva;
 
 public interface ReservaRepository extends JpaRepository<Reserva, Long> {
 	List<Reserva> findByLibro(Libro libro);
+	List<Reserva> findByIsActive(boolean isActivo);
 
 }

@@ -42,13 +42,21 @@ public class GestionReservasPrestamosServiceImp implements GestionReservasPresta
 		Prestamo prestamo = prestamoService.getPrestamoById(idPrestamo);
 
 		Lector lec = lectorService.getLectorById(idLector);
-
-		prestamo.getCopia().setEstadoCopia(EstadoCopia.BIBLIOTECA);
+		
+		Copia copia = prestamo.getCopia();
+		
 		Optional<Multa> multa = lec.devolver(prestamo, fechaAct);
 		if (multa.isPresent()) {// Hay multa nueva
 			multaService.saveMulta(multa.get()); // La guardamos en db
 			lec.setMulta(multa.get()); // La linkamos
 		}
+		
+		//Guardamos los cambios
+		copia.setEstadoCopia(EstadoCopia.BIBLIOTECA);
+		copiaService.saveCopia(copia);
+		
+		prestamoService.savePrestamo(prestamo);
+		lectorService.saveLector(lec);
 		
 		//Comprobamos que no existan reservas pendientes
 		comprobarReservas(prestamo.getCopia());
@@ -69,13 +77,15 @@ public class GestionReservasPrestamosServiceImp implements GestionReservasPresta
 			throw new RuntimeException("No hay copias disponibles de " + libro.getTitulo());
 		}
 
-		Copia ejemplar = ejemplaresDisponibles.get(0);
+		Copia copia = ejemplaresDisponibles.get(0);
 
-		Prestamo prestamo = new Prestamo(fechaAct, lector, ejemplar, true);
+		Prestamo prestamo = new Prestamo(fechaAct, lector, copia, true);
 		prestamoService.savePrestamo(prestamo);
 
 		lector.addPrestamo(prestamo);
-		ejemplar.setEstadoCopia(EstadoCopia.PRESTADO);
+		
+		copia.setEstadoCopia(EstadoCopia.PRESTADO);
+		copiaService.saveCopia(copia);
 
 	}
 

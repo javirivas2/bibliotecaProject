@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Nueva reserva</title>
+    <link th:insert="~{headertemplate :: bs}" />
+  </head>
+
+  <body>
+    <div th:insert="~{headertemplate :: header}"></div>
+
+    <div class="container w-50">
+      <h1>Crear reserva</h1>
+      <hr />
+      <div class="row justify-content-center">
+        <form action="#" method="post" th:action="@{/reserva/save_reserva}">
+          <input
+            type="hidden"
+            th:value="${lector.Id}"
+            id="lector"
+            name="lector"
+          />
+
+          <input type="hidden" th:value="${libro.Id}" id="libro" name="libro" />
+
+          <div class="mb-3">
+            <p>
+              El lector
+              <span th:text="${lector.nombre}"></span>
+              reserva el libro
+              <span th:text="${libro.titulo}"></span>
+            </p>
+          </div>
+
+          <div class="mb-3 text-center">
+            <button type="submit" class="btn btn-success">Guardar</button>
+
+            <a class="btn btn-danger" th:href="@{/verprestamos}">Cancelar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div th:insert="~{footertemplate :: footer}"></div>
+  </body>
+</html>

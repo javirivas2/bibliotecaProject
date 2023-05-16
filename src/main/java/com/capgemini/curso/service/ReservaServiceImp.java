@@ -45,6 +45,11 @@ public class ReservaServiceImp implements ReservaService {
 		return reservaRepository.findByLibro(libro);
 	}
 
+	@Override
+	public List<Reserva> getReservasActivas() {
+		return reservaRepository.findByIsActive(true);
+	}
+
 	
 
 }
