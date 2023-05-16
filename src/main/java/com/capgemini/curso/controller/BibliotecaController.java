@@ -1,5 +1,6 @@
 package com.capgemini.curso.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.capgemini.curso.model.Copia;
 import com.capgemini.curso.model.EstadoCopia;
 import com.capgemini.curso.model.Libro;
+import com.capgemini.curso.model.Prestamo;
 import com.capgemini.curso.service.AutorService;
 import com.capgemini.curso.service.CopiaService;
 import com.capgemini.curso.service.LibroService;
+import com.capgemini.curso.service.PrestamoService;
 
 @Controller
 public class BibliotecaController {
@@ -30,6 +33,8 @@ public class BibliotecaController {
 	private AutorService autorService;
 	@Autowired
 	private CopiaService copiaService;
+	@Autowired
+	private PrestamoService prestamoService;
 
 	@GetMapping("/verLibros")
 	public String verLibros(Model model) {
@@ -117,7 +122,7 @@ public class BibliotecaController {
 
 	@RequestMapping(value = "/addcopia", method = RequestMethod.POST)
 	public String addcopia(@ModelAttribute Copia copia, @RequestParam("estadoCopia") EstadoCopia estadoCopia,
-			@RequestParam("ejemplar.id") Long ejemplarId,RedirectAttributes redirectAttributes) { 
+			@RequestParam("ejemplar.id") Long ejemplarId, RedirectAttributes redirectAttributes) {
 		Libro ejemplar = libroService.getLibroById(ejemplarId);
 		copia.setEjemplar(ejemplar);
 		copia.setEstadoCopia(estadoCopia);
@@ -125,8 +130,68 @@ public class BibliotecaController {
 		Long idLibro = ejemplar.getId();// Obtenemos el ID del libro
 		redirectAttributes.addAttribute("idLibro", idLibro);
 		// model.addAttribute("idLibro",idLibro);
-		return "redirect:/libros/{idLibro}/vercopias"; // ?idLibro=" + idLibro;//Usamos idLibro en lugar de
-														// copia.getEjemplar().getId()
+		return "redirect:/libros/{idLibro}/vercopias";
+
 	}
-	
+
+	@GetMapping("/libros/{idLibro}/cambioestado/{idCopia}")
+	public String mostrarFormularioCambioEstado(@PathVariable("idLibro") Long idLibro,
+			@PathVariable("idCopia") Long idCopia, Model model) {
+		Libro libro = libroService.getLibroById(idLibro);
+		Copia copia = copiaService.getCopiaById(idCopia);
+
+		String nombreLibro = libro.getTitulo();
+		String estadoActual = copia.getEstadoCopia().toString();
+
+		// Obtener los estados disponibles según las restricciones
+		List<EstadoCopia> estadosDisponibles = new ArrayList<>();
+		if (copia.getEstadoCopia() == EstadoCopia.BIBLIOTECA || copia.getEstadoCopia() == EstadoCopia.REPARACION) {
+			estadosDisponibles.add(EstadoCopia.BIBLIOTECA);
+			estadosDisponibles.add(EstadoCopia.REPARACION);
+		}
+
+		model.addAttribute("idLibro", idLibro);
+		model.addAttribute("copia", copia);
+		model.addAttribute("idCopia", idCopia);
+		model.addAttribute("nombreLibro", nombreLibro);
+		model.addAttribute("estadoActual", estadoActual);
+		model.addAttribute("estadosDisponibles", estadosDisponibles);
+
+		return "/libros/cambioestadocopia";
+	}
+
+	@PostMapping("/libros/{idLibro}/save_cambioestado/{idCopia}")
+	public String cambiarEstadoCopia(@PathVariable("idLibro") Long idLibro, @PathVariable("idCopia") Long idcopia,
+			@RequestParam("nuevoEstado") EstadoCopia nuevoEstado, Model model) {
+		Copia copia = copiaService.getCopiaById(idcopia);
+		if (copia.getEstadoCopia() == EstadoCopia.PRESTADO || copia.getEstadoCopia() == EstadoCopia.RETRASO
+				|| copia.getEstadoCopia() == EstadoCopia.RESERVADO) {
+			String mensajeError = "No se puede cambiar el estado de una copia si su estado esta en PRESTADA, CON RETRASO o RESERVADO";
+			model.addAttribute("mensajeError", mensajeError);
+			return "/libros/cambioestadocopia";
+		}
+		copia.setEstadoCopia(nuevoEstado);
+		copiaService.saveCopia(copia);
+		return "redirect:/libros/{idLibro}/vercopias";
+	}
+
+	@GetMapping("/libros/{idLibro}/eliminarcopia/{idCopia}")
+	public String eliminarCopia(@PathVariable Long idLibro, @PathVariable Long idCopia,
+			RedirectAttributes redirectAttributes) {
+		// Lógica para eliminar la copia con el idCopia del libro con el idLibro
+		Copia copia = copiaService.getCopiaById(idCopia);
+
+		if (copia.getEstadoCopia() == EstadoCopia.BIBLIOTECA || copia.getEstadoCopia() == EstadoCopia.REPARACION) {
+			copiaService.deleteById(idCopia);
+
+		} else {
+			String mensajeError = "No se puede eliminar una copia si su estado esta en PRESTADA, CON RETRASO o RESERVADO";
+			// model.addAttribute("mensajeError", mensajeError);
+			redirectAttributes.addFlashAttribute("mensajeError", mensajeError);
+
+		}
+
+		return "redirect:/libros/" + idLibro + "/vercopias";
+	}
+
 }

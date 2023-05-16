@@ -1,13 +1,16 @@
 package com.capgemini.curso.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,13 +19,14 @@ public class Copia {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
-	
+
 	@Enumerated(EnumType.STRING)
 	private EstadoCopia estadoCopia;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "ejemplar_id")
 	private Libro ejemplar;
+
 
 	public Copia() {
 	}
@@ -32,11 +36,12 @@ public class Copia {
 		this.estadoCopia = estadoCopia;
 		this.ejemplar = ejemplar;
 	}
-	
+
 	public Copia(EstadoCopia estadoCopia, Libro ejemplar) {
 		this.estadoCopia = estadoCopia;
 		this.ejemplar = ejemplar;
 	}
+
 
 	public Long getId() {
 		return Id;
@@ -62,8 +67,10 @@ public class Copia {
 		this.ejemplar = ejemplar;
 	}
 
+
 	/**
 	 * metodo que verifica el estado de la copia en la Biblioteca
+	 * 
 	 * @return
 	 */
 	public boolean isDisponible() {

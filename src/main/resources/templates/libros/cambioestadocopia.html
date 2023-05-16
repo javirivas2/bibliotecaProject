@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cambio Estado copia</title>
+</head>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+	crossorigin="anonymous">
+<body>
+	<header th:include="headertemplate"></header>
+	<div class="container mt-5">
+		<p class="display-5 mt-5">Cambio de estado de la copia</p>
+		<hr>
+		<div class="row justify-content-center">
+			<form
+				th:action="@{/libros/{idLibro}/save_cambioestado/{idCopia}(idLibro=${idLibro}, idCopia=${idCopia})}"
+				method="post" th:object="${copia}">
+
+				<p>
+					<strong>Libro:</strong> <span th:text="${nombreLibro}"></span>
+				</p>
+				<p>
+					<strong>ID de Copia:</strong> <span th:text="${idCopia}"></span>
+				</p>
+				<p>
+					<strong>Estado Actual:</strong> <span th:text="${estadoActual}"></span>
+				</p>
+				<label for="estado">Nuevo Estado:</label> <select id="estado"
+					name="nuevoEstado">
+					<option selected value="-1">Elige un estado</option>
+					<option th:each="estado : ${estadosDisponibles}"
+						th:value="${estado}" ths:text="${estado}" />
+					<option value="BIBLIOTECA">BIBLIOTECA</option>
+					<option value="REPARACION">REPARACION</option>
+				</select>
+				<button type="submit" class="btn btn-success m-5">Guardar</button>
+			</form>
+			<section class="text-center mt-5">
+				<p th:if="${mensajeError}" class="text-dark text-center mt-5 shadow-lg p-3 mb-5 bg-body-tertiary rounded"
+					th:text="${mensajeError}"></p>
+				<a class="btn btn-danger" th:href="@{/verLibros}">Volver a la
+					Lista de Libros</a>
+			</section>
+		</div>
+	</div>
+	<footer th:include="footertemplate"></footer>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+		integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
+		integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+		crossorigin="anonymous"></script>
+</body>
+</html>

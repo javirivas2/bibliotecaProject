@@ -8,8 +8,11 @@ import com.capgemini.curso.model.Copia;
 import com.capgemini.curso.model.Prestamo;
 
 public interface PrestamoRepository extends JpaRepository<Prestamo, Long> {
-	
+
 	List<Prestamo> findByActivo(boolean activo);
+	List<Prestamo> findByCopia(Copia copia);
+
+//	@Query("SELECT p FROM Prestamo p WHERE p.copia=:copia")
 	List<Prestamo> findByCopia(Copia copia);
 
 }

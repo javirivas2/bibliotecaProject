@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.capgemini.curso.model.Copia;
 import com.capgemini.curso.model.Libro;
+import com.capgemini.curso.model.EstadoCopia;
 import com.capgemini.curso.repository.CopiaRepository;
 
 @Service("copiaServiceImpl")
@@ -57,6 +58,23 @@ public class CopiaServiceImpl implements CopiaService {
 	@Override
 	public List<Copia> findCopiasByLibro(Libro libro) {
 		return copiaRepository.findByEjemplar(libro);
+	}
+
+	@Override
+	public void deleteCopiasPorLibro(Long libroId) {
+		Optional<Copia> copias = copiaRepository.findById(libroId);
+
+		copias.ifPresent(copia -> {
+			if (copia.getEstadoCopia() == EstadoCopia.BIBLIOTECA || copia.getEstadoCopia() == EstadoCopia.REPARACION) {
+				copiaRepository.delete(copia);
+			}
+		});
+	}
+
+	@Override
+	public void deleteCopia(Copia copia) {
+		copiaRepository.delete(copia);
+		
 	}
 
 }

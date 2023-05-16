@@ -14,42 +14,44 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "reservas")
-public class Reserva{
-	
+public class Reserva {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
-	
-	@Column
-	private LocalDate fechaRealizacion;
-	
+
+	@Column(name = "fechaRealizacion")
+	private LocalDate fechaPeticionReserva;
+
 	@Column
 	private LocalDate fechaEstimada;
-	
+
 	@Column
 	private LocalDate fechaFinReserva;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "libro_id")
 	private Libro libro;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "lector_id")
 	private Lector lector;
-	
+
 	@OneToOne
-	@JoinColumn(name = "copia")
+	@JoinColumn(name = "copia_id")
 	private Copia copia;
-	
+
 	@Column
 	private boolean isActive;
-	
-	public Reserva() {}
 
-	public Reserva(Long id, LocalDate fechaRealizacion, LocalDate fechaEstimada, LocalDate fechaFinReserva, Libro libro,
-			Lector lector, Copia copia, boolean isActive) {
-		Id = id;
-		this.fechaRealizacion = fechaRealizacion;
+	public Reserva() {
+
+	}
+
+	public Reserva(Long id, LocalDate fechaPeticionReserva, LocalDate fechaEstimada, LocalDate fechaFinReserva,
+			Libro libro, Lector lector, Copia copia, boolean isActive) {
+
+		this.Id = id;
+		this.fechaPeticionReserva = fechaPeticionReserva;
 		this.fechaEstimada = fechaEstimada;
 		this.fechaFinReserva = fechaFinReserva;
 		this.libro = libro;
@@ -58,14 +60,12 @@ public class Reserva{
 		this.isActive = isActive;
 	}
 
-
-
-	public Reserva(LocalDate fechaRealizacion, LocalDate fechaEstimada, Libro libro, Lector lector) {
-		this.fechaRealizacion = fechaRealizacion;
+	public Reserva(LocalDate fechaPeticionReserva, LocalDate fechaEstimada, Libro libro, Lector lector) {
+		this.fechaPeticionReserva = fechaPeticionReserva;
 		this.fechaEstimada = fechaEstimada;
 		this.libro = libro;
 		this.lector = lector;
-		this.isActive = true;
+		this.copia = copia;
 	}
 
 	public Long getId() {
@@ -76,12 +76,12 @@ public class Reserva{
 		Id = id;
 	}
 
-	public LocalDate getFechaRealizacion() {
-		return fechaRealizacion;
+	public LocalDate getFechaPeticionReserva() {
+		return fechaPeticionReserva;
 	}
 
-	public void setFechaRealizacion(LocalDate fechaRealizacion) {
-		this.fechaRealizacion = fechaRealizacion;
+	public void setFechaPeticionReserva(LocalDate fechaPeticionReserva) {
+		this.fechaPeticionReserva = fechaPeticionReserva;
 	}
 
 	public LocalDate getFechaEstimada() {
@@ -90,6 +90,22 @@ public class Reserva{
 
 	public void setFechaEstimada(LocalDate fechaEstimada) {
 		this.fechaEstimada = fechaEstimada;
+	}
+
+	public LocalDate getFechaFinReserva() {
+		return fechaFinReserva;
+	}
+
+	public void setFechaFinReserva(LocalDate fechaFinReserva) {
+		this.fechaFinReserva = fechaFinReserva;
+	}
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 	public Libro getLibro() {
@@ -120,21 +136,11 @@ public class Reserva{
 		return copia != null;
 	}
 
-	public LocalDate getFechaFinReserva() {
-		return fechaFinReserva;
+	@Override
+	public String toString() {
+		return "Reserva [Id=" + Id + ", fechaPeticionReserva=" + fechaPeticionReserva + ", fechaEstimada="
+				+ fechaEstimada + ", fechaFinReserva=" + fechaFinReserva + ", libro=" + libro + ", lector=" + lector
+				+ ", copia=" + copia + ", isActive=" + isActive + "]";
 	}
-
-	public void setFechaFinReserva(LocalDate fechaFinReserva) {
-		this.fechaFinReserva = fechaFinReserva;
-	}
-
-	public boolean isActive() {
-		return isActive;
-	}
-
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
-	
 
 }
