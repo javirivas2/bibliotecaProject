@@ -23,8 +23,6 @@
 					<th>Editorial</th>
 					<th>Autor</th>
 					<th>Acciones</th>
-					<th></th>
-					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -34,10 +32,10 @@
 					<td th:text="${libro.autor.nombre}"></td>
 
 					<td><a class="btn btn-info"
-						th:href="@{/libro/delete/{id}(id=${libro.id})}">Eliminar</a></td>
-					<td><a class="btn btn-success"
-						th:href="@{/libro/edit/{id}(id=${libro.id})}">Modificar</a></td>
-					<td><a class="btn btn-dark"
+						th:href="@{/libro/delete/{id}(id=${libro.id})}">Eliminar</a>
+					<a class="btn btn-success"
+						th:href="@{/libro/edit/{id}(id=${libro.id})}">Modificar</a>
+					<a class="btn btn-dark"
 						th:href="@{/libros/{id}/vercopias(id=${libro.id})}">Ver Copias</a>
 
 					</td>
