@@ -77,4 +77,10 @@ public class CopiaServiceImpl implements CopiaService {
 		
 	}
 
+	@Override
+	public List<Copia> findCopiasByLibroId(Long copiaId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -65,7 +65,8 @@ public class Reserva {
 		this.fechaEstimada = fechaEstimada;
 		this.libro = libro;
 		this.lector = lector;
-		this.copia = copia;
+		
+		this.isActive = true;
 	}
 
 	public Long getId() {

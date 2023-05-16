@@ -1,5 +1,7 @@
 package com.capgemini.curso.service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,7 +38,7 @@ public class ReservaServiceImp implements ReservaService {
 	}
 
 	@Override
-	public void deleteReservaById(Long id) {
+	public void deleteById(Long id) {
 		reservaRepository.deleteById(id);
 	}
 
@@ -48,6 +50,32 @@ public class ReservaServiceImp implements ReservaService {
 	@Override
 	public List<Reserva> getReservasActivas() {
 		return reservaRepository.findByIsActive(true);
+	}
+
+	@Override
+	public Reserva update(Reserva reserva) {
+		return reservaRepository.save(reserva);
+	}
+
+	@Override
+	public List<Object[]> countReservasByLector() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Reserva> findReservasByLectorId(Long ReservaId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Reserva> findReservasByFechaAndLector() {
+		List<Reserva> todaslasReservas = reservaRepository.findAll();
+
+		Collections.sort(todaslasReservas, Comparator.comparing(Reserva::getFechaPeticionReserva)
+				.thenComparing(reserva -> reserva.getLector().getNombre()));
+		return todaslasReservas;
 	}
 
 	

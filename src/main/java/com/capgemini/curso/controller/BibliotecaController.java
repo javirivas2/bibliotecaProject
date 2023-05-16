@@ -18,11 +18,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.capgemini.curso.model.Copia;
 import com.capgemini.curso.model.EstadoCopia;
 import com.capgemini.curso.model.Libro;
-import com.capgemini.curso.model.Prestamo;
 import com.capgemini.curso.service.AutorService;
 import com.capgemini.curso.service.CopiaService;
 import com.capgemini.curso.service.LibroService;
-import com.capgemini.curso.service.PrestamoService;
 
 @Controller
 public class BibliotecaController {
@@ -33,8 +31,6 @@ public class BibliotecaController {
 	private AutorService autorService;
 	@Autowired
 	private CopiaService copiaService;
-	@Autowired
-	private PrestamoService prestamoService;
 
 	@GetMapping("/verLibros")
 	public String verLibros(Model model) {

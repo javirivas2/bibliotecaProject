@@ -62,14 +62,6 @@ public class Lector {
 		this.telefono = telefono;
 		this.direccion = direccion;
 	}
-	public Lector(String nombre, String telefono, String direccion, String username, String password, String roles) {
-		this.nombre = nombre;
-		this.telefono = telefono;
-		this.direccion = direccion;
-		this.username = username;
-		this.password = password;
-		this.roles = roles;
-	}
 
 	public Lector(Long id, String nombre, String telefono, String direccion, List<Prestamo> prestamos, Multa multa) {
 		this.Id = id;
@@ -139,30 +131,6 @@ public class Lector {
 
 	public void setMulta(Multa multa) {
 		this.multa = multa;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getRoles() {
-		return roles;
-	}
-
-	public void setRoles(String roles) {
-		this.roles = roles;
 	}
 
 	public List<Reserva> getReservas() {

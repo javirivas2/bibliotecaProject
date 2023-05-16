@@ -186,8 +186,8 @@ public class GestionReservasPrestamosServiceImp implements GestionReservasPresta
 		Reserva reservaPendiente = null;
 
 		for (Reserva reserva : reservasLibro) {
-			if (reserva.isActive() && !reserva.tieneCopia() && reserva.getFechaRealizacion().isBefore(fechaMin)) {
-				fechaMin = reserva.getFechaRealizacion();
+			if (reserva.isActive() && !reserva.tieneCopia() && reserva.getFechaPeticionReserva().isBefore(fechaMin)) {
+				fechaMin = reserva.getFechaPeticionReserva();
 				reservaPendiente = reserva;
 			}
 		}
