@@ -10,6 +10,7 @@ import com.capgemini.curso.model.Prestamo;
 public interface PrestamoRepository extends JpaRepository<Prestamo, Long> {
 
 	List<Prestamo> findByActivo(boolean activo);
+
 	List<Prestamo> findByCopia(Copia copia);
 
 }

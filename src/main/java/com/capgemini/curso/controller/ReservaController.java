@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -81,5 +82,17 @@ public class ReservaController {
 			return showFormAddReservas(model);
 		}
 		return "redirect:/verReservas";
+	}
+	@GetMapping("reserva/delete/{id}")
+	public String deleteReserva(@PathVariable(value = "id") long id, Model model) {
+		try {
+			reservaService.deleteById(id);
+		} catch (Exception e) {
+			model.addAttribute("error", e.getMessage());
+			return viewReservas(model);
+		}
+
+		return "redirect:/verReservas";
+
 	}
 }

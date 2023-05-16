@@ -59,7 +59,7 @@ public class LibroServiceImp implements LibroService {
 		this.libroRepository.save(libro);
 	}
 	@Override
-	public void deleteLibroById(long id) {
+	public void deleteLibroById(Long id) {
 		List<Copia> optCopia = copiaRepository.findByEjemplar(getLibroById(id));
 		if (optCopia.isEmpty()) {
 		libroRepository.deleteById(id);
