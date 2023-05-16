@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.capgemini.curso.model.Lector;
 import com.capgemini.curso.model.Libro;
 import com.capgemini.curso.model.RestriccionesPrestamo;
+import com.capgemini.curso.service.EmailService;
 import com.capgemini.curso.service.GestionReservasPrestamosService;
 import com.capgemini.curso.service.LectorService;
 import com.capgemini.curso.service.LibroService;
@@ -29,6 +30,22 @@ public class TestController {
 
 	@Autowired
 	private ReservaService reservaService;
+
+	@Autowired
+	private EmailService emailService;
+
+	// prueba de email
+	@GetMapping("/email")
+	public void testEmail() {
+		try {
+			emailService.send("capgeminibiblioteca@gmail.com", "capgeminibiblioteca@gmail.com",
+					"capgeminibiblioteca@gmail.com", "capgeminibiblioteca@gmail.com");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 
 	// Probamos a hacer 3 prestamos con un lector
 	@GetMapping("/simularPrestamoA")
