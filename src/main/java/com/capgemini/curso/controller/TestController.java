@@ -8,10 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.capgemini.curso.model.Lector;
+import com.capgemini.curso.model.Libro;
 import com.capgemini.curso.model.RestriccionesPrestamo;
 import com.capgemini.curso.service.AutorService;
 import com.capgemini.curso.service.EmailService;
 import com.capgemini.curso.service.LectorService;
+import com.capgemini.curso.service.LibroService;
+import com.capgemini.curso.service.ReservaService;
 
 @Controller
 public class TestController {
@@ -20,7 +23,13 @@ public class TestController {
 	private LectorService lectorService;
 
 	@Autowired
-	private AutorService autorService;
+	private GestionReservasPrestamosService gestionReservasPrestamosService;
+
+	@Autowired
+	private LibroService libroService;
+
+	@Autowired
+	private ReservaService reservaService;
 
 	@Autowired
 	private EmailService emailService;
@@ -46,7 +55,7 @@ public class TestController {
 
 		// Un libro que no existe deberia fallar
 		try {
-			lectorService.prestar(lector.getId(), -1, LocalDate.now());
+			gestionReservasPrestamosService.prestar(lector.getId(), -1, LocalDate.now());
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println("Fallo inexistene");
@@ -54,30 +63,30 @@ public class TestController {
 
 		// Un Lector que no existe deberia fallar
 		try {
-			lectorService.prestar(-1, 6, LocalDate.now());
+			gestionReservasPrestamosService.prestar(-1, 6, LocalDate.now());
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println("Fallo inexistene");
 		}
 
 		// Dos del mismo
-		lectorService.prestar(lector.getId(), 2, LocalDate.now());
-		lectorService.prestar(lector.getId(), 2, LocalDate.now());
+		gestionReservasPrestamosService.prestar(lector.getId(), 2, LocalDate.now());
+		gestionReservasPrestamosService.prestar(lector.getId(), 2, LocalDate.now());
 
 		// Un Libro sin copias disponibles deberia fallar
 		try {
-			lectorService.prestar(lector.getId(), 2, LocalDate.now());
+			gestionReservasPrestamosService.prestar(lector.getId(), 2, LocalDate.now());
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println("Fallo no disponible");
 		}
 
 		// Uno de otro
-		lectorService.prestar(lector.getId(), 5, LocalDate.now());
+		gestionReservasPrestamosService.prestar(lector.getId(), 5, LocalDate.now());
 
 		// Al probar un cuarto deberia dar una excepcion
 		try {
-			lectorService.prestar(lector.getId(), 6, LocalDate.now());
+			gestionReservasPrestamosService.prestar(lector.getId(), 6, LocalDate.now());
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println("Fallo de mas");
@@ -90,9 +99,12 @@ public class TestController {
 		List<Lector> lectores = lectorService.getAllLectores();
 		Lector lector = lectores.get(0);
 
-		lectorService.devolver(lector.getId(), lector.getPrestamosActivos().get(0).getId(), LocalDate.now());
-		lectorService.devolver(lector.getId(), lector.getPrestamosActivos().get(0).getId(), LocalDate.now());
-		lectorService.devolver(lector.getId(), lector.getPrestamosActivos().get(0).getId(), LocalDate.now());
+		gestionReservasPrestamosService.devolver(lector.getId(), lector.getPrestamosActivos().get(0).getId(),
+				LocalDate.now());
+		gestionReservasPrestamosService.devolver(lector.getId(), lector.getPrestamosActivos().get(0).getId(),
+				LocalDate.now());
+		gestionReservasPrestamosService.devolver(lector.getId(), lector.getPrestamosActivos().get(0).getId(),
+				LocalDate.now());
 	}
 
 	// Probamos el funcionamiento de las multas
@@ -102,13 +114,13 @@ public class TestController {
 		Lector lector = lectores.get(1);
 
 		// Añadimos un libro al prestamo
-		lectorService.prestar(lector.getId(), 1, LocalDate.now());
+		gestionReservasPrestamosService.prestar(lector.getId(), 1, LocalDate.now());
 
 		// Lo devolvemos mas alla del limite de dias
 		int diasDeMas = 5;
 		int diasDeMulta = diasDeMas * 2;
 		LocalDate pastDate = LocalDate.now().plusDays(RestriccionesPrestamo.DIAS_MAX + diasDeMas);
-		lectorService.devolver(lector.getId(), lector.getPrestamosActivos().get(0).getId(), pastDate);
+		gestionReservasPrestamosService.devolver(lector.getId(), lector.getPrestamosActivos().get(0).getId(), pastDate);
 
 		// Deberiamos tener una multa
 		System.out.println("*****Multas*****");
@@ -117,12 +129,57 @@ public class TestController {
 
 		// No podemos coger mas prestamos hoy
 		try {
-			lectorService.prestar(lector.getId(), 5, LocalDate.now());
+			gestionReservasPrestamosService.prestar(lector.getId(), 5, LocalDate.now());
 		} catch (Exception e) {
 			System.err.println("Fallo al coger prestado");
 		}
 
 		// Podemos coger una vez pasada la multa
-		lectorService.prestar(lector.getId(), 5, pastDate.plusDays(diasDeMulta + 1));
+		gestionReservasPrestamosService.prestar(lector.getId(), 5, pastDate.plusDays(diasDeMulta + 1));
 	}
+
+	@GetMapping("/testReserva")
+	public void testReserva() {
+
+		// Prestamos una copia dle libro uno de manera que ya no
+		// queden copias disponibles
+		gestionReservasPrestamosService.prestar(2, 1, LocalDate.now());
+
+		Libro libro1 = libroService.getLibroById(1L);
+		System.out.println("No hay copias disponibles de libro 1: " + libro1.getEjemplaresDisponibles().isEmpty());
+
+		// Reservamos el libro 1 para que en el momento que quede libre
+		// llevarnoslo
+		gestionReservasPrestamosService.reservar(1L, 1L);
+
+		System.out.println(reservaService.getAllReservas());
+
+		// Liberamos una copia del primer libro
+		gestionReservasPrestamosService.devolver(1L, 1L, LocalDate.now());
+		// Se guarda la copia 1 como reservada para el lector 1
+
+		// Liberamos una copia del primer libro
+		gestionReservasPrestamosService.devolver(1L, 2L, LocalDate.now());
+		// Se guarda la copia 2 como libre/Biblioteca
+
+		// Finalizamos la primera reserva, generando un prestamo de la
+		// primera copia
+		gestionReservasPrestamosService.finalizarReserva(1L, LocalDate.now());
+		
+		// Presto la copia libre
+		gestionReservasPrestamosService.prestar(4, 1, LocalDate.now());
+
+		// Reservamos para simular reservas caducadas
+		gestionReservasPrestamosService.reservar(1L, 3L);
+		gestionReservasPrestamosService.reservar(1L, 5L);
+		
+		// Libero una copia del libro
+		gestionReservasPrestamosService.devolver(4, 5, LocalDate.now());
+		
+		// Finalizo la reserva de manera illegal(Pasada de tiempo)
+		gestionReservasPrestamosService.finalizarReserva(2L, LocalDate.now().plusDays(5));
+		
+		// Esta reserva deberia quedar muerta y para la reserva de la copia a la siguiente
+	}
+
 }

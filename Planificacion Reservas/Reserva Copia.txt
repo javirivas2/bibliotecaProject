@@ -1,11 +1,11 @@
-Reserva Copia
+Reserva Copia -> No se usa
 
 Atributos:
 
 -Fecha de realizacion
 -Lector que reserva
 -Copia del libro que quiero reservar
--Plazo para prestamo
+-Plazo para prestamo(Por definir)
 
 
 Procesos
@@ -16,4 +16,6 @@ Procesos
 + finalizar():
 	Siempre y cuando dentro de plazo.
 	Termina la reserva y le da un prestamo del 	libro al lector.
+	Si se pasa el plazo.
+	Terminamos la reserva de la copia y 	revisamos si existen mas reservas del libro.
 

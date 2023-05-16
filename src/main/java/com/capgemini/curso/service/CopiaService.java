@@ -3,6 +3,7 @@ package com.capgemini.curso.service;
 import java.util.List;
 
 import com.capgemini.curso.model.Copia;
+import com.capgemini.curso.model.Libro;
 
 public interface CopiaService {
 
@@ -18,5 +19,5 @@ public interface CopiaService {
 
 	List<Object[]> countCopiasByLibro();
 
-	List<Copia> findCopiasByLibroId(Long copiaId);
+	List<Copia> findCopiasByLibro(Libro libro);
 }

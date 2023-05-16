@@ -1,16 +1,27 @@
-Reserva Libro
+Reserva
 
 Atributos:
 
 -Fecha realizacion
+-Fecha estimada de devolucion de la copia
 -Lector que reserva
 -Libro que reserva
+-Pendiente de copia
+-Copia reservada
+-Fecha maxima de recogida
 
 Procesos
 
 + reservar():
 	Solo posible si el libro no tiene copias 	disponibles y si el lector no tiene multas 	pendientes.
-	Reservamos el libro para el lector.
+	Reservamos el libro para el lector y damos 	una fecha estimada, que se calcula en base a 	la fecha de fin de prestamo mas cercana de 	las copias prestadas.
 
 + devolucionCopia():
 	Termina la reserva del libro, realizamos una 	reserva de la copia para el lector.
+	Notificamos al lector.
+
++ finalizar():
+	Siempre y cuando dentro de plazo.
+	Termina la reserva y le da un prestamo del 	libro al lector.
+	Si se pasa el plazo.
+	Terminamos la reserva de la copia y 	revisamos si existen mas reservas del libro.

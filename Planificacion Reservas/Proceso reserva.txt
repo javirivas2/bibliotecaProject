@@ -13,9 +13,8 @@ Proceso reserva
 -l hace prestamo de x; se acaba la reserva
 
 ¿Cuantas reservas puede tener un libro?
-¿Que reservamos la copia o "el libro"?
-¿Caduca una reserva?
+¿Que reservamos la copia o "el libro"? Se reservan ambos
 ¿Cuantas reservas puede hacer un lector?
 ¿Existe multa por no cumplir con la reserva?
-¿Se hay mas de una reserva cual tiene prioridad?
+¿Se hay mas de una reserva cual tiene prioridad? La realizada antes.
 ¿Durante cuanto tiempo se reserva una copia?
