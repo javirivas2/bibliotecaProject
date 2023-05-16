@@ -63,6 +63,7 @@ public class LectorServiceImp implements LectorService, UserDetailsService {
 
 	@Override
 	public void saveLector(Lector lector) {
+		lector.setRoles("USER");
 		lectorRepository.save(lector);
 	}
 
