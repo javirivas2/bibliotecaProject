@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.capgemini.curso.model.Lector;
 import com.capgemini.curso.model.Libro;
 import com.capgemini.curso.model.Prestamo;
+import com.capgemini.curso.model.Reserva;
 import com.capgemini.curso.service.GestionReservasPrestamosService;
 import com.capgemini.curso.service.LectorService;
 import com.capgemini.curso.service.LibroService;
 import com.capgemini.curso.service.PrestamoService;
+import com.capgemini.curso.service.ReservaService;
 
 @Controller
 public class PrestamosController {
@@ -27,19 +29,29 @@ public class PrestamosController {
 
 	@Autowired
 	private LibroService libroService;
+
+	@Autowired
+	private PrestamoService prestamoService;
 	
 	@Autowired
-	private PrestamoService	prestamoService;
-	
+	private ReservaService reservaService;
+
 	@Autowired
 	private GestionReservasPrestamosService gestionReservasPrestamosService;
 
 	@GetMapping("/verprestamos")
 	public String viewPrestamos(Model model) {
 		List<Prestamo> prestamos = prestamoService.getAllActivePrestamo();
-		
+
 		model.addAttribute("prestamos", prestamos);
 		
+		List<Reserva> reservasActivas = reservaService.getReservasActivas();
+		if(!reservasActivas.isEmpty()) {//Tenemos reservas activas para notificar
+			model.addAttribute("reservasActivas", reservasActivas.size());
+		}else {
+			model.addAttribute("reservasActivas", 0);
+		}
+
 		return "prestamos/view_prestamos";
 	}
 
@@ -48,7 +60,7 @@ public class PrestamosController {
 		List<Lector> lectores = lectorService.getLectoresQuePuedenPrestamo(LocalDate.now());
 		model.addAttribute("lectores", lectores);
 
-		List<Libro> libros = libroService.getLibrosDisponibles();
+		List<Libro> libros = libroService.getAllLibros();
 		model.addAttribute("libros", libros);
 
 		return "prestamos/nuevo_prestamo";
@@ -61,19 +73,30 @@ public class PrestamosController {
 			gestionReservasPrestamosService.prestar(idLector, idLibro, LocalDate.now());
 		} catch (RuntimeException e) { // Si algo sale mal, damos el error y volvemos
 			model.addAttribute("error", e.getMessage());
+
+			if (e.getMessage().contains("No hay copias disponibles")) {
+				// Preparamos para ofercer una reserva del libro
+				model.addAttribute("ofreceReserva", true);
+
+				Libro libro = libroService.getLibroById((long) idLibro);
+				model.addAttribute("libro", libro);
+				Lector lector = lectorService.getLectorById(idLector);
+				model.addAttribute("lector", lector);
+			}
+
 			return createPrestamo(model);
 		}
 
 		return viewPrestamos(model);
 	}
-	
+
 	@GetMapping("/prestamos/devolver/{id}")
 	public String devolver(@PathVariable(value = "id") int idPrestamo, Model model) {
 		Prestamo prestamo = prestamoService.getPrestamoById(idPrestamo);
-		
+
 		Lector lector = prestamo.getLector();
 		Libro libro = prestamo.getCopia().getEjemplar();
-		
+
 		model.addAttribute("prestamo", prestamo);
 		model.addAttribute("lector", lector);
 		model.addAttribute("libro", libro);
@@ -82,7 +105,8 @@ public class PrestamosController {
 	}
 
 	@PostMapping("/prestamos/devolver_prestamo")
-	public String devolverPrestamo(@RequestParam("lector") int idLector, @RequestParam("prestamo") int idPrestamo, Model model) {
+	public String devolverPrestamo(@RequestParam("lector") int idLector, @RequestParam("prestamo") int idPrestamo,
+			Model model) {
 
 		try { // Intentamos hacer el prestamo
 			gestionReservasPrestamosService.devolver(idLector, idPrestamo, LocalDate.now());

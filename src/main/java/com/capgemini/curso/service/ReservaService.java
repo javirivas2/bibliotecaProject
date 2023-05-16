@@ -9,6 +9,7 @@ public interface ReservaService {
 	
 	List<Reserva> getAllReservas();
 	List<Reserva> getReservasByLibro(Libro libro);
+	List<Reserva> getReservasActivas();
 	Reserva getReservaById(Long id);
 	
 	void saveReserva(Reserva reserva);
