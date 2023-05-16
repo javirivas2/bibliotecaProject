@@ -1,26 +1,16 @@
 package com.capgemini.curso.controller;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.capgemini.curso.model.Autor;
 import com.capgemini.curso.model.Lector;
 import com.capgemini.curso.model.RestriccionesPrestamo;
 import com.capgemini.curso.service.AutorService;
+import com.capgemini.curso.service.EmailService;
 import com.capgemini.curso.service.LectorService;
 
 @Controller
@@ -28,9 +18,25 @@ public class TestController {
 
 	@Autowired
 	private LectorService lectorService;
-	
+
 	@Autowired
 	private AutorService autorService;
+
+	@Autowired
+	private EmailService emailService;
+
+	// prueba de email
+	@GetMapping("/email")
+	public void testEmail() {
+		try {
+			emailService.send("capgeminibiblioteca@gmail.com", "capgeminibiblioteca@gmail.com",
+					"capgeminibiblioteca@gmail.com", "capgeminibiblioteca@gmail.com");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 
 	// Probamos a hacer 3 prestamos con un lector
 	@GetMapping("/simularPrestamoA")
