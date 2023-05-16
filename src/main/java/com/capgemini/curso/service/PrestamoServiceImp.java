@@ -55,4 +55,10 @@ public class PrestamoServiceImp implements PrestamoService {
 		prestamoRepository.save(prestamo);		
 	}
 
+	@Override
+	public Prestamo getPrestamoByCopia(Copia copia) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

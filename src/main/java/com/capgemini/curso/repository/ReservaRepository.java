@@ -24,4 +24,6 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long> {
 	List<Reserva> findBylector(Lector lector);
 	
 	List<Reserva> findByLibro(Libro libro);
+
+	List<Reserva> findByIsActive(boolean b);
 }

@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.capgemini.curso.model.Copia;
-import com.capgemini.curso.model.Libro;
 import com.capgemini.curso.model.EstadoCopia;
+import com.capgemini.curso.model.Libro;
 import com.capgemini.curso.repository.CopiaRepository;
 
 @Service("copiaServiceImpl")
@@ -75,6 +75,12 @@ public class CopiaServiceImpl implements CopiaService {
 	public void deleteCopia(Copia copia) {
 		copiaRepository.delete(copia);
 		
+	}
+
+	@Override
+	public List<Copia> findCopiasByLibroId(Long copiaId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

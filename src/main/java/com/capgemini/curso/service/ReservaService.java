@@ -1,9 +1,7 @@
 package com.capgemini.curso.service;
 
-import java.time.LocalDate;
 import java.util.List;
 
-import com.capgemini.curso.model.Lector;
 import com.capgemini.curso.model.Libro;
 import com.capgemini.curso.model.Reserva;
 
@@ -26,5 +24,9 @@ public interface ReservaService {
 	List<Reserva> findReservasByFechaAndLector();
 
 	List<Reserva> getReservasByLibro(Libro libro);
+
+	List<Reserva> getReservasActivas();
+
+	
 
 }

@@ -142,4 +142,9 @@ public class Reserva {
 				+ ", copia=" + copia + ", isActive=" + isActive + "]";
 	}
 
+	public LocalDate getFechaRealizacion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

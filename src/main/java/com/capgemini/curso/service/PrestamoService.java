@@ -19,8 +19,6 @@ public interface PrestamoService {
 
 	Prestamo getPrestamoByCopia(Copia copia);
 
-	void savePrestamo(Prestamo prestamo);
-
-	Prestamo getPrestamoActivoByCopia(Copia copia);
+	
 
 }

@@ -22,7 +22,7 @@
 						<th>Fecha Estimada</th>
 						<th>Lector</th>
 						<th>Libro</th>
-						<th></th>
+						<th>Acciones</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -34,8 +34,9 @@
 							<td th:text="${reserva.fechaEstimada}"></td>
 							<td th:text="${reserva.lector.nombre}"></td>
 							<td th:text="${reserva.libro.titulo}"></td>
-							<td></td>
-							<td></td>
+							<td><a class="btn btn-danger"
+						th:href="@{/reserva/delete/{id}(id=${reserva.id})}">Eliminar</a></td>
+							
 						</tr>
 					</th:block>
 				</tbody>
@@ -43,7 +44,7 @@
 					<tr class="text-center mt-5">
 
 						<td colspan="4"><a class="btn btn-success text-center"
-							th:href="@{/reservas/formaddReserva}">Anadir Reserva</a></td>
+							th:href="@{/reserva/formaddReserva}">Anadir Reserva</a></td>
 					</tr>
 				</tfoot>
 			</table>

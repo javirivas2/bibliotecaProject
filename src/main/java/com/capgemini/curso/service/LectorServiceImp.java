@@ -122,20 +122,6 @@ public class LectorServiceImp implements LectorService, UserDetailsService {
 		return userDetails;
 	}
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Lector lector = lectorRepository.findByUsername(username);
-		if (lector == null) {
-			throw new UsernameNotFoundException("Lector no enonctrado: " + username);
-		}
-		//List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority(lector.getRoles()));
-		UserDetails userDetails = 
-				org.springframework.security.core.userdetails.User.builder()
-				.username(lector.getUsername())
-				.password(lector.getPassword())
-				.roles(lector.getRoles())
-				.build();
-		return userDetails;
-	}
+	
 
 }

@@ -19,8 +19,10 @@ public interface LibroService {
 
 	Page<Libro> findAllPage(Pageable pageable);
 
-	void deleteLibroById(long id);
+	void deleteLibroById(Long id);
 	
 	void deleteLibro(Libro libro);
+
+	
 
 }

@@ -12,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.capgemini.curso.model.Copia;
 import com.capgemini.curso.model.Libro;
 import com.capgemini.curso.model.Reserva;
+import com.capgemini.curso.repository.CopiaRepository;
 import com.capgemini.curso.repository.ReservaRepository;
 
 @Service("reservaServiceImpl")
@@ -22,6 +24,8 @@ public class ReservaServiceImpl implements ReservaService {
 	private static final Logger logger = LoggerFactory.getLogger(ReservaServiceImpl.class);
 	@Autowired
 	private ReservaRepository reservaRepository;
+	@Autowired
+	private CopiaRepository copiaRepository;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -50,7 +54,8 @@ public class ReservaServiceImpl implements ReservaService {
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
+		
+		reservaRepository.deleteById(id);
 
 	}
 
@@ -85,4 +90,14 @@ public class ReservaServiceImpl implements ReservaService {
 		return reservaRepository.findByLibro(libro);
 	}
 
+	@Override
+	public List<Reserva> getReservasActivas() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+
 }
+
+

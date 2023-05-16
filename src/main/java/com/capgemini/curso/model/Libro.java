@@ -47,9 +47,7 @@ public class Libro {
 	@OneToMany(mappedBy = "libro", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Reserva> reservas;
 
-	@OneToMany(mappedBy = "libro", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Reserva> reservas;
-
+	
 	public Libro() {
 	}
 
