@@ -1,5 +1,9 @@
 package com.capgemini.curso.controller;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,6 +47,14 @@ public class ReservaController {
 		Reserva reserva = new Reserva();
 		model.addAttribute("reserva", reserva);
 		model.addAttribute("reservas", reservaService.getAllReservas());
+		
+		model.addAttribute("lectores", lectorService.getLectoresQuePuedenPrestamo(LocalDate.now()));
+		List<Libro> librosNoDisponibles = libroService.getAllLibros().stream()
+				.filter(lno -> libroService.getLibrosDisponibles()
+			    .stream()
+			    .noneMatch(lsi -> lno.getId() == lsi.getId())
+			).collect(Collectors.toList());
+		model.addAttribute("libros", librosNoDisponibles);
 
 		return "reservas/nueva_reserva";
 	}
@@ -59,12 +71,14 @@ public class ReservaController {
 	}
 
 	@PostMapping("/addreserva")
-	public String addReserva(@ModelAttribute Reserva reserva,@RequestParam("lector") long idLector,@RequestParam("libro") long idLibro,Model model) {
+	public String addReserva(@ModelAttribute Reserva reserva,@RequestParam("idLector") long idLector,@RequestParam("idLibro") long idLibro,Model model) {
 		try {
 			gestionReservasPrestamosService.reservar(idLibro, idLector);
 
 		}catch(RuntimeException e) {
 			model.addAttribute("error", e.getMessage());
+			
+			return showFormAddReservas(model);
 		}
 		return "redirect:/verReservas";
 	}
