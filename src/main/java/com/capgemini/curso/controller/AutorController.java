@@ -76,6 +76,7 @@ public class AutorController {
 
 	}
 	
+	
 	@GetMapping("/eliminarAutor/{id}")
 	public String eliminarAutor(@RequestParam Long id) {
 		try {
