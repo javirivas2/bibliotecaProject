@@ -35,6 +35,7 @@ public class ReservaServiceImpl implements ReservaService {
 	@Override
 	@Transactional(readOnly = true)
 	public Reserva getReservaById(Long id) {
+		logger.info("ReservaServiceImpl getReservaById");
 		Optional<Reserva> optReserva = reservaRepository.findById(id);
 		if (optReserva.isEmpty()) {
 			throw new RuntimeException("No existe la reserva con id: " + id);
@@ -44,12 +45,14 @@ public class ReservaServiceImpl implements ReservaService {
 
 	@Override
 	public void saveReserva(Reserva reserva) {
+		logger.info("ReservaServiceImpl saveReserva");
 		reservaRepository.save(reserva);
 
 	}
 
 	@Override
 	public void deleteById(Long id) {
+		logger.info("ReservaServiceImpl deleteById");
 		reservaRepository.deleteById(id);
 	}
 
@@ -73,6 +76,7 @@ public class ReservaServiceImpl implements ReservaService {
 
 	@Override
 	public List<Reserva> findReservasByFechaAndLector() {
+		logger.info("ReservaServiceImpl findReservasByFechaAndLector");
 		List<Reserva> todaslasReservas = reservaRepository.findAll();
 
 		Collections.sort(todaslasReservas, Comparator.comparing(Reserva::getFechaPeticionReserva)
@@ -82,11 +86,13 @@ public class ReservaServiceImpl implements ReservaService {
 
 	@Override
 	public List<Reserva> getReservasByLibro(Libro libro) {
+		logger.info("ReservaServiceImpl getReservasByLibro");
 		return reservaRepository.findByLibro(libro);
 	}
 
 	@Override
 	public List<Reserva> getReservasActivas() {
+		logger.info("ReservaServiceImpl getReservasActivas");
 		return reservaRepository.findByIsActive(true);
 	}
 

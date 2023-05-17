@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -22,13 +24,16 @@ import com.capgemini.curso.model.Lector;
 import com.capgemini.curso.model.RestriccionesPrestamo;
 import com.capgemini.curso.service.AutorService;
 import com.capgemini.curso.service.LectorService;
+import com.capgemini.curso.service.LectorServiceImp;
 
 @Controller
 public class TestController {
 
+	private static final Logger logger = LoggerFactory.getLogger(TestController.class);
+
 	@Autowired
 	private LectorService lectorService;
-	
+
 	@Autowired
 	private AutorService autorService;
 

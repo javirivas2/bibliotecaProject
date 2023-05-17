@@ -33,6 +33,7 @@ public class AutorServiceImpl implements AutorService {
 	@Override
 	@Transactional(readOnly = true)
 	public Autor getAutorById(Long id) {
+		logger.info("AutorServiceImpl getAutorById");
 		Optional<Autor> optAutor = autorRepository.findById(id);
 		if (optAutor.isEmpty())
 			throw new RuntimeException("No existe autor con id: " + id);
@@ -42,11 +43,13 @@ public class AutorServiceImpl implements AutorService {
 
 	@Override
 	public void saveAutor(Autor autor) {
+		logger.info("AutorServiceImpl saveAutor");
 		autorRepository.save(autor);
 	}
 
 	@Override
 	public void deleteById(Long id) {
+		logger.info("AutorServiceImpl deleteById");
 		Autor autor = autorRepository.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Autor no encontrado con ID: " + id));
 
@@ -59,6 +62,7 @@ public class AutorServiceImpl implements AutorService {
 
 	@Override
 	public Autor update(Autor autor) {
+		logger.info("AutorServiceImpl update");
 		return autorRepository.save(autor);
 	}
 
